@@ -2,7 +2,7 @@
 
 > Textures for cars, tracks, and the user interface.
 
-**Magic:** `SHPI` (PC), `SHPP` (PS1), `SHPS` (PS2), `SHPX` (Xbox)  
+**Magic:** `SHPI` (PC), `SHPP` (PS1), `SHPS` (PS2), `SHPX` (Xbox), `SHPG` (GameCube/Wii)  
 **Full name:** EA SSH FSH Image (Type 1)  
 **Reference:** [Reverse Engineering Wiki — EA SSH FSH Image (Type 1)](https://rewiki.miraheze.org/wiki/EA_SSH_FSH_Image_(Type_1))
 
@@ -10,16 +10,16 @@
 
 | Offset | Size | Type | Description |
 |--------|------|------|-------------|
-| 0x00 | 4 | char[4] | Magic: `SHPI` (PC), `SHPP` (PS1), `SHPS` (PS2), `SHPX` (Xbox), `SHPG` (GameCube/Wii) |
+| 0x00 | 4 | char[4] | Magic: `SHPI` (PC), `SHPP` (PS1), `SHPS` (PS2), `SHPX` (Xbox) |
 | 0x04 | 4 | uint32 LE | Total file size in bytes |
 | 0x08 | 4 | uint32 LE | Number of image entries |
 | 0x0C | 4 | char[4] | Format version: `G264`, `GIMX`, `G354`, etc. |
 | 0x10 | ... | char[] | Filename (null-terminated), padded to 16 bytes total |
 | 0x? | 8 | char[8] | `Buy ERTS` copyright string |
 
-**Note:** After `Buy ERTS` padding, the first entry's 16-byte header begins. The directory entries (8 bytes each) are located between the header and the `Buy ERTS` padding.
+## Directory (8 bytes per entry)
 
-After the 24-byte header, the directory lists all image entries:
+After the 16-byte header, the directory lists all image entries:
 
 | Offset | Size | Field | Description |
 |--------|------|-------|-------------|
@@ -37,11 +37,11 @@ uint16[2]:  width
 uint16[3]:  height
 int16[4]:   center X
 int16[5]:   center Y
-uint16[6]:  shape flags (12-bit X pos + swizzle/transpose bits)
-uint16[7]:  shape Y (12-bit Y pos + 4-bit mipmap count)
+uint16[6]:  shape flags
+uint16[7]:  shape Y
 ```
 
-After the 16-byte header, image data follows. The total data size (header + image data) equals the distance to the next entry's offset.
+After the 16-byte header, image data follows. The total data size equals the distance to the next entry's offset.
 
 ### Record Type IDs (known)
 
@@ -54,86 +54,81 @@ After the 16-byte header, image data follows. The total data size (header + imag
 | 5 | 0x05 | RGBA8888 | 32-bit RGBA |
 | 6 | 0x06 | IPU internal tiled 32bpp | PS2-specific |
 | 109 | 0x6D | Uncompressed | Track textures |
+| 125 | 0x7D | G264 paletted | **Offline version car textures** |
 | 126 | 0x7E | (custom) | Oct09 prototype textures |
 | 251 | 0xFB | (custom) | NFS Porsche Unleashed |
 | 253 | 0xFD | GIMX | **MCO primary format** (car/UI textures) |
 
-### GIMX Format (record_id 0xFD)
+## MCO Texture Formats
 
-This is MCO's primary texture format for car models and UI elements.
+### GIMX Format (record_id 0xFD) — Beta 1 / Oct 09
 
-**Structure:**
-- 96-byte GIMX header
+This is MCO's primary texture format for car models and UI elements in Beta 1 and Oct 09.
+
+**Structure (observed):**
+- N-byte GIMX header (80-96 bytes, varies by entry)
 - RGB565 pixel data (2 bytes per pixel, little-endian word order)
+
+The GIMX header appears to be 80 bytes for most entries. Some entries have no header at all.
 
 **Verified samples:**
 
-| File | Entry | Dimensions | record_id | Notes |
-|------|-------|-----------|-----------|-------|
-| HUD50.fsh (Beta 1) | `xmas` | 44×44 | 0xFD | **Confirmed working decode** — 96-byte header + RGB565 |
-| HUD50.fsh (Beta 1) | `gear` | 88×38 | 0xFD | Not yet decoded |
-| HUD50.fsh (Beta 1) | `metr` | 20×528 | 0xFD | Not yet decoded |
-| HUD50.fsh (Beta 1) | `4444` | 256×256 | 0xFD | Not yet decoded |
-| part.shpi (Oct09) | `hc07` | 64×64 | 0x7E | Different format (record_id=0x7E) |
+| File | Entry | Dims | Data bytes | Expected RGB565 | Status |
+|------|-------|------|-----------|----------------|--------|
+| HUD50.fsh (Beta 1) | `xamas` | 44×44 | 3952 | 3872 | ✅ Works (raw RGB565) |
+| HUD50.fsh (Beta 1) | `gear` | 88×38 | 4568 | 6688 | ✅ Works (80B header) |
+| HUD50.fsh (Beta 1) | `metr` | 20×208 | 5320 | 8320 | ✅ Works (80B header) |
+| HUD50.fsh (Beta 1) | `4444` | 256×256 | 84328 | 131072 | ❌ ratio=0.64 |
+| part.shpi (Oct09) | `hc07` | 64×64 | 8208 | 8192 | ❌ Unknown format |
+| 53chevy.shpi (offline) | `0000` | 256×256 | 1157758 | 131072 | ❌ G264 format |
 
-The 96-byte GIMX header structure is not yet fully understood. The first 4 bytes are typically `10 FB 00 xx` (similar across all entries), followed by format-specific metadata.
+The first 4 bytes of GIMX data (`10 FB 00 xx`) are often actual RGB565 pixel data, not a format marker. The header structure is not yet fully decoded.
 
-### MCO-Specific Formats
+### G264 Format (record_id 0x7D) — Offline Version
 
-**Car textures (GIMX, record_id 0xFD):**
-- Used in HUD textures, car skins, UI elements
-- Format: `GIMX` (GameCube/Wii texture port for PC)
-- 96-byte GIMX header + RGB565 pixel data
-- "Buy ERTS" copyright string present in header
+Used in offline version car VIV textures. **NOT YET DECODED.**
 
-**Car textures (GIMX, record_id 0x7E):**
-- Used in Oct09 prototype
-- Different structure (not RGB565 with 96-byte header)
-- 64×64 dimensions (power of 2)
+Structure (partially understood):
+- Index array (428 × 4 = 1712 bytes) at data_start
+- 256-entry BGRA palette starting at offset 0x6D8 (for 53chevy.shpi)
+- Remaining data is pixel data (possibly compressed or with metadata)
 
-**Track textures (GIMX):** Used in `track.fsh`
-- Dimensions: 241×198 pixels (observed)
-- record_id: 109 (0x6D)
-- No compression
+### Oct09 Format (record_id 0x7E)
 
-### Binary Attachments (from spec)
+Used in Oct09 prototype. Different from GIMX. 64×64 dimensions.
 
-These attachment types follow the image data:
+### Track Textures (record_id 0x6D)
 
-| ID | Type | Description |
-|----|------|-------------|
-| 0x69 | Metal bin | EAGL64 texture management metadata |
-| 0x6F | Comment | Comment string |
-| 0x70 | Image name | e.g., `tp01` |
-| 0x6B | TPage | Texture page data |
-| 0x6E | Palette anim | Palette animation |
-| 0x7C | Hot spot | Pixel region / hotspot |
+Used in `track.fsh`. Dimensions: 241×198 pixels. No compression.
 
 ## Platform Variants
 
 | Platform | Magic | Format |
 |----------|-------|--------|
-| PC | `SHPI` | G264 |
-| PlayStation | `SHPP` | — |
+| PC (beta) | `SHPI` | GIMX |
+| PC (offline) | `SHPI` | G264 |
 | PlayStation 2 | `SHPS` | GIMX |
 | Xbox | `SHPX` | — |
 | GameCube | unknown | G354 |
 
 ## Extraction
 
-FSH → PNG conversion requires:
-1. Parsing the SHPI header and directory
-2. Reading the per-entry header (16 bytes)
-3. Decoding the image data based on record_id
-4. Converting to a standard image format (PNG/BMP/TGA)
+The `fsh2png.py` tool extracts SHPI textures to PPM format:
 
-The [rewiki spec](https://rewiki.miraheze.org/wiki/EA_SSH_FSH_Image_(Type_1)) has full details on the image decoding algorithms for each record type.
+```bash
+python3 tools/fsh2png.py HUD50.fsh extracted/
+```
+
+**Status:**
+- ✅ GIMX format (record_id 0xFD): xamas, gear, metr decode correctly
+- ❌ 4444 (GIMX, 256×256): fails (ratio=0.64, possibly compressed)
+- ❌ Oct09 0x7E format: not yet implemented
+- ❌ G264 0x7D format: not yet implemented
 
 ## Open Questions
 
-- Full GIMX 96-byte header structure (what each byte means)
-- How to decode 0x7E record_id format (Oct09 prototype)
-- How to decode the 88×38, 20×528, 256×256 GIMX textures from HUD50.fsh
+- Full GIMX header structure (80-96 bytes — what each byte means)
+- How to decode record_id 0x7E (Oct09 prototype)
+- How to decode the 256×256 GIMX texture (HUD50.fsh `4444`)
+- G264 paletted format (record_id 0x7D) — complete decode
 - How texture palettes are stored for PAL4/PAL8 formats
-- Mipmap storage format
-- How swizzled GameCube textures are handled
