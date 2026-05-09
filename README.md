@@ -12,6 +12,7 @@
 - [Database](file-formats/DATABASE.md) — Online.mdb Access database structure
 - [Tools](tools/README.md) — Extraction and conversion utilities
 - [Research: Beta 1](research/BETA1.md) — June 27, 2001 beta vs final release
+- [Research: Oct 09 Prototype](research/OCT09.md) — October 9, 2001 WebBeta 2 analysis
 
 ## What Is This?
 
