@@ -1,0 +1,6 @@
+PlayerTypeID,PlayerType
+0,System
+1,Admin
+2,Player
+3,Deleted Player
+4,Escrow
