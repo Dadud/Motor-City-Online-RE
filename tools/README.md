@@ -16,7 +16,7 @@ python3 fce2obj.py Data/models/53chevy/part.fce output.obj
 
 Output: OBJ file with vertices, normals, and UV-mapped triangles.
 
-**Location:** `research/mco/fce2obj.py`
+Works on: standard VIV-extracted FCE files (Beta 1, Oct 09) and BIGF-wrapped VIV FCE files (offline version).
 
 #### frd2obj.py
 
@@ -25,8 +25,6 @@ Converts FRD track geometry files to OBJ format.
 ```bash
 python3 frd2obj.py Data/Tracks/Boothill/Tr.frd output.obj
 ```
-
-**Location:** `research/mco/frd2obj.py`
 
 ### Archive Extraction
 
@@ -42,19 +40,39 @@ python3 big_extract.py cars.big extracted/
 
 #### viv_extract.py
 
-Extracts all entries from a VIV car archive (same as BIGF format).
+Extracts FCE geometry from a VIV car archive. Handles **both** VIV variants:
+
+1. **Standard VIV** (Beta 1 / Oct 09): direct FCE+FSH concatenation
+2. **BIGF-wrapped VIV** (offline version): FCE at offset 0x8c inside BIGF wrapper
 
 ```bash
-python3 viv_extract.py Data/models/53chevy.viv extracted/
+# Works on both variants automatically
+python3 viv_extract.py Data/Models/53chevy.viv extracted/
 ```
+
+Output: `part.fce` (geometry) and optionally `part.shpi` (texture, offline version only).
+
+#### iso_extract.py
+
+Extracts files from a raw ISO 9660 image without requiring root or loopback.
+
+```bash
+python3 iso_extract.py Motor\ City\ Online.iso extracted/
+```
+
+Parses the ISO 9660 volume descriptors and recursively extracts all files and directories.
 
 ### Image Conversion
 
 #### fsh2png.py (not yet written)
 
-Converts FSH texture files to PNG format.
+Converts FSH/SHPI texture files to PNG format.
 
 Requires implementing the SHPI / record type decoding per the [rewiki spec](https://rewiki.miraheze.org/wiki/EA_SSH_FSH_Image_(Type_1)).
+
+Two texture format variants exist in the game:
+- **G264** — PC-native car texture format (inside VIVs)
+- **GIMX** — GameCube texture port (loose skin files in offline version)
 
 ### Audio Conversion
 
@@ -74,6 +92,25 @@ mdb-tables Online.mdb
 mdb-export Online.mdb CarModels > CarModels.csv
 ```
 
+## Quick Start: Extracting Car Models
+
+```bash
+# 1. Extract ISO contents (no root needed)
+python3 iso_extract.py "Motor City Online.iso" iso_extracted/
+
+# 2. Extract BIG archives
+python3 big_extract.py iso_extracted/Data/cars.big cars/
+
+# 3. Extract individual VIV files
+for viv in cars/*.viv; do
+  name=$(basename $viv .viv)
+  python3 viv_extract.py "$viv" "car_parts/$name/"
+done
+
+# 4. Convert FCE to OBJ
+python3 fce2obj.py car_parts/53chevy/part.fce 53chevy.obj
+```
+
 ## File Dependencies
 
 To extract content from the final release BIG archives, first extract them:
@@ -88,21 +125,12 @@ for viv in cars_extracted/*.viv; do
 done
 ```
 
-## Implode Decompression
-
-Some BIG/VIV entries use PKWARE Implode compression. The game includes `IMPLODE.DLL` for this purpose.
-
-Python reference implementation:
-```python
-# Use the implode library or reimplement from spec
-# Parameters: dictionary_size=4096, compression_ratio=3
-```
-
 ## Missing Tools
 
-- FSH → PNG converter
-- BNK → WAV converter
+- FSH → PNG converter (SHPI G264 and GIMX decoding)
+- BNK → WAV converter (EA XA ADPCM decoder)
 - ASF → WAV/MP3 converter
 - FST format parser
 - Online.mdb schema dumper
 - Track minimap generator (from Trmap.bin)
+- Implode decompression (for compressed BIG/VIV entries)

@@ -1,31 +1,63 @@
 # VIV — Per-Car Archive Format
 
-> Car-specific archive containing FCE geometry + FSH textures.
+> Car-specific archive containing FCE geometry + texture data.
 
-**Format:** Identical to BIGF archive  
-**Location:** `Data/models/*.viv` (280 files in final release)  
-**Compression:** Implode (PKWARE) or stored
+**Location:** `Data/models/*.viv` (loose files in betas, or inside `cars.big` in final release)
 
-## Archive Structure
+## Two VIV Variants
 
-VIV files use the same BIGF format as `.big` archives. See [BIG.md](BIG.md) for the full specification.
+The game shipped with two different VIV formats depending on the build:
 
-The only difference is content: VIV files contain car-specific model parts, not generic game data.
+### Variant 1: Standard VIV (Beta 1 / Oct 09 prototype)
 
-## Example: 53chevy.viv
+Direct concatenation of FCE + FSH data, no wrapper.
 
-Extracted contents:
+- FCE geometry starts at byte 0 with `FCE4` magic
+- FSH texture data follows (EIMA or HRDR magic)
+- Used in: Beta 1, Oct 09 prototype
 
-| Filename | Size | Description |
-|----------|------|-------------|
-| `dash.fce` | 268 KB | Dashboard geometry |
-| `dash.fsh` | 257 KB | Dashboard texture |
-| `part.blf` | 34 KB | Bill of materials (vertex segmentation) |
-| `part.fce` | 328 KB | Car body geometry |
-| `part.fst` | 502 KB | FST unknown format |
-| `part.lod` | 28 bytes | LOD distance thresholds |
-| `part.fsh` | — | Car body texture |
-| `spoiler.fce` | 12 KB | Spoiler geometry (if car has one) |
+### Variant 2: BIGF-Wrapped VIV (Offline version / 2012 builds)
+
+Archive-wrapped format using BIGF header at byte 0.
+
+- BIGF magic at byte 0 (same archive format as `.big` files)
+- FCE geometry at offset **0x8c** (140 bytes in)
+- FCE identified by version marker `0x00101015`
+- Textures embedded as **SHPI/GIMX** format (GameCube texture port)
+- Used in: offline version builds (2012 community releases)
+
+```
+Offset 0x00: BIGF header (140 bytes)
+Offset 0x8C: FCE4M geometry data
+             (1193-1529 vertices, 1431-3652 triangles)
+Offset N:    SHPI/GIMX texture data (after FCE)
+```
+
+## Archive Structure (Standard Variant)
+
+```
++------------------+
+| FCE4M header     |  (8256 bytes)
++------------------+
+| Vertex table      |  (num_vertices × 12 bytes)
++------------------+
+| Normal table      |  (num_vertices × 12 bytes)
++------------------+
+| Triangle table    |  (num_triangles × 44 bytes)
++------------------+
+| Part table        |  (num_parts × 4 bytes)
++------------------+
+| FSH texture data  |  (EIMA or HRDR format)
++------------------+
+```
+
+## Example: 53chevy.viv (Offline version, BIGF-wrapped)
+
+| Part | Description | Vertices | Triangles |
+|------|-------------|-----------|-----------|
+| `part.fce` | Car body geometry | 1193 | 1431 |
+
+Texturing: embedded SHPI/GIMX (GameCube format texture)
 
 ## Car Parts (FCE files inside VIV)
 
@@ -34,10 +66,8 @@ Extracted contents:
 | `part.fce` | Main body exterior geometry |
 | `dash.fce` | Dashboard / interior geometry |
 | `spoiler.fce` | Rear spoiler geometry |
-| `hood.fce` | Hood geometry (if separate) |
-| `.*.fce` | Other separate parts |
 
-Not all cars have all parts. Some have just `part.fce` + `part.fsh`.
+Not all cars have all parts. Some have just `part.fce`.
 
 ## Naming Convention
 
@@ -57,12 +87,22 @@ The naming scheme is `<year><make><model abbreviation>.viv`.
 ## Extraction
 
 ```bash
-python3 viv_extract.py Data/models/53chevy.viv extracted/53chevy/
-```
+# Standard VIV (Beta 1 / Oct 09)
+python3 viv_extract.py Data/models/53chevy.viv extracted/
 
-Or manually treat as BIGF and extract with a BIG decoder.
+# Offline version VIV (BIGF-wrapped)
+python3 viv_extract.py Data/Models/53chevy.viv extracted/
+```
 
 ## Beta vs Final
 
-In **Beta 1**, VIV files are stored as loose files in `Data/models/`.  
-In the **final release**, all VIV files are packed into `cars.big`.
+| | Beta 1 | Oct 09 | Final |
+|---|---|---|---|
+| VIV count | 304 | 628 | ~50 in cars.big |
+| Storage | Loose files | Loose files | Packed in cars.big |
+| Format | Standard | Standard | Standard |
+| Textures | EIMA/HRDR | EIMA/HRDR | G264 |
+
+In **Beta 1** and **Oct 09**, VIV files are stored as loose files in `Data/models/`.  
+In the **final release**, all VIV files are packed into `cars.big`.  
+In the **offline version**, VIV files use the BIGF-wrapped format with GIMX textures.

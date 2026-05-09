@@ -60,10 +60,14 @@ uint16[7]:  shape Y (12-bit Y pos + 4-bit mipmap count)
 - No compression
 - Format: `GIMX`
 
-**Car textures (G264):** Used in car skin `.fsh` files
+**Car textures (G264):** Used in VIV-embedded texture data
 - Format: `G264`
-- Often single-image (no directory, data inline after header)
+- Found inside BIGF-wrapped VIV files (offline version)
 - "Buy ERTS" copyright string embedded in header
+
+**Car skin textures (GIMX):** Used in loose `Data/Skins/*.fsh` files (offline version)
+- Format: `GIMX` (GameCube texture port for PC)
+- "Buy ERTS" copyright string also present
 
 ### Binary Attachments (from spec)
 
