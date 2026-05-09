@@ -3,10 +3,10 @@
 SHPI texture to PPM/PAM converter for Motor City Online.
 Implements EA SSH FSH Image (Type 1) format.
 
-GIMX Format (record_id 0xFD): 
-  - 96-byte GIMX header before pixel data
-  - Pixel data is RGB565 (2 bytes per pixel, big-endian or swapped)
-  - Some entries may have palettes
+Supported formats:
+- GIMX (record_id 0xFD): 96-byte GIMX header + RGB565 pixel data
+- G264 (record_id 0x7D): Palette + indexed pixel data (NOT YET DECODED)
+- record_id 0x7E (Oct09): Different format (NOT YET DECODED)
 
 Usage: python3 fsh2png.py <input.fsh> [output_dir]
 """
@@ -51,7 +51,7 @@ def parse_shpi_type1(filepath):
         height = struct.unpack('<H', ehdr[6:8])[0]
         
         data_start = off + 16
-        next_off = entries[i+1]['offset'] + 16 if i+1 < len(entries) else len(data)
+        next_off = entries[i+1]['offset'] if i+1 < len(entries) else len(data)
         
         parsed_entries.append({
             'tag': ent['tag'].decode('ascii', errors='replace').strip('\x00'),
@@ -73,10 +73,10 @@ def parse_shpi_type1(filepath):
     }
 
 def decode_rgb565_be(data, width, height):
-    """Decode RGB565 big-endian data (MCO byte order)."""
+    """Decode RGB565 big-endian data (MCO byte order: low, high)."""
     pixels = []
     for i in range(min(width * height, len(data) // 2)):
-        w = data[i*2] | (data[i*2+1] << 8)  # little-endian read from file
+        w = data[i*2] | (data[i*2+1] << 8)
         r = ((w >> 11) & 0x1F) * 8
         g = ((w >> 5) & 0x3F) * 4
         b = (w & 0x1F) * 8
@@ -111,74 +111,65 @@ def extract_entry(shpi_data, entry, outdir):
         print(f"  Skipping {tag}: invalid dimensions")
         return
     
-    raw = shpi_data[data_start:data_end]
-    
-    pixels = None
-    success = False
-    
-    if record_id == 0xFD:  # GIMX format
-        # GIMX has 96-byte header, then RGB565 pixel data
-        gimx_header_size = 96
-        if len(raw) > gimx_header_size:
-            pixel_data = raw[gimx_header_size:]
-            expected = width * height * 2
-            if len(pixel_data) == expected:
-                pixels = decode_rgb565_be(pixel_data, width, height)
-                success = True
-            else:
-                # Try other formats
-                # Try no header
-                if len(raw) == width * height * 2:
-                    pixels = decode_rgb565_be(raw, width, height)
-                    success = True
-                # Try 8-byte GIMX header
-                elif len(raw) > 8 and len(raw) - 8 == width * height * 2:
-                    pixels = decode_rgb565_be(raw[8:], width, height)
-                    success = True
-                # Try without any header (as big-endian)
-                elif len(raw) >= width * height * 2:
-                    pixel_data = raw[:width * height * 2]
-                    # Try big-endian RGB565
-                    for i in range(min(width * height, len(pixel_data) // 2)):
-                        w = (pixel_data[i*2] << 8) | pixel_data[i*2+1]
-                        r = ((w >> 11) & 0x1F) * 8
-                        g = ((w >> 5) & 0x3F) * 4
-                        b = (w & 0x1F) * 8
-                        pixels.append((r, g, b, 255))
-                    if pixels:
-                        success = True
-        else:
-            # Data too small for 96-byte header
-            if len(raw) == width * height * 2:
-                pixels = decode_rgb565_be(raw, width, height)
-                success = True
-    
-    elif record_id in (0xFB,):  # Other Type 1 formats
-        if len(raw) >= width * height * 2:
-            pixel_data = raw[:width * height * 2]
-            pixels = decode_rgb565_be(pixel_data, width, height)
-            success = True
-    
-    # Try generic RGB565 if nothing worked
-    if not pixels and len(raw) >= width * height * 2:
-        pixel_data = raw[:width * height * 2]
-        pixels = decode_rgb565_be(pixel_data, width, height)
-        success = True
-    
-    if not pixels:
-        print(f"  Could not decode {tag} ({len(raw)} bytes, {width}x{height})")
-        return
+    total_data = data_end - data_start
+    expected_rgb565 = width * height * 2
     
     os.makedirs(outdir, exist_ok=True)
     base_path = os.path.join(outdir, f"{tag}_{width}x{height}")
     
-    try:
-        save_ppm(pixels, width, height, base_path + ".ppm")
-        print(f"  Extracted: {tag}.ppm ({width}x{height})")
-    except Exception as e:
-        print(f"  PPM save failed: {e}")
-        save_pam(pixels, width, height, base_path + ".pam")
-        print(f"  Extracted: {tag}.pam ({width}x{height})")
+    # Try GIMX format (record_id 0xFD): 96-byte header + RGB565
+    if record_id == 0xFD:
+        # Try reading pixel data after the 96-byte GIMX header
+        if total_data > 96:
+            pixel_data = shpi_data[data_start + 96:data_start + 96 + expected_rgb565]
+            if len(pixel_data) == expected_rgb565:
+                pixels = decode_rgb565_be(pixel_data, width, height)
+                if pixels:
+                    save_ppm(pixels, width, height, base_path + ".ppm")
+                    print(f"  Extracted: {tag}.ppm ({width}x{height}) [GIMX 96B+RGB565]")
+                    return
+        
+        # Try raw RGB565 (no header) - e.g., xamas entry
+        if total_data >= expected_rgb565:
+            pixel_data = shpi_data[data_start:data_start + expected_rgb565]
+            pixels = decode_rgb565_be(pixel_data, width, height)
+            if pixels:
+                save_ppm(pixels, width, height, base_path + ".ppm")
+                print(f"  Extracted: {tag}.ppm ({width}x{height}) [raw RGB565]")
+                return
+        
+        # Fallback: try with 80-byte header (some GIMX variants)
+        if total_data > 80:
+            pixel_data = shpi_data[data_start + 80:data_start + 80 + expected_rgb565]
+            if len(pixel_data) == expected_rgb565:
+                pixels = decode_rgb565_be(pixel_data, width, height)
+                if pixels:
+                    save_pam(pixels, width, height, base_path + ".pam")
+                    print(f"  Extracted: {tag}.pam ({width}x{height}) [GIMX 80B+RGB565]")
+                    return
+    
+    # Try G264 format (record_id 0x7D): paletted texture
+    if record_id == 0x7D:
+        print(f"  {tag}: G264 paletted format (0x7D) not yet decoded")
+        # Structure: index array + palette + pixel data
+        # See FSH.md for details
+        return
+    
+    # Try other formats
+    if record_id in (0x7E,):
+        print(f"  {tag}: Oct09 format (0x7E) not yet decoded")
+        return
+    
+    # Generic fallback: try raw RGB565
+    if total_data >= expected_rgb565:
+        pixel_data = shpi_data[data_start:data_start + expected_rgb565]
+        pixels = decode_rgb565_be(pixel_data, width, height)
+        if pixels:
+            save_ppm(pixels, width, height, base_path + ".ppm")
+            print(f"  Extracted: {tag}.ppm ({width}x{height}) [raw RGB565 fallback]")
+            return
+    
+    print(f"  Could not decode {tag} (total_data={total_data}, expected={expected_rgb565}, ratio={total_data/expected_rgb565:.2f})")
 
 def main():
     if len(sys.argv) < 2:
@@ -196,7 +187,6 @@ def main():
         sys.exit(1)
     
     print(f"Format: {shpi['format']}, Entries: {shpi['num_entries']}")
-    os.makedirs(out_dir, exist_ok=True)
     
     for entry in shpi['entries']:
         print(f"\nEntry: {entry['tag']} ({entry['width']}x{entry['height']}, record_id=0x{entry['record_id']:02x})")
