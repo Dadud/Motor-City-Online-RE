@@ -64,15 +64,25 @@ Parses the ISO 9660 volume descriptors and recursively extracts all files and di
 
 ### Image Conversion
 
-#### fsh2png.py (not yet written)
+#### fsh2png.py
 
-Converts FSH/SHPI texture files to PNG format.
+Converts SHPI Type 1 texture files to PPM (P6 binary) format.
 
-Requires implementing the SHPI / record type decoding per the [rewiki spec](https://rewiki.miraheze.org/wiki/EA_SSH_FSH_Image_(Type_1)).
+```bash
+python3 fsh2png.py HUD50.fsh extracted/
+```
 
-Two texture format variants exist in the game:
-- **G264** — PC-native car texture format (inside VIVs)
-- **GIMX** — GameCube texture port (loose skin files in offline version)
+Output: PPM files named `{tag}_{width}x{height}.ppm` for each entry.
+
+**Status:**
+- ✅ SHPI header parsing (works)
+- ✅ GIMX format (record_id 0xFD) with 96-byte header — **partially working**
+  - xamas (44×44) from HUD50.fsh: **confirmed correct decode**
+  - gear, metr, 4444 from HUD50.fsh: not yet decodable
+- ✅ GIMX format (record_id 0x7E) — Oct09 prototype (record_id differs, not RGB565)
+- ❌ G264 format decoding: not yet implemented
+
+**Reference:** [rewiki — EA SSH FSH Image (Type 1)](https://rewiki.miraheze.org/wiki/EA_SSH_FSH_Image_(Type_1))
 
 ### Audio Conversion
 
@@ -127,7 +137,6 @@ done
 
 ## Missing Tools
 
-- FSH → PNG converter (SHPI G264 and GIMX decoding)
 - BNK → WAV converter (EA XA ADPCM decoder)
 - ASF → WAV/MP3 converter
 - FST format parser
