@@ -37,7 +37,7 @@ This wiki documents the file formats, tools, and findings from reverse-engineeri
 ```
 Motor City Online/
 ├── MCity.exe          # Main game executable (release)
-├── MCity_d.exe        # Debug executable (symbols)
+├── MCity_d.exe        # Offline patch executable (likely 2012 RE build, not original EA debug)
 ├── Data/
 │   ├── cars.big       # Car models + textures
 │   ├── tracks.big     # Track geometry + textures

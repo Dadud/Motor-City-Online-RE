@@ -60,6 +60,6 @@ The installed size dropped significantly despite more VIV files, suggesting bett
 ## Key Observations
 
 1. **No BIG archives** — Like Beta 1, this prototype ships with all files loose. The BIG packing was added only in the final release distribution.
-2. **Debug exe still absent** — `MCity_d.exe` first appears in the final release, not in either beta.
+2. **Debug exe still absent** — `MCity_d.exe` first appears in the final release, not in either beta. (Note: likely a 2012 offline patch rebuild rather than an original EA debug build.)
 3. **Case change in exe name** — Only the Oct 09 build has `mcity.exe` (lowercase). Both Beta 1 and Final use `MCity.exe` (PascalCase).
 4. **Engine patch file** — `engpatch.viv` is present (same as Beta 1), confirming it was always part of the plan.
