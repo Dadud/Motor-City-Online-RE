@@ -13,8 +13,14 @@ The game shipped with two different VIV formats depending on the build:
 Direct concatenation of FCE + FSH data, no wrapper.
 
 - FCE geometry starts at byte 0 with `FCE4` magic
-- FSH texture data follows (EIMA or HRDR magic)
+- FSH texture data follows (EIMA, HRDR, or SHPI magic)
 - Used in: Beta 1, Oct 09 prototype
+
+```
+Offset 0x00: FCE4M geometry data
+...        : (num_vertices × 12) + (num_tris × 44) + part table
+Offset N:    SHPI/SHPI texture data
+```
 
 ### Variant 2: BIGF-Wrapped VIV (Offline version / 2012 builds)
 
@@ -27,10 +33,13 @@ Archive-wrapped format using BIGF header at byte 0.
 - Used in: offline version builds (2012 community releases)
 
 ```
-Offset 0x00: BIGF header (140 bytes)
+Offset 0x00: BIGF header (140 bytes total)
 Offset 0x8C: FCE4M geometry data
              (1193-1529 vertices, 1431-3652 triangles)
 Offset N:    SHPI/GIMX texture data (after FCE)
+             - record_id: 0xFD (GIMX)
+             - 96-byte GIMX header + RGB565 pixel data
+             - verified: xamas 44x44 from HUD50.fsh decodes correctly
 ```
 
 ## Archive Structure (Standard Variant)

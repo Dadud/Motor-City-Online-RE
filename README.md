@@ -2,6 +2,31 @@
 
 > Reverse-engineered documentation for EA Seattle's 2001 online racing MMO.
 
+## Extracted Geometry
+
+Converted car models and tracks from the offline version (2012 community release). All geometry extracted using the tools in this repo. OBJ format with UV coordinates.
+
+### Car Models (`extracted/car_models/`)
+
+13 car geometry files from the offline version VIV archives. Textures not included (see [FSH format](file-formats/FSH.md) for texture format status).
+
+| File | Vertices | Triangles | Notes |
+|------|----------|-----------|-------|
+| `53chevy.obj` | 1193 | 1431 | 1953 Chevrolet |
+| `55cameo.obj` | 1201 | 2480 | 1955 Chevrolet Cameo |
+| `56ftruck.obj` | 1091 | 2061 | 1956 Chevrolet Pickup |
+| `59impala.obj` | 1326 | 1609 | 1959 Chevrolet Impala |
+| `8ball.obj` | 1120 | 1716 | Custom / novelty |
+| `96supra.obj` | 1529 | 3652 | 1996 Toyota Supra |
+| `97eclps.obj` | 33 | 60 | Partial geometry (spoiler/side mirror) |
+| `hc59-hc64.obj` | 15 | 12 | Template variants |
+
+### Tracks (`extracted/tracks/`)
+
+16 track geometry files (FRD format). Includes Derby, Foundry, GasTown, Hazard, and all final release tracks.
+
+All tracks extracted from offline version FRD files. Each OBJ has ~1240 sample points.
+
 ## Quick Links
 
 - [File Format Reference](file-formats/README.md) — All binary formats documented
@@ -13,6 +38,7 @@
 - [Tools](tools/README.md) — Extraction and conversion utilities
 - [Research: Beta 1](research/BETA1.md) — June 27, 2001 beta analysis
 - [Research: Oct 09 Prototype](research/OCT09.md) — October 9, 2001 WebBeta 2 analysis
+- [Extracted Geometry](extracted/) — Converted OBJ files
 
 ## What Is This?
 
