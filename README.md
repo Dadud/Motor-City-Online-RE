@@ -41,6 +41,7 @@
 | **Textures** | 4444 entry | 🔄 Partial | RefPack works, content valid. May be a special format variant. |
 | **Audio** | BNK → WAV | 🔄 Partial | Decoder written, needs integration into tool |
 | **Database** | Cars table | ✅ Complete | 83 car ID variants across 72 base cars extracted from 4056-row table |
+| **Executable** | EXE architecture | 🔄 Partial | NPS subsystem structure documented. mcacity.exe + mco.exe + authlogin.dll architecture mapped. |
 
 ### ❓ UNKNOWN / FUTURE WORK
 
@@ -66,6 +67,7 @@
 - [Research: Beta 1](research/BETA1.md) — June 27, 2001 beta analysis
 - [Research: Oct 09 Prototype](research/OCT09.md) — October 9, 2001 WebBeta 2 analysis
 - [Network Protocol](research/NETWORK_PROTOCOL.md) — Complete protocol specification donated by Molly
+- [Executable Architecture](research/Executable-Architecture.md) — mcacity.exe, NPS subsystem, and authentication flow
 - [Extracted Geometry](extracted/) — Converted OBJ files
 
 ---
