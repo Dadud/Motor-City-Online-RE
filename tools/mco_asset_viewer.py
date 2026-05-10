@@ -16,11 +16,8 @@ from PIL import Image
 import numpy as np
 
 # -------------------------------------------------------------------------
-# Simple software rasterizer with known-working math
+# Simple software rasterizer
 # -------------------------------------------------------------------------
-
-def mat4_identity():
-    return [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]
 
 def mat4mul(a, b):
     r = [[0]*4 for _ in range(4)]
@@ -30,50 +27,35 @@ def mat4mul(a, b):
     return r
 
 def mat4Perspective(fovDeg, aspect, near, far):
-    # Simple perspective: ndc_z = (z_view - near)/(far - near) * 2 - 1
     f = 1.0 / math.tan(math.radians(fovDeg / 2.0))
-    return [
-        [f/aspect, 0, 0, 0],
-        [0, f, 0, 0],
-        [0, 0, 2, -(far+near)],
-        [0, 0, 0, far-near]
-    ]
+    return [[f/aspect, 0, 0, 0],[0, f, 0, 0],[0, 0, 2, -(far+near)],[0, 0, 0, far-near]]
 
 def mat4LookAt(eye, target, up):
-    # z_axis = normalize(target - eye) = direction camera looks (from eye toward target)
+    # z_axis = normalize(target - eye) = direction camera looks
     fx, fy, fz = target[0]-eye[0], target[1]-eye[1], target[2]-eye[2]
     fl = math.sqrt(fx*fx + fy*fy + fz*fz)
     fx, fy, fz = fx/fl, fy/fl, fz/fl
-    # Right = up x forward
     rx, ry, rz = up[1]*fz-up[2]*fy, up[2]*fx-up[0]*fz, up[0]*fy-up[1]*fx
     rl = math.sqrt(rx*rx + ry*ry + rz*rz)
     rx, ry, rz = rx/rl, ry/rl, rz/rl
-    # Up = forward x right
     ux, uy, uz = fy*rz-fz*ry, fz*rx-fx*rz, fx*ry-fy*rx
-    # Translation
     tx = -(rx*eye[0] + ux*eye[1] + fx*eye[2])
     ty = -(ry*eye[0] + uy*eye[1] + fy*eye[2])
     tz = -(rz*eye[0] + uz*eye[1] + fz*eye[2])
-    return [
-        [rx, ux, fx, tx],
-        [ry, uy, fy, ty],
-        [rz, uz, fz, tz],
-        [0, 0, 0, 1]
-    ]
+    return [[rx, ux, fx, tx],[ry, uy, fy, ty],[rz, uz, fz, tz],[0, 0, 0, 1]]
+
+def mat4Scale(s):
+    return [[s,0,0,0],[0,s,0,0],[0,0,s,0],[0,0,0,1]]
 
 def mat4RotY(a):
     c, s = math.cos(a), math.sin(a)
     return [[c,0,s,0],[0,1,0,0],[-s,0,c,0],[0,0,0,1]]
 
-def mat4Scale(s):
-    return [[s,0,0,0],[0,s,0,0],[0,0,s,0],[0,0,0,1]]
-
 def transformPoint(m, vx, vy, vz):
-    wx = m[0][0]*vx + m[0][1]*vy + m[0][2]*vz + m[0][3]
-    wy = m[1][0]*vx + m[1][1]*vy + m[1][2]*vz + m[1][3]
-    wz = m[2][0]*vx + m[2][1]*vy + m[2][2]*vz + m[2][3]
-    ww = m[3][0]*vx + m[3][1]*vy + m[3][2]*vz + m[3][3]
-    return wx, wy, wz, ww
+    return (m[0][0]*vx+m[0][1]*vy+m[0][2]*vz+m[0][3],
+            m[1][0]*vx+m[1][1]*vy+m[1][2]*vz+m[1][3],
+            m[2][0]*vx+m[2][1]*vy+m[2][2]*vz+m[2][3],
+            m[3][0]*vx+m[3][1]*vy+m[3][2]*vz+m[3][3])
 
 def project(wx, wy, wz, ww, W, H):
     if ww <= 0: return None
@@ -82,7 +64,7 @@ def project(wx, wy, wz, ww, W, H):
         return None
     sx = int((cx * 0.5 + 0.5) * W)
     sy = int((cy * 0.5 + 0.5) * H)
-    return sx, sy, cz
+    return (sx, sy, cz)
 
 def barycentric(ax, ay, bx, by, cx, cy, px, py):
     denom = (by-cy)*(ax-cx) + (cx-bx)*(ay-cy)
@@ -93,10 +75,6 @@ def barycentric(ax, ay, bx, by, cx, cy, px, py):
     return w0, w1, w2
 
 def lerp(a, b, t): return a + (b-a)*t
-def lerpColor(c1, c2, t):
-    return (int(lerp(c1[0], c2[0], t)),
-            int(lerp(c1[1], c2[1], t)),
-            int(lerp(c1[2], c2[2], t)))
 
 # -------------------------------------------------------------------------
 # OBJ loader
@@ -141,7 +119,6 @@ class Renderer:
         self.depth = np.full((self.H, self.W), 1e9, dtype=np.float32)
 
     def drawTriangle(self, p0, p1, p2, col0, col1, col2, mvp, view, light, verts, draw_edges=False):
-        # Project all 3 points
         v0 = verts[p0[0]]; v1 = verts[p1[0]]; v2 = verts[p2[0]]
         s0 = project(*transformPoint(mvp, v0[0], v0[1], v0[2]), self.W, self.H)
         s1 = project(*transformPoint(mvp, v1[0], v1[1], v1[2]), self.W, self.H)
@@ -151,8 +128,7 @@ class Renderer:
         (x0,y0,z0), (x1,y1,z1), (x2,y2,z2) = s0, s1, s2
         x0,y0,x1,y1,x2,y2 = int(x0),int(y0),int(x1),int(y1),int(x2),int(y2)
 
-        # Flat shading: compute face normal from world verts
-        v0, v1, v2 = verts[p0[0]], verts[p1[0]], verts[p2[0]]
+        # Flat shading: face normal
         ex, ey, ez = v1[0]-v0[0], v1[1]-v0[1], v1[2]-v0[2]
         fx, fy, fz = v2[0]-v0[0], v2[1]-v0[1], v2[2]-v0[2]
         nx, ny, nz = ey*fz-ez*fy, ez*fx-ex*fz, ex*fy-ey*fx
@@ -170,7 +146,6 @@ class Renderer:
         ymax = min(self.H-1, max(y0, y1, y2))
         if xmin > xmax or ymin > ymax: return
 
-        # Simple edge function for inside test
         def edge(px, py, ax, ay, bx, by):
             return (px-ax)*(by-ay) - (py-ay)*(bx-ax)
 
@@ -188,39 +163,37 @@ class Renderer:
                         self.depth[y, x] = z
                         self.color[y, x] = base
 
-        # Optional wireframe overlay
-        if draw_edges:
-            def plot_line(x0,y0,x1,y1,c,check=True):
-                dx, dy = abs(x1-x0), abs(y1-y0)
-                sx = 1 if x0<x1 else -1
-                sy = 1 if y0<y1 else -1
-                err = dx - dy
-                while True:
-                    if 0<=x0<self.W and 0<=y0<self.H:
-                        if not check or self.color[y0,x0,0] > 40:
-                            self.color[y0,x0] = c
-                    if x0==x1 and y0==y1: break
-                    e2 = 2*err
-                    if e2>-dy: err -= dy; x0 += sx
-                    if e2< dx: err += dx; y0 += sy
-            plot_line(x0,y0,x1,y1,(80,80,100),False)
-            plot_line(x1,y1,x2,y2,(80,80,100),False)
-            plot_line(x2,y2,x0,y0,(80,80,100),False)
-
     def render(self, verts, faces, rotY=0.0, scale=1.0, light=(0.5, 0.7, 0.5)):
         """Render OBJ to PIL Image."""
         self.clear()
         W, H = self.W, self.H
 
-        # Camera: scale adjusts camera distance so model always fits
-        # scale=1 -> cam_dist=3, model=50; scale=2 -> cam_dist=1.5, model=25
-        # This way larger scale = closer camera = bigger model on screen
-        cam_dist = 3.0 / scale
-        eye = (cam_dist * math.sin(rotY), 0.5, -cam_dist * math.cos(rotY))
+        # Camera: for small models (cars, extent ~1-3), use working setup
+        # For large models (tracks, extent ~1000+), scale camera distance
+        xs = [v[0] for v in verts]
+        ys = [v[1] for v in verts]
+        zs = [v[2] for v in verts]
+        extent = max(max(xs)-min(xs), max(ys)-min(ys), max(zs)-min(zs))
 
-        proj = mat4Perspective(45.0, W/H, 0.1, 200.0)
-        view = mat4LookAt(eye, (0, 0, 0), (0, 1, 0))
-        model = mat4Scale(50.0 / scale)  # Model fills frame at scale=1
+        # Only scale camera for large models (tracks, extent > 50)
+        # Cars (extent ~1-3) use the original working formula
+        if extent > 50.0:
+            extent_ratio = extent / 3.0
+            cam_dist = (3.0 / scale) * extent_ratio
+            model_scale = (50.0 / scale)
+            far = 200000.0
+        else:
+            cam_dist = 3.0 / scale
+            model_scale = 50.0 / scale
+            far = 200.0
+
+        eye_x = cam_dist * math.sin(rotY)
+        eye_y = 0.5
+        eye_z = -cam_dist * math.cos(rotY)
+
+        proj = mat4Perspective(45.0, W/H, 0.1, far)
+        view = mat4LookAt((eye_x, eye_y, eye_z), (0, 0, 0), (0, 1, 0))
+        model = mat4Scale(model_scale)
         mv = mat4mul(model, view)
         mvp = mat4mul(proj, mv)
 
@@ -229,7 +202,6 @@ class Renderer:
 
         for face in faces:
             if len(face) < 3: continue
-            # Triangulate fan
             p0 = face[0]
             for i in range(1, len(face)-1):
                 p1, p2 = face[i], face[i+1]
@@ -320,12 +292,11 @@ def renderAll(assets, outDir, W=640, H=480):
             try:
                 verts, normals, texcoords, faces = loadOBJ(str(obj))
                 if not verts: continue
-                img = rnd.render(verts, faces, rotY=0.5, scale=0.8)
+                img = rnd.render(verts, faces, rotY=0.5, scale=1.0)
                 img.save(outPng)
                 print(f"  {stem}: OK")
             except Exception as e:
                 print(f"  {stem}: ERROR {e}")
-    print()
 
 # -------------------------------------------------------------------------
 # Main
@@ -338,7 +309,7 @@ if __name__ == '__main__':
     ap.add_argument('--all', action='store_true', help='Render all models')
     ap.add_argument('--html', action='store_true', help='Generate HTML gallery')
     ap.add_argument('--output', '-o', default='./mco-gallery', help='Output dir')
-    ap.add_argument('--scale', type=float, default=0.8, help='Model scale')
+    ap.add_argument('--scale', type=float, default=1.0, help='Model scale')
     ap.add_argument('--rotY', type=float, default=0.5, help='Y rotation')
     ap.add_argument('--size', '-s', default='640x480', help='WxH')
     args = ap.parse_args()
