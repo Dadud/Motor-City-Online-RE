@@ -54,6 +54,8 @@ Playable car models in the online version:
 | 70hemicu | 1970 Plymouth Hemi Cuda |
 | 71duster | 1971 Plymouth Duster |
 
+**Note:** The Cars table also contains variant entries (COPO, Z-28, SS, RS, etc.) representing different trim levels. The database uses a complex multi-column row format that requires further analysis to fully decode.
+
 ### StockEngines (283 entries)
 Engine names including: Turbo-Fire, Hemi, Boss 302, 440 Six Pack, 454 SS, 426 Hemi, etc.
 
@@ -122,10 +124,12 @@ Example Brand row (at page 38, offset 0x07de):
 
 ## Known Limitations
 
-- Large tables (Cars: 4056 rows, PartStats: 3952 rows) only partially extracted
+- Cars table has 4056 total entries including variant trims (COPO, Z-28, SS, RS, etc.) - only the 13 base models extracted
+- PartStats (3952 rows) and large tables not yet fully decoded
 - Car physics parameters (weight, power, torque) not yet decoded as numeric values
 - Part compatibility matrix not yet decoded
 - Track definitions not yet extracted
+- HUD50.FSH entry "4444" (256x256) uses unknown compression (ratio=0.64, 84328 bytes vs expected 131072 for raw RGB565)
 
 ## Open Questions
 
