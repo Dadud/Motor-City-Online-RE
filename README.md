@@ -186,12 +186,27 @@ mdb-export Online.mdb CarPhysics       # Export physics table
 
 ## Open Questions
 
-- FST format purpose and structure (largest remaining unknown)
-- SHPI/GIMX texture decoder (for converting textures to PNG)
+- **FST format** — purpose and structure completely unknown (largest remaining)
+- **G264 format** (record_id 0x7D) — offline version car textures, not yet decoded
+- **0x7E format** — Oct09 prototype textures, not yet decoded
+- **4444 texture** — HUD50.fsh entry (256×256), RefPack decompresses but content unclear
 - Script/event system (if any .scm files exist?)
 - Full BLF chunk type enumeration
 - Track AI racing line / rubber-banding formula
-- `Dirtoval` extra files (`track.fce`, `spdF0.bin`, `spdR0.bin`) purpose
+
+### Texture Decoding — PARTIALLY SOLVED
+
+SHPI/GIMX texture decoding has made progress:
+- **RefPack decompression** — confirmed for most GIMX entries
+- **ARGB8888 output** — decoded textures have alpha channel
+- See [FSH format](file-formats/FSH.md) for current decoder status
+
+### Audio Decoding — NOW WORKING
+
+BNK audio extraction is now functional:
+- **EA XA ADPCM** — full decoder based on vgmstream algorithm
+- **PT header parsing** — variable-length encoded headers understood
+- See [BNK format](file-formats/BNK.md) for decoder status
 
 ### Network Protocol — NOW DOCUMENTED!
 
