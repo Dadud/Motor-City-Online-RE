@@ -13,9 +13,11 @@ from server.mco_shard.models.schemas import (
     InstallPartRequest,
     LobbyCreateRequest,
     LobbyJoinRequest,
+    LobbyLaunchRaceRequest,
     LobbyReadyRequest,
     LoginRequest,
     PartPurchaseRequest,
+    PlaceholderRaceRunRequest,
     RaceResultSubmitRequest,
     RemovePartRequest,
 )
@@ -148,6 +150,30 @@ def ready_lobby(lobby_id: int, payload: LobbyReadyRequest):
 def start_lobby(lobby_id: int):
     try:
         return {"status": "ok", "data": service.start_lobby(lobby_id)}
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.post("/lobbies/{lobby_id}/launch-race")
+def launch_race(lobby_id: int, payload: LobbyLaunchRaceRequest):
+    try:
+        return {"status": "ok", "data": service.launch_race(lobby_id, payload.duration_seconds, payload.scene_type)}
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.get("/lobbies/{lobby_id}/race-session")
+def race_session(lobby_id: int):
+    try:
+        return {"status": "ok", "data": service.get_race_session(lobby_id)}
+    except Exception as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@app.post("/lobbies/{lobby_id}/run-placeholder-race")
+def run_placeholder_race(lobby_id: int, payload: PlaceholderRaceRunRequest):
+    try:
+        return {"status": "ok", "data": service.run_placeholder_race(lobby_id, payload.profile_id, payload.commands)}
     except Exception as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 

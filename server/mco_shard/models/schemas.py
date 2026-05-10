@@ -60,11 +60,21 @@ class LobbyReadyRequest(BaseModel):
     ready: bool
 
 
+class LobbyLaunchRaceRequest(BaseModel):
+    duration_seconds: int = 5
+    scene_type: str = "text_loop"
+
+
 class RaceResultSubmitRequest(BaseModel):
     lobby_id: int
     profile_id: int
     position: int
     finish_time_ms: int
+
+
+class PlaceholderRaceRunRequest(BaseModel):
+    profile_id: int
+    commands: list[str] = []
 
 
 class ApiMessage(BaseModel):
