@@ -120,18 +120,27 @@ struct Normal {
 
 `body`, `hood`, `trunk`, `lf_door`, `rf_door`, `lr_door`, `rr_door`, ` windshield`, `r_win`, `l_win`, `b_win`, `front_clip`, `rear_clip`, `lf_wheel`, `rf_wheel`, `lr_wheel`, `rr_wheel`, `engine`, `interior`, `dash`, `steering_wheel`, `lr_exhaust`, `rr_exhaust`, `spoiler`, `lf_headlight`, `rf_headlight`, `lb_taillight`, `rb_taillight`, `hood_ornament`, `antenna`, `spare_tire`, `soft_top`, `convertible_top`, `undercarriage`, and others.
 
-## Extraction
+## Existing Tools
 
-Use `fce2obj.py` to convert FCE files to Wavefront OBJ format:
+### Recommended: bfut/fcecodec ⭐
+- **Repo**: https://github.com/bfut/fcecodec
+- **Install**: `python -m pip install fcecodec`
+- Full FCE4M read/write: `IoDecode_Fce4M()`, `IoEncode_Fce4M()`
+- Export to OBJ: `IoExportObj()`
+- **Blender addon**: https://github.com/bfut/fcecodec_blender
+  - Import/export .fce files directly in Blender 3.6–5.x
+  - Auto-installs fcecodec + tinyobjloader + unvivtool
 
+### Ready-to-use scripts (in fcecodec repo):
+- `bfut_Fce2Obj.py` — FCE → Wavefront OBJ
+- `bfut_Obj2Fce3.py` — OBJ → FCE3 (with material-to-triangle flag support)
+- `bfut_MergeAllParts.py` — merge all FCE parts into one
+
+### CLI example:
 ```bash
-python3 fce2obj.py input.fce output.obj
+python -m pip install fcecodec
+python -c "import fcecodec; fcecodec.IoExportObj(fcecodec.IoDecode_Fce4M(open('car.fce','rb').read()), 'output.obj', 'output.mtl', 'texture')"
 ```
-
-The converter:
-1. Reads the FCE4M header
-2. Extracts vertex, normal, and triangle tables
-3. Outputs a `.obj` file with vertices, normals, and UV-mapped triangles
 
 ## Open Questions
 

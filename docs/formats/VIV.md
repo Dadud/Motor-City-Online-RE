@@ -93,14 +93,26 @@ VIV files follow a short naming convention: 6 characters + `.viv`
 
 The naming scheme is `<year><make><model abbreviation>.viv`.
 
+## Existing Tools
+
+### Recommended: bfut/unvivtool ⭐
+- **Repo**: https://github.com/bfut/unvivtool
+- **Install**: `python -m pip install unvivtool`
+- CLI: `unvivtool input.viv` (extracts all files)
+- Python: `import unvivtool; unvivtool.IoDecodeVIV(open('file.viv','rb').read())`
+- Supports BIGF, BIGH, **BIG4**, 0x8000FBC0 — MCO uses BIG4 and BIGF variants
+
+### Our viv_extract.py:
+Handles MCO-specific quirks (DCL compression, embedded texture detection) on top of unvivtool-compatible logic.
+
 ## Extraction
 
 ```bash
-# Standard VIV (Beta 1 / Oct 09)
-python3 viv_extract.py Data/models/53chevy.viv extracted/
+# unvivtool (any VIV variant)
+unvivtool cars.viv
 
-# Offline version VIV (BIGF-wrapped)
-python3 viv_extract.py Data/Models/53chevy.viv extracted/
+# Our script (MCO-specific handling)
+python3 viv_extract.py Data/models/53chevy.viv extracted/
 ```
 
 ## Beta vs Final
