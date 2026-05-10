@@ -65,31 +65,37 @@ After the 16-byte header, image data follows. The total data size equals the dis
 
 This is MCO's primary texture format for car models and UI elements in Beta 1 and Oct 09.
 
-**Structure (observed):**
-- N-byte GIMX header (80-96 bytes, varies by entry)
-- RGB565 pixel data (2 bytes per pixel, little-endian word order)
+**Key insight:** All GIMX data is RefPack compressed (except xamas which appears raw). After decompression:
+- Most entries decompress to RGBA8888 (4 bytes per pixel)
+- xamas decompresses to RGB565 (2 bytes per pixel, no RefPack needed)
 
-The GIMX header appears to be 80 bytes for most entries. Some entries have no header at all.
+**Decoding workflow:**
+1. Read entry data
+2. Check for RefPack signature (`0x10 0xFB`)
+3. If RefPack: decompress to get raw pixel data
+4. If raw RGB565 (like xamas): use directly
+5. Convert to standard image format
 
-**Verified samples:**
-
-| File | Entry | Dims | Data bytes | Expected RGB565 | Status |
-|------|-------|------|-----------|----------------|--------|
-| HUD50.fsh (Beta 1) | `xamas` | 44×44 | 3952 | 3872 | ✅ Works (raw RGB565) |
-| HUD50.fsh (Beta 1) | `gear` | 88×38 | 4568 | 6688 | ✅ Works (80B header) |
-| HUD50.fsh (Beta 1) | `metr` | 20×208 | 5320 | 8320 | ✅ Works (80B header) |
-| HUD50.fsh (Beta 1) | `4444` | 256×256 | 84328 | 131072 | ❌ RefPack compressed |
-| part.shpi (Oct09) | `hc07` | 64×64 | 8208 | 8192 | ❌ Unknown format |
-| 53chevy.shpi (offline) | `0000` | 256×256 | 1157758 | 131072 | ❌ G264 format |
-
-**The 4444 entry (256×256)** uses RefPack compression! Data starts with RefPack header `10 FB 04 00 00` which decompresses to 262144 bytes (256×256×4). However, the decompressed data appears to be 32-bit ARGB8888 but doesn't render correctly — the GIMX format may use different byte ordering or an additional header.
-
-**RefPack decompression:**
+**Decompression:**
 ```python
 # See tools/refpack_decompress.py
 # Based on Niotso Wiki specification
 # Header: flags(1) + 0xFB(1) + [compressed_size(3)] + decompressed_size(3)
+# Example: 10 FB 04 00 00 -> decompressed_size = 0x040000 = 262144 bytes
 ```
+
+**Verified samples:**
+
+| File | Entry | Dims | Compressed | Decompressed | Format | Status |
+|------|-------|------|-----------|--------------|--------|--------|
+| HUD50.fsh (Beta 1) | `xamas` | 44×44 | 3952 | — | RGB565 | ✅ Works (raw, no RefPack) |
+| HUD50.fsh (Beta 1) | `gear` | 88×38 | 4568 | 13376 | RGBA | ✅ Works (RefPack + ARGB8888) |
+| HUD50.fsh (Beta 1) | `metr` | 20×208 | 5320 | 16640 | RGBA | ✅ Works (RefPack + ARGB8888) |
+| HUD50.fsh (Beta 1) | `4444` | 256×256 | 84328 | 262144 | RGBA | 🔵 Works but content unclear |
+| part.shpi (Oct09) | `hc07` | 64×64 | 8208 | — | Unknown | ❌ Not decoded |
+| 53chevy.shpi (offline) | `0000` | 256×256 | 1157758 | — | G264 | ❌ G264 format |
+
+**Note:** The xamas entry has bytes `10 FB` at the start which look like a RefPack signature but are actually raw RGB565 pixel data (coincidental pattern). Use `data_size >= width*height*2` to detect raw vs compressed.
 
 ### G264 Format (record_id 0x7D) — Offline Version
 
@@ -140,6 +146,6 @@ python3 tools/fsh2png.py HUD50.fsh extracted/
 
 - Full GIMX header structure (80-96 bytes — what each byte means)
 - How to decode record_id 0x7E (Oct09 prototype)
-- How to decode the 256×256 GIMX texture (HUD50.fsh `4444`) — RefPack compressed but decompressed data not valid
+- How to decode the 256×256 GIMX texture (HUD50.fsh `4444`) — RefPack works, content may have different format
 - G264 paletted format (record_id 0x7D) — complete decode
 - How texture palettes are stored for PAL4/PAL8 formats
