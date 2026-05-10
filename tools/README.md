@@ -69,28 +69,36 @@ Parses the ISO 9660 volume descriptors and recursively extracts all files and di
 Converts SHPI Type 1 texture files to PPM (P6 binary) format.
 
 ```bash
-python3 fsh2png.py HUD50.fsh extracted/
+python3 fsh2png_v2.py HUD50.fsh extracted/
 ```
 
 Output: PPM files named `{tag}_{width}x{height}.ppm` for each entry.
 
 **Status:**
-- ✅ SHPI header parsing (works)
-- ✅ GIMX format (record_id 0xFD) with 96-byte header — **partially working**
-  - xamas (44×44) from HUD50.fsh: **confirmed correct decode**
-  - gear, metr, 4444 from HUD50.fsh: not yet decodable
-- ✅ GIMX format (record_id 0x7E) — Oct09 prototype (record_id differs, not RGB565)
-- ❌ G264 format decoding: not yet implemented
+- ✅ SHPI header parsing
+- ✅ `fsh2png_v2.py` decodes MCO's known texture variants:
+  - record_id `0xFD` = RefPack + A8R8G8B8 (Beta 1 / HUD50 including `xamas`, `gear`, `metr`, `4444`)
+  - record_id `0xFE` = RefPack + A1R5G5B5 (Oct 09 prototype)
+  - record_id `0x7D` = raw A8R8G8B8 (`G264`, offline car textures)
+- ⚠️ `fsh2png.py` is the older experimental decoder; prefer `fsh2png_v2.py`
 
 **Reference:** [rewiki — EA SSH FSH Image (Type 1)](https://rewiki.miraheze.org/wiki/EA_SSH_FSH_Image_(Type_1))
 
 ### Audio Conversion
 
-#### bnk2wav.py (not yet written)
+#### bnk2wav.py
 
 Converts BNK sound banks to WAV files.
 
-Requires implementing the EA XA ADPCM decoder.
+```bash
+python3 bnk2wav.py track.bnk track.wav
+```
+
+Status:
+- ✅ BNK container parsing
+- ✅ EA XA ADPCM decoding
+- ✅ WAV output
+- ✅ Tested against real MCO `track.bnk` files
 
 ### Database
 
@@ -137,7 +145,6 @@ done
 
 ## Missing Tools
 
-- BNK → WAV converter (EA XA ADPCM decoder)
 - ASF → WAV/MP3 converter
 - FST format parser
 - Online.mdb schema dumper

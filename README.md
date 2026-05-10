@@ -19,11 +19,14 @@
 | **Engine** | FCE format | ✅ Fully decoded (car geometry + material slots) |
 | **Audio** | BNK format | ✅ Header/entry structure decoded |
 | **Audio** | EA XA ADPCM | ✅ Decoder implemented (R1/R2/R3 variants) |
+| **Audio** | BNK → WAV | ✅ `bnk2wav.py` working on real track/audio banks |
 | **Database** | MDB format | ✅ Jet 3.0 DB fully parsed (4096-byte pages) |
 | **Database** | MDB TDEF | ✅ Row format cracked (all 9 tables extracted as CSV) |
+| **Database** | Cars table variants | ✅ 83 unique car IDs across 72 base cars extracted |
 | **Textures** | FSH format (GIMX) | ✅ record_id 0xFD = A8R8G8B8 + RefPack |
 | **Textures** | FSH format (car skins) | ✅ record_id 0xFE = A1R5G5B5 + RefPack |
 | **Textures** | FSH format (offline) | ✅ record_id 0x7D = Raw A8R8G8B8 |
+| **Textures** | HUD50 `4444` entry | ✅ Decodes correctly with RefPack + A8R8G8B8 |
 | **Network** | NPS protocol | ✅ Donated by Molly |
 | **Network** | MCOTS protocol | ✅ Donated by Molly |
 | **Network** | RC4/DES-CBC encryption | ✅ Documented |
@@ -38,9 +41,6 @@
 | Category | Item | Status | Notes |
 |----------|------|--------|-------|
 | **Models** | FST format | ✅ Partial | Part feature/settings table. Header + descriptor table + 0x0300 padding + post-pad bulk data (16-byte records with paired duplicate fields). |
-| **Textures** | 4444 entry | 🔄 Partial | RefPack works, content valid. May be a special format variant. |
-| **Audio** | BNK → WAV | 🔄 Partial | Decoder written, needs integration into tool |
-| **Database** | Cars table | ✅ Complete | 83 car ID variants across 72 base cars extracted from 4056-row table |
 | **Executable** | EXE architecture | 🔄 Partial | NPS subsystem structure documented. mcacity.exe + mco.exe + authlogin.dll architecture mapped. |
 
 ### ❓ UNKNOWN / FUTURE WORK
@@ -48,7 +48,6 @@
 | Category | Item | Priority | Notes |
 |----------|------|----------|-------|
 | **FST** | Post-pad decode | Medium | Post-pad bulk data structure partially understood (16-byte records with paired duplicates). Exact field meanings need FCE vertex correlation. |
-| **Models** | Car variants | ✅ Complete | 83 variants extracted including SS, RS, COPO-style trims |
 | **Tracks** | Track barriers | Low | `.trn` files unexamined |
 | **Scripts** | Event/script system | Low | No `.scm` files found yet |
 | **UI** | DCL compression tuning | Low | Parameters may be tweakable via engine.ini |
@@ -241,9 +240,8 @@ python3 mdb_extract.py Online.mdb output_dir/
 
 1. **FST format** — purpose and structure still partially unknown (per-car part metadata table)
 2. **G264 acronym** — what G264 actually stands for (not "Graphics 264")
-3. **Car trim variants** — COPO, Z-28, SS, RS trims need separation logic from base models
-4. **Track barriers** — `.trn` files completely unexamined
-5. **DCL compression parameters** — tuning values may be tweakable via engine.ini
+3. **Track barriers** — `.trn` files completely unexamined
+4. **DCL compression parameters** — tuning values may be tweakable via engine.ini
 
 ---
 

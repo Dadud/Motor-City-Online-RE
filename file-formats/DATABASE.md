@@ -9,7 +9,7 @@
 
 ## Database Status: ✅ PARTIALLY DECODED
 
-The database has been successfully parsed using pure Python binary analysis (no mdb-tools required).
+The database has been successfully parsed using pure Python binary analysis (no mdb-tools required). Core table extraction works, including full Cars-table variant recovery, but several larger gameplay/physics tables still need deeper field-level decoding.
 
 **Page structure:**
 - Page size: 4096 bytes
@@ -21,7 +21,7 @@ The database has been successfully parsed using pure Python binary analysis (no 
 | Table | Rows | Status |
 |-------|------|--------|
 | Brand | 78 | ✅ Fully decoded |
-| Cars | 13 | ✅ Fully decoded |
+| Cars | 4056 | ✅ Fully extracted |
 | StockEngines | 283 | ✅ Fully decoded |
 | PlayerType | 5 | ✅ Fully decoded |
 | SkinType | 10 | ✅ Fully decoded |
@@ -35,8 +35,8 @@ The database has been successfully parsed using pure Python binary analysis (no 
 ### Brand (78 entries)
 Parts manufacturers and brands (Edelbrock, Holley, GM, Rochester, etc.)
 
-### Cars (13 entries)
-Playable car models in the online version:
+### Cars (4056 rows, 83 unique car IDs)
+Playable car models and trim variants in the online version. Selected base-car examples:
 
 | CarID | Description |
 |-------|-------------|
@@ -54,7 +54,16 @@ Playable car models in the online version:
 | 70hemicu | 1970 Plymouth Hemi Cuda |
 | 71duster | 1971 Plymouth Duster |
 
-**Note:** The Cars table also contains variant entries (COPO, Z-28, SS, RS, etc.) representing different trim levels. The database uses a complex multi-column row format that requires further analysis to fully decode.
+The Cars table now has complete variant extraction:
+- 83 unique car IDs recovered from 4056 rows
+- 72 base car names identified
+- Trim variants mapped across `1t`, `2t`, `3t`, plus named special trims
+
+Useful outputs in the repo:
+- `Cars.csv` — cleaned playable list
+- `Cars-complete.csv` — base + trim column view
+- `Cars-variants.csv` — one row per extracted variant
+- `Cars-trim-summary.csv` — suffix/variant breakdown
 
 ### StockEngines (283 entries)
 Engine names including: Turbo-Fire, Hemi, Boss 302, 440 Six Pack, 454 SS, 426 Hemi, etc.
@@ -79,7 +88,10 @@ Racing classes: Street, Performance, Sports Car, Grand Prix, Hypercar, Tuner
 
 All extracted data is available in the repository:
 - `Brand.csv` — Parts manufacturers
-- `Cars.csv` — Car models
+- `Cars.csv` — Cleaned playable car list
+- `Cars-complete.csv` — Base cars with grouped trim columns
+- `Cars-variants.csv` — Flat variant list
+- `Cars-trim-summary.csv` — Variant suffix summary
 - `StockEngines.csv` — Engine names
 - `PlayerType.csv` — Player account types
 - `SkinType.csv` — Paint/skin categories
@@ -124,7 +136,6 @@ Example Brand row (at page 38, offset 0x07de):
 
 ## Known Limitations
 
-- Cars table has 4056 total entries including variant trims (COPO, Z-28, SS, RS, etc.) - only the 13 base models extracted
 - PartStats (3952 rows) and large tables not yet fully decoded
 - Car physics parameters (weight, power, torque) not yet decoded as numeric values
 - Part compatibility matrix not yet decoded

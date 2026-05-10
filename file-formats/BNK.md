@@ -90,6 +90,5 @@ MCO BNK files contain car engine and track audio:
 ## Open Questions
 
 - How different RPM/engine sounds are selected during gameplay
-- Whether BNK files embed WAV headers or are pure stream data
 - Full block header format (what do the extra fields mean?)
-- Exact sample rate encoding in PT header (sometimes not present)
+- Exact sample rate encoding in PT header when the header omits an explicit rate

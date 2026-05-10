@@ -10,8 +10,8 @@ Complete documentation for all binary file formats used in Motor City Online.
 |---|---|---|
 | [FCE](FCE.md) | Car body geometry | ✅ Fully decoded |
 | [FSH](FSH.md) | Textures / images | ✅ Decoded |
-| [FRD](FRD.md) | Track road geometry | ✅ Partially decoded |
-| [FST](FST.md) | Unknown — possibly LOD/scene | ❌ Not decoded |
+| [FRD](FRD.md) | Track road geometry | ✅ Fully decoded |
+| [FST](FST.md) | Part feature/settings table companion to FCE | ✅ Partially decoded |
 | [BLF](BLF.md) | Bill of materials / vertex segmentation | ✅ Partially decoded |
 | [LOD](LOD.md) | Level-of-detail distance thresholds | ✅ Decoded |
 
