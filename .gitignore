@@ -1,11 +1,36 @@
-tools/__pycache__/*.pyc
+# Byte-compiled Python
+__pycache__/
+*.pyc
+*.pyo
 
-# Local-only/private notes, experiments, and machine-specific config
+# OS artifacts
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Local workspace files (private research)
 local/
 private/
 scratch/
-research/local/
 notes-local/
-*.local.md
-.env
-.env.*
+research/local/
+
+# TRACE protocol workspace (private notes)
+~/reverse-engineering/
+
+# Large binary files (not suitable for git)
+*.big
+*.viv
+*.fce
+*.frd
+*.fst
+*.bnk
+*.fsh
+*.mdb
+*.iso
+*.7z
+
+# Game install artifacts (sourced from user installs)
+extracted/

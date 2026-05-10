@@ -1,256 +1,146 @@
-# Motor City Online — Reverse Engineering Wiki
+# Motor City Online — Reverse Engineering
 
-> Reverse-engineered documentation for EA Seattle's 2001 online racing MMO.
+Preservation documentation for Electronic Arts Seattle's 2001 online racing MMO. This repo documents the game's binary file formats, network systems, and executable architecture — reverse-engineered from the final retail build.
 
-**Last updated:** 2026-05-10 | **Status:** Active project
-
----
-
-## 🎯 Progress & Roadmap
-
-### ✅ COMPLETED
-
-| Category | Item | Status |
-|----------|------|--------|
-| **Engine** | RefPack decompression | ✅ Full algorithm implemented |
-| **Engine** | FRD track format | ✅ Fully decoded (header, vertex, face sections) |
-| **Engine** | BLF format | ✅ Fully decoded (per-car bill of materials) |
-| **Engine** | LOD format | ✅ Fully decoded (LOD distance thresholds) |
-| **Engine** | FCE format | ✅ Fully decoded (car geometry + material slots) |
-| **Audio** | BNK format | ✅ Header/entry structure decoded |
-| **Audio** | EA XA ADPCM | ✅ Decoder implemented (R1/R2/R3 variants) |
-| **Audio** | BNK → WAV | ✅ `bnk2wav.py` working on real track/audio banks |
-| **Database** | MDB format | ✅ Jet 3.0 DB fully parsed (4096-byte pages) |
-| **Database** | MDB TDEF | ✅ Row format cracked (all 9 tables extracted as CSV) |
-| **Database** | Cars table variants | ✅ 83 unique car IDs across 72 base cars extracted |
-| **Textures** | FSH format (GIMX) | ✅ record_id 0xFD = A8R8G8B8 + RefPack |
-| **Textures** | FSH format (car skins) | ✅ record_id 0xFE = A1R5G5B5 + RefPack |
-| **Textures** | FSH format (offline) | ✅ record_id 0x7D = Raw A8R8G8B8 |
-| **Textures** | HUD50 `4444` entry | ✅ Decodes correctly with RefPack + A8R8G8B8 |
-| **Network** | NPS protocol | ✅ Donated by Molly |
-| **Network** | MCOTS protocol | ✅ Donated by Molly |
-| **Network** | RC4/DES-CBC encryption | ✅ Documented |
-| **Network** | PKWARE DCL compression | ✅ Documented |
-| **Archive** | BIG format | ✅ Fully decoded |
-| **Archive** | VIV format | ✅ Both variants (standard + BIGF-wrapped) |
-| **UI** | Engine parameters | ✅ All fields documented |
-| **UI** | INI format | ✅ Fully parsed |
-
-### 🔄 IN PROGRESS
-
-| Category | Item | Status | Notes |
-|----------|------|--------|-------|
-| **Models** | FST format | ✅ Partial | Part feature/settings table. Header + descriptor table + 0x0300 padding + post-pad bulk data (16-byte records with paired duplicate fields). |
-| **Executable** | EXE architecture | 🔄 Partial | NPS subsystem structure documented. mcacity.exe + mco.exe + authlogin.dll architecture mapped. |
-
-### ❓ UNKNOWN / FUTURE WORK
-
-| Category | Item | Priority | Notes |
-|----------|------|----------|-------|
-| **FST** | Post-pad decode | Medium | Post-pad bulk data structure partially understood (16-byte records with paired duplicates). Exact field meanings need FCE vertex correlation. |
-| **Tracks** | Track barriers | Low | `.trn` files unexamined |
-| **Scripts** | Event/script system | Low | No `.scm` files found yet |
-| **UI** | DCL compression tuning | Low | Parameters may be tweakable via engine.ini |
+> This project is for preservation and educational purposes. Do not use it to play without purchasing the game or to infringe on EA's copyrights.
 
 ---
 
-## 📁 Quick Links
+## Repository Status
 
-- [File Format Reference](file-formats/README.md) — All binary formats documented
-- [Track Format](file-formats/FRD.md) — Track geometry (FRD) and track textures (FSH)
-- [Car Model Format](file-formats/FCE.md) — Car geometry (FCE), textures (FSH), VIV archives
-- [BIG Archive Format](file-formats/BIG.md) — EA's archive format
-- [Audio Format](file-formats/BNK.md) — Sound banks and EA XA ADPCM audio
-- [Database](file-formats/DATABASE.md) — Online.mdb Access database structure
-- [Tools](tools/README.md) — Extraction and conversion utilities
-- [Research: Beta 1](research/BETA1.md) — June 27, 2001 beta analysis
-- [Research: Oct 09 Prototype](research/OCT09.md) — October 9, 2001 WebBeta 2 analysis
-- [Network Protocol](research/NETWORK_PROTOCOL.md) — Complete protocol specification donated by Molly
-- [Executable Architecture](research/Executable-Architecture.md) — mcacity.exe, NPS subsystem, and authentication flow
-- [Extracted Geometry](extracted/) — Converted OBJ files
+This is a **live reverse-engineering effort**. Not everything is decoded. Every claim is tagged with its evidence level — see [Evidence Key](#evidence-key) below.
+
+**What's solid:** BIG/VIV archives, FCE geometry, FSH textures, LOD, INI, extracted database schema, engpatch archive structure, patch pipeline.
+
+**What's blocked:** BNK audio codec (encrypted), engine curve tables (proprietary format), runtime audio selection algorithm (no disassembly), CASTANET serialization format (no live capture possible).
 
 ---
 
-## Extracted Geometry
+## Evidence Key
 
-Converted car models and tracks from the offline version (2012 community release). All geometry extracted using the tools in this repo. OBJ format with UV coordinates.
-
-### Car Models (`extracted/car_models/`)
-
-13 car geometry files from the offline version VIV archives.
-
-| File | Vertices | Triangles | Notes |
-|------|----------|-----------|-------|
-| `53chevy.obj` | 1193 | 1431 | 1953 Chevrolet |
-| `55cameo.obj` | 1201 | 2480 | 1955 Chevrolet Cameo |
-| `56ftruck.obj` | 1091 | 2061 | 1956 Chevrolet Pickup |
-| `59impala.obj` | 1326 | 1609 | 1959 Chevrolet Impala |
-| `8ball.obj` | 1120 | 1716 | Custom / novelty |
-| `96supra.obj` | 1529 | 3652 | 1996 Toyota Supra |
-| `97eclps.obj` | 33 | 60 | Partial geometry (spoiler/side mirror) |
-| `hc59-hc64.obj` | 15 | 12 | Template variants |
-
-### Tracks (`extracted/tracks/`)
-
-16 track geometry files (FRD format). Includes Derby, Foundry, GasTown, Hazard, and all final release tracks.
+| Tag | Meaning |
+|-----|---------|
+| **Verified** | Confirmed on multiple samples; working implementation exists |
+| **Partial** | Core structure understood; some fields or variants unknown |
+| **Unknown** | Format/purpose identified; decoding blocked or not started |
 
 ---
 
-## What Is This?
+## Quick Reference
 
-Motor City Online (MCO) was an online racing MMO released by EA Seattle in October 2001, shut down in August 2003. It was built on a custom engine derived from the Need for Speed series, using EA's proprietary binary formats for 3D models, track geometry, textures, and audio.
+### File Formats — `docs/formats/`
 
-This wiki documents the file formats, tools, and findings from reverse-engineering the game's binary data files. All documentation is derived from analyzing the actual game files — no source code or proprietary documentation was used.
+| Format | Status | Notes |
+|--------|--------|-------|
+| BIG / VIV | Verified | Archive container; BIG4 + BIGF variants |
+| FCE | Verified | Car geometry; 12B/vertex, 56B/triangle |
+| FSH | Verified | Textures; multiple pixel formats |
+| LOD | Verified | LOD distance thresholds |
+| INI | Verified | Track configuration |
+| FRD | Partial | Road surface decoded; native mesh unknown |
+| FST | Partial | Header confirmed; bulk records unknown |
+| BLF | Partial | Vertex segmentation; chunk list partial |
+| MDB | Partial | Schema extracted; physics fields unknown |
+| ENGPATCH | Partial | Archive decoded; runtime selection unknown |
+| BNK | **Unknown** | Header parsed; codec unidentified (encrypted) |
+| TRK | **Unknown** | Not analyzed |
+
+### Game Systems — `docs/research/`
+
+| Topic | Status |
+|--------|--------|
+| Patch System | Partial — pipeline confirmed; offline mode partial |
+| Network Protocol | Partial — donated by Molly; serialization unknown |
+| EXE Architecture | Partial — NPS subsystem mapped |
+| Beta 1 (Jun 2001) | Verified |
+| Oct09 Prototype | Verified |
+
+### Tools — `tools/`
+
+| Tool | Input → Output | Status |
+|------|---------------|--------|
+| `viv_extract.py` | .viv → files | Works |
+| `big_extract.py` | .big → files | Works |
+| `fce2obj.py` | part.fce → OBJ | Works |
+| `frd2obj.py` | Tr.frd → OBJ mesh | Works |
+| `fsh2png.py` | .fsh → PNG | Works |
+| `mdb_extract.py` | Online.mdb → CSV | Partial — small tables only |
+| `bnk2wav.py` | track.bnk → WAV | **Blocked** — codec unknown |
+
+### Extracted Data — `data/`
+
+| File | Contents |
+|------|----------|
+| `Cars-complete.csv` | 83 unique car IDs, 72 base models |
+| `Brand.csv` | 103 manufacturers |
+| `StockEngines.csv` | 26 stock engine configs |
+| `cars/` | Extracted OBJ car meshes (16 models) |
+| `tracks/` | Extracted OBJ track road meshes (17 tracks) |
 
 ---
 
-## Game Overview
+## Build Versions Documented
 
-| Property | Value |
-|---|---|
-| Developer | EA Seattle |
-| Publisher | Electronic Arts |
-| Release | October 31, 2001 |
-| Platform | PC (Windows) |
-| Engine | Modified Need for Speed engine |
-| Server shutdown | August 2003 |
-| Offline patch | 2012 community release (workaround for server closure) |
+| Build | Date | Key Notes |
+|-------|------|----------|
+| Beta 1 | Jun 27, 2001 | Loose files, 17 tracks, full debug EXE |
+| Oct09 Prototype | Oct 09, 2001 | Offline patch ready, mco_log.txt available |
+| Final Retail | Oct 2001 | BIG archives, MCity_d.exe debug symbols |
+| Offline Patch | ~Mar 2003 | Content overlay; does not replace engpatch |
 
----
-
-## Build Comparison
-
-| | Beta 1 (Jun 27) | Oct 09 (Oct 9) | Final (Oct 31) | Offline (2012) |
-|---|---|---|---|---|
-| VIV count | 304 | 628 | ~50 (in cars.big) | 13 |
-| BIG archives | No | No | Yes | No |
-| Installed size | 1.3 GB | 616 MB | BIG-packed | ~1 GB |
-| Executable | `MCity.exe` | `mcity.exe` (lowercase!) | `MCity.exe` | `MCity_d.exe` |
-| Debug symbols | No | No | No | Yes — 2012 RE build |
-| Tracks | 17 | 16 | 15 | 16 |
-
-**Notable:** Only the Oct 09 build has a lowercase executable name (`mcity.exe`). The `MCity_d.exe` in the offline version is a 2012 community rebuild, not an original EA debug build.
+**engpatch.viv SHA-1 is identical across all three game builds** (2f88a489a67318338de51de842a6044b8deadbbf) — the engine audio patch archive was never updated by any patch.
 
 ---
 
-## Available Builds
+## What Is NOT Decoded
 
-### Beta 1 — June 27, 2001
-First public beta. 280 car VIVs as loose files, 17 tracks including Derby and Dirtoval (both removed from final).
+These are the major gaps — understanding them would unlock significant new work:
 
-### Oct 09 Prototype — October 9, 2001
-Second and final beta (WebBeta 2). 628 VIVs, 16 tracks. Installed size actually *smaller* than Beta 1 despite more VIV files. Tracks: Derby, Gravel, Obstacle removed; Hazard added; ParkA renamed to Parka.
-
-### Final Release — October 31, 2001
-Standard BIG-packed distribution. 50 cars in `cars.big`, 15 tracks. Includes `MCity_d.exe` — actually a 2012 offline patch rebuild, not original EA debug.
-
-### Offline Version — 2012
-Community release for playing without servers. Uses BIGF-wrapped VIV format with GIMX (GameCube) texture ports. 13 car models, 16 tracks with completely different names (Derby, Foundry, GasTown, etc.).
+1. **BNK audio codec** — blocked. The audio data is encrypted or uses a proprietary codec. No known codec signature found.
+2. **Engine curve tables** (engine.ltb, engine.ctb, etc.) — Creative Labs CRD format, sparse storage. Content meaning unknown.
+3. **Runtime engpatch selection** — how MDB keys map to BNK files at runtime. Not traced in disassembly.
+4. **FRD native mesh** — pointer-linked index data not decoded; road surface triangulation works but is not the original mesh.
+5. **CASTANET serialization** — message binary format unknown; no live capture possible.
 
 ---
 
-## Directory Structure (Final Release)
+## Source Code Stubs — `src/`
+
+Disassembled and annotated stubs from `MCity_d.exe`:
 
 ```
-Motor City Online/
-├── MCity.exe          # Main game executable
-├── MCity_d.exe        # 2012 offline patch rebuild (not original EA debug)
-├── Data/
-│   ├── cars.big       # Car models + textures
-│   ├── tracks.big     # Track geometry + textures
-│   ├── audio.big      # Music + SFX banks
-│   ├── patch.big      # Engine patches
-│   ├── DB.big         # Database (Online.mdb)
-│   ├── GUI.big        # UI textures
-│   ├── feArt.big      # Front-end art
-│   └── (other BIGs)   # Additional archives
-├── lang/              # Localization
-└── SaveData/          # Player saves
+src/
+├── npslib/     — NPS network library (CASTANET + core)
+├── game/       — Game subsystems (audio, physics, render)
+├── mcity/      — MCity core (mcity_core.cpp)
+└── authlogin/  — Authentication DLL
 ```
 
-## Key File Types
-
-| Extension | Type | Description |
-|---|---|---|
-| `.fce` | 3D Model | Car geometry (Full Car Editor format) |
-| `.fsh` | Texture | Image/texture (EA FSH / SHPI format) |
-| `.frd` | Track | Track road surface geometry |
-| `.big` | Archive | EA archive (BIGF format) |
-| `.viv` | Archive | Per-car archive (two variants — see VIV.md) |
-| `.bnk` | Audio | Sound bank (EA XA ADPCM audio) |
-| `.mdb` | Database | Microsoft Access database (car stats) |
-| `.trk` | Track | Track routing/graph data |
-| `.trn` | Track | Track barrier/net geometry |
-| `.blf` | Car | Bill of materials (vertex segmentation) |
-| `.lod` | Car | Level-of-detail distance thresholds |
-
-## Supported Tools
-
-- **fce2obj.py** — FCE car model → Wavefront OBJ converter
-- **frd2obj.py** — FRD track geometry → OBJ converter
-- **big_extract.py** — BIG archive extractor
-- **viv_extract.py** — VIV extractor (handles both standard and BIGF-wrapped variants)
-- **iso_extract.py** — ISO 9660 extractor (no root/loopback required)
-- **fsh2png_v2.py** — FSH texture extractor (RefPack + A8R8G8B8/BGRA5551/RGB565)
-- **bnk2wav.py** — BNK audio extractor (EA XA ADPCM)
-- **refpack_decompress.py** — Pure Python RefPack decompressor
-- **mdb_extract.py** — MDB database table exporter (pure Python Jet DB parser)
-
-## Common Tasks
-
-### Extract ISO contents (no root needed)
-```bash
-python3 iso_extract.py "Motor City Online.iso" extracted/
-```
-
-### Extract BIG archives
-```bash
-python3 big_extract.py cars.big extracted/
-```
-
-### Extract a VIV car archive
-```bash
-python3 viv_extract.py 53chevy.viv 53chevy/
-```
-
-### Convert a car model to OBJ
-```bash
-python3 viv_extract.py 53chevy.viv temp/
-python3 fce2obj.py temp/part.fce 53chevy_body.obj
-```
-
-### Convert a track to OBJ
-```bash
-python3 frd2obj.py Data/Tracks/Boothill/Tr.frd boothill.obj
-```
-
-### Extract textures from FSH
-```bash
-python3 fsh2png_v2.py HUD50.fsh extracted/
-```
-
-### Export database tables (pure Python, no mdb-tools needed)
-```bash
-python3 mdb_extract.py Online.mdb output_dir/
-```
+These are C stubs reconstructed from disassembly, not the original source code.
 
 ---
 
-## Open Questions
+## Contributing
 
-1. **FST format** — purpose and structure still partially unknown (per-car part metadata table)
-2. **G264 acronym** — what G264 actually stands for (not "Graphics 264")
-3. **Track barriers** — `.trn` files completely unexamined
-4. **DCL compression parameters** — tuning values may be tweakable via engine.ini
+This repo accepts:
+- Corrections with supporting evidence
+- New format discoveries with hex evidence
+- Working tool implementations
+
+This repo does NOT accept:
+- Game ROMs or copyrighted assets
+- Claims without evidence
+- Speculation presented as fact
 
 ---
 
-## Network Protocol — DOCUMENTED!
+## Related Projects
 
-The complete MCO network protocol has been documented by Molly! See [Network Protocol](research/NETWORK_PROTOCOL.md) for:
+- [AZMCO](https://github.com/americusmaximus/AZMCO) — Open-source MCO recreation (renderer, physics, audio)
+- [Rusty Motors](https://github.com/rustymotors/server) — MCO server recreation attempt
+- [EA BIG Archive — rewiki](https://rewiki.miraheze.org/wiki/EA_BIG_Archive)
+- [EA SSH FSH Image — rewiki](https://rewiki.miraheze.org/wiki/EA_SSH_FSH_Image_(Type_1))
 
-- **NPS Protocol** — lobby/authentication
-- **MCOTS Protocol** — game transactions
-- **Encryption** — NPS: DES-CBC, MCOTS: RC4
-- **Compression** — PKWARE DCL implode/explode
-- **Race lifecycle** and message catalog
+---
+
+*Last updated: 2026-05-10*

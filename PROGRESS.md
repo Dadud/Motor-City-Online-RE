@@ -1,171 +1,82 @@
-# Motor City Online - Research Status
+# Research Progress
 
-## Summary
+Last updated: 2026-05-10
 
-This is a comprehensive reverse engineering project for Motor City Online, an EA racing game from 2001.
+## Status Key
 
-## What We Know (Verified)
+| Tag | Meaning |
+|-----|---------|
+| Verified | Confirmed on multiple samples; working implementation |
+| Partial | Core structure known; some unknowns remain |
+| Unknown | Decoding blocked or not started |
 
-### File Formats (COMPLETE)
+---
 
-| Format | Status | Notes |
-|--------|--------|-------|
-| **FCE** | ✅ Complete | Car geometry, magic `0x19EB 0xEEFE` |
-| **FRD** | ✅ Complete | Track road geometry |
-| **FSH** | ✅ Complete | Texture containers (0x7D, 0x7E, 0xFD, 0xFE) |
-| **BIG** | ✅ Complete | Archive format |
-| **VIV** | ✅ Complete | EA archive format |
-| **BNK** | ✅ Complete | Audio banks (EA XA ADPCM) |
-| **FST** | ✅ Complete | Car surface textures |
-| **LOD** | ✅ Complete | Level of detail distances |
-| **DATABASE** | ✅ Complete | Jet DB 3, 4096-byte pages |
-| **BLF** | ✅ Complete | Log file format |
-| **INI** | ✅ Complete | Config format |
-| **TRK** | ⚠️ Partial | AI racing line, not fully decoded |
+## File Formats
 
-### Network Protocol (COMPLETE)
+| Format | Status | Core Achievement |
+|--------|--------|-----------------|
+| BIG / VIV | Verified | BIG4 + BIGF variants, DCL compression |
+| FCE | Verified | FCE4M, 12B/vertex, 56B/triangle, material flags |
+| FSH | Verified | SHPI container, 5 pixel formats, RefPack |
+| LOD | Verified | 7-float format, trivial |
+| INI | Verified | Standard INI, human-readable |
+| FRD | Partial | Road surface decoded; native mesh index unknown |
+| FST | Partial | Header confirmed; post-pad bulk records unknown |
+| BLF | Partial | Structure known; chunk type list partial |
+| MDB | Partial | Schema extracted; PartStats fields unknown |
+| ENGPATCH | Partial | Archive + MDB keys decoded; runtime selection unknown |
+| BNK | **Unknown** | Header parsed; audio codec unidentified |
+| TRK | **Unknown** | Not analyzed |
 
-| Component | Status | Notes |
-|-----------|--------|-------|
-| **CASTANET** | ✅ Complete | 12-byte header: magic(4) + ver(2) + type(2) + len(4) |
-| **NPS Messages** | ✅ Complete | ~40 message types documented |
-| **Error Codes** | ✅ Complete | 40+ CASTANET error codes |
-| **Authentication** | ✅ Complete | AAI_EAS flow |
+---
 
-### Source Tree (COMPLETE)
+## Unknowns — Priority Order
 
-Full source file paths recovered from binary strings:
-- `C:\mcity\Game\PSim*.c` - Physics (10 files)
-- `C:\mcity\Game\cars.c`, `carload.c` - Car handling
-- `C:\mcity\Game\Track.c` - Track system
-- `C:\mcity\Frontend\db*.c` - Database systems
-- `C:\nps\Common\NPSLib\Src\` - Network library
+1. **BNK audio codec** — encrypted; would unlock all audio extraction
+2. **Engine.* CRDl tables** — Creative Labs CRD format; sparse storage; byte meaning unknown
+3. **Runtime engpatch selection** — how MDB keys map to BNK files at runtime
+4. **FRD native mesh topology** — pointer-linked index data not decoded
+5. **CASTANET serialization** — message binary format unknown; live capture impossible
 
-### Implemented Code
+---
 
-| Component | Status | Lines |
-|-----------|--------|-------|
-| **CASTANET/NPS** | ✅ Working | ~800 |
-| **Physics Engine** | ✅ Working | ~700 |
-| **OpenAL Audio** | ✅ Working | ~800 |
-| **OpenGL Renderer** | ✅ Working | ~1300 |
+## Builds Documented
 
-## What's Left
+| Build | Date | Key Differences |
+|-------|------|-----------------|
+| Beta 1 | Jun 27, 2001 | Loose files, 17 tracks, no BIG archives |
+| Oct09 Prototype | Oct 09, 2001 | Offline patch ready, mco_log.txt available |
+| Final Retail | Oct 2001 | BIG archives, MCity_d.exe debug symbols |
+| Offline Patch | ~Mar 2003 | Content overlay; does not replace engpatch |
 
-### Unknown/Not Done
+**engpatch.viv SHA-1** is identical across all three game builds:
+`2f88a489a67318338de51de842a6044b8deadbbf`
 
-1. **TRK Format** - AI racing line data structure not fully decoded
-2. **DirectX 8 Integration** - Original renderer uses D3D8, we have OpenGL
-3. **Car Physics Parameters** - Need to extract from DATABASE
-4. **Track Physics Data** - `pavement.ini` parsing
-5. **Car Customization System** - Part attachment points
-6. **Race Event System** - Event scheduling
-7. **Club System** - Multiplayer clubs
-8. **Input System** - DirectInput
+---
 
-## Database Tables (from SQL)
+## Data Extracted
 
-### Verified Tables
-- `Part` - Parts
-- `BrandedPart` - Brand parts
-- `AbstractPartType` - Categories
-- `PartType` - Types
-- `StockAssembly` - Stock configs
-- `Vehicle` - Vehicles
-- `Player` - Players
-- `Persona` - Characters
-- `Event` - Race events
-- `EventInvitation` - Invites
-- `VehicleHistory` - Race results
-- `VehicleRecords` - Time records
-- `Brand` - Brands
-- `Model` - Models
+| Data | Rows | Location |
+|------|------|----------|
+| Car models | 83 unique | `data/Cars-complete.csv` |
+| Brands | 103 | `data/Brand.csv` |
+| Stock engines | 26 | `data/StockEngines.csv` |
+| Car OBJ meshes | 16 | `data/car_models/` |
+| Track road meshes | 17 | `data/tracks/` |
+| Attachment points | 12 | `data/AttachmentPoint.csv` |
+| Player types | 5 | `data/PlayerType.csv` |
+| Skin types | 10 | `data/SkinType.csv` |
+| Driver classes | 3 | `data/DriverClass.csv` |
 
-## Key Strings Found
+---
 
-### Physics Functions
-```
-Physics_Select
-Physics_SelectByOridinal
-Physics_SelectBranded
-NoticeFixedObjectCollision
-NoticeObjectCollision f/b/r
-NoticeWallCollision
-```
+## Network Protocol
 
-### Car Functions
-```
-CarLoad_Init
-CarLoad_FromFile
-CarLoad_FromDatabase
-ManualResetCar
-```
-
-### Track Functions
-```
-Track_Load
-Track_Unload
-Track_GetPosition
-Track_GetLapDistance
-```
-
-### Audio
-```
-EngineSmokeBlack
-EngineSmokeSteam
-EngineSmokeOil
-SFX_PinkSlip1_ptc
-```
-
-## File Locations
-
-### Oct 09 Prototype
-```
-mco-files/oct09/extracted/
-└── Motor City Online (Oct 09, 2001 prototype)/
-    └── Installed Game/
-        ├── mcity.exe (5MB) - Main game
-        ├── mco.exe (557KB) - NPS core
-        ├── nps/
-        │   ├── authlogin.dll
-        │   ├── mrbupd.dll
-        │   ├── NPSAnlyz.dll
-        │   ├── PBA.exe
-        │   └── ProxyTool.exe
-        ├── Data/
-        │   ├── DB/ - Database files
-        │   ├── Tracks/ - Track files
-        │   └── Cars/ - Car files
-        └── engpatch.viv - Patch file
-```
-
-## Build Information
-
-From binary:
-```
-PDB: C:\mcity\vc_mcity___Win32_Final0\MCity.pdb
-Compiler: Visual C++ 6.0
-Build: Win32_Final0
-Date: October 8, 2001
-```
-
-## Repository
-
-**GitHub:** https://github.com/Dadud/Motor-City-Online-RE
-
-### Recent Commits
-- `d4c0f75` - Add modern OpenGL rendering system
-- `fe118e8` - Add OpenAL audio system
-- `e1aa796` - Add working physics, car handling, AI, track systems
-- `fd7102c` - Replace mock with working CASTANET/NPS implementation
-- `dbee67c` - Add reconstructed source code from binary analysis
-- `e431d41` - Update FST documentation
-- `752c447` - Add complete Cars table (83 variants)
-
-## How to Help
-
-1. Decode the TRK format - AI racing line data
-2. Document the `pavement.ini` format
-3. Write a track loader based on FRD format
-4. Create a simple game demo using our physics/renderer
-5. Test the NPS protocol implementation
+| Item | Status |
+|------|--------|
+| CASTANET error codes (40+) | Verified (EXE strings) |
+| Auth server flow | Verified (EXE strings) |
+| NPS message types | Partial (donated by Molly) |
+| CASTANET serialization | **Unknown** |
+| Packet encryption | Unverified (donated doc) |
