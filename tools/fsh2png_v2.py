@@ -1,178 +1,40 @@
 #!/usr/bin/env python3
 """
-SHPI texture to PNG converter v2 for Motor City Online.
+SHPI texture extractor for Motor City Online.
 Handles RefPack decompression and various pixel formats.
 
-Key insight from analysis:
-- xamas: raw RGB565 (no RefPack, just coincidental 0x10 0xFB bytes)
-- gear/metr: RefPack compressed, decompresses to RGBA (88x38, 20x208)
-- 4444: RefPack compressed, decompresses to 262144 bytes (256x256x4)
+Supported formats:
+- record_id 0xFD: RefPack + A8R8G8B8 (MCO Beta 1 / Oct 09 GIMX)
+- record_id 0xFE: RefPack + A1R5G5B5 (Oct 09 BGRA5551)
+- record_id 0x7D: Raw A8R8G8B8 (offline version G264)
+- record_id 0x7E: Raw A1R5G5B5
+- record_id 0xFB: Raw RGB565 (xamas entry)
 
-The decompressed RGBA data may still need format conversion.
+Based on Xentax wiki specification for EA FSH format.
+record_id byte: bit 7 = compression flag, lower 7 bits = record type
 """
 
 import struct
 import sys
 import os
-import zlib
+import importlib.util
 
-class RefPackDecompressor:
-    """RefPack decompression implementation."""
-    
-    def decompress(self, data: bytes, max_out_size: int = 0) -> tuple:
-        if len(data) < 5:
-            raise ValueError(f"Data too short: {len(data)} bytes")
-        
-        inp = memoryview(data)
-        outp = bytearray()
-        
-        signature = (inp[0] << 8) | inp[1]
-        pos = 2
-        
-        has_compressed_size = signature & 0x0100
-        large_files = signature & 0x8000
-        
-        if has_compressed_size:
-            if large_files:
-                compressed_size = struct.unpack('>I', inp[pos:pos+4])[0]
-                pos += 4
-            else:
-                compressed_size = (inp[pos] << 16) | (inp[pos+1] << 8) | inp[pos+2]
-                pos += 3
-        
-        if large_files:
-            decompressed_size = struct.unpack('>I', inp[pos:pos+4])[0]
-            pos += 4
-        else:
-            decompressed_size = (inp[pos] << 16) | (inp[pos+1] << 8) | inp[pos+2]
-            pos += 3
-        
-        if max_out_size > 0 and decompressed_size > max_out_size:
-            decompressed_size = max_out_size
-        
-        out_buf = bytearray(decompressed_size)
-        out_pos = 0
-        
-        while out_pos < decompressed_size:
-            if pos >= len(data):
-                break
-                
-            byte0 = inp[pos]
-            pos += 1
-            
-            if not (byte0 & 0x80):
-                # 2-byte command
-                if pos >= len(data):
-                    break
-                byte1 = inp[pos]
-                pos += 1
-                
-                proc_len = byte0 & 0x03
-                for i in range(proc_len):
-                    if out_pos >= decompressed_size:
-                        break
-                    out_buf[out_pos] = inp[pos]
-                    pos += 1
-                    out_pos += 1
-                
-                ref_dis = ((byte0 & 0x60) << 3) + byte1 + 1
-                ref_len = ((byte0 >> 2) & 0x07) + 3
-                
-                for i in range(ref_len):
-                    if out_pos >= decompressed_size:
-                        break
-                    src_pos = out_pos - ref_dis
-                    if src_pos < 0:
-                        src_pos = 0
-                    out_buf[out_pos] = out_buf[src_pos]
-                    out_pos += 1
-                    
-            elif not (byte0 & 0x40):
-                # 3-byte command
-                if pos + 1 >= len(data):
-                    break
-                byte1 = inp[pos]
-                byte2 = inp[pos + 1]
-                pos += 2
-                
-                proc_len = byte1 >> 6
-                for i in range(proc_len):
-                    if out_pos >= decompressed_size:
-                        break
-                    out_buf[out_pos] = inp[pos]
-                    pos += 1
-                    out_pos += 1
-                
-                ref_dis = ((byte1 & 0x3f) << 8) + byte2 + 1
-                ref_len = (byte0 & 0x3f) + 4
-                
-                for i in range(ref_len):
-                    if out_pos >= decompressed_size:
-                        break
-                    src_pos = out_pos - ref_dis
-                    if src_pos < 0:
-                        src_pos = 0
-                    out_buf[out_pos] = out_buf[src_pos]
-                    out_pos += 1
-                    
-            elif not (byte0 & 0x20):
-                # 4-byte command
-                if pos + 2 >= len(data):
-                    break
-                byte1 = inp[pos]
-                byte2 = inp[pos + 1]
-                byte3 = inp[pos + 2]
-                pos += 3
-                
-                proc_len = byte0 & 0x03
-                for i in range(proc_len):
-                    if out_pos >= decompressed_size:
-                        break
-                    out_buf[out_pos] = inp[pos]
-                    pos += 1
-                    out_pos += 1
-                
-                ref_dis = ((byte0 & 0x10) << 12) + (byte1 << 8) + byte2 + 1
-                ref_len = ((byte0 & 0x0c) << 6) + byte3 + 5
-                
-                for i in range(ref_len):
-                    if out_pos >= decompressed_size:
-                        break
-                    src_pos = out_pos - ref_dis
-                    if src_pos < 0:
-                        src_pos = 0
-                    out_buf[out_pos] = out_buf[src_pos]
-                    out_pos += 1
-                    
-            else:
-                # 1-byte command
-                proc_len = (byte0 & 0x1f) * 4 + 4
-                
-                if proc_len <= 0x70:
-                    for i in range(proc_len):
-                        if out_pos >= decompressed_size:
-                            break
-                        out_buf[out_pos] = inp[pos]
-                        pos += 1
-                        out_pos += 1
-                else:
-                    proc_len = byte0 & 0x03
-                    for i in range(proc_len):
-                        if out_pos >= decompressed_size:
-                            break
-                        out_buf[out_pos] = inp[pos]
-                        pos += 1
-                        out_pos += 1
-                    break
-        
-        return bytes(out_buf[:out_pos]), pos
-    
-    def decompress_simple(self, data: bytes) -> bytes:
-        result, _ = self.decompress(data)
-        return result
+# Load shared RefPack decompressor
+spec = importlib.util.spec_from_file_location("refpack", 
+    os.path.join(os.path.dirname(__file__), "refpack_decompress.py"))
+refpack_mod = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(refpack_mod)
+RefPackDecompressor = refpack_mod.RefPackDecompressor
 
 
-def parse_shpi_type1(filepath):
+# Format definitions (from Xentax wiki)
+FORMAT_8888 = 'A8R8G8B8'  # 32-bit
+FORMAT_5551 = 'A1R5G5B5'  # 16-bit
+FORMAT_RGB565 = 'R5G6B5'  # 16-bit
+FORMAT_4444 = 'A4R4G4B4'  # 16-bit
+
+
+def parse_shpi(filepath):
     """Parse SHPI Type 1 image file."""
     with open(filepath, 'rb') as f:
         data = f.read()
@@ -184,6 +46,7 @@ def parse_shpi_type1(filepath):
     num_entries = struct.unpack('<I', data[8:12])[0]
     format_ver = data[12:16].decode('ascii', errors='replace')
     
+    # Parse directory
     entries = []
     for i in range(num_entries):
         base = 16 + i * 8
@@ -191,7 +54,8 @@ def parse_shpi_type1(filepath):
         entry_offset = struct.unpack('<I', data[base+4:base+8])[0]
         entries.append({'tag': tag, 'offset': entry_offset})
     
-    parsed_entries = []
+    # Parse entry headers
+    parsed = []
     for i, ent in enumerate(entries):
         off = ent['offset']
         if off >= len(data):
@@ -199,6 +63,8 @@ def parse_shpi_type1(filepath):
         
         ehdr = data[off:off+16]
         record_id = ehdr[0]
+        record_type = record_id & 0x7F
+        compressed = (record_id >> 7) & 1
         
         offset_next = ehdr[1] | (ehdr[2] << 8) | (ehdr[3] << 16)
         if offset_next & 0x800000:
@@ -210,10 +76,11 @@ def parse_shpi_type1(filepath):
         data_start = off + 16
         next_off = entries[i+1]['offset'] if i+1 < len(entries) else len(data)
         
-        parsed_entries.append({
+        parsed.append({
             'tag': ent['tag'].decode('ascii', errors='replace').strip('\x00'),
             'record_id': record_id,
-            'offset_next': offset_next,
+            'record_type': record_type,
+            'compressed': compressed,
             'width': width,
             'height': height,
             'data_start': data_start,
@@ -221,29 +88,11 @@ def parse_shpi_type1(filepath):
             'format': format_ver,
         })
     
-    return {
-        'total_size': total_size,
-        'num_entries': num_entries,
-        'format': format_ver,
-        'entries': parsed_entries,
-        'raw_data': data,
-    }
-
-
-def decode_rgb565_be(data, width, height):
-    """Decode RGB565 big-endian data."""
-    pixels = []
-    for i in range(min(width * height, len(data) // 2)):
-        w = data[i*2] | (data[i*2+1] << 8)
-        r = ((w >> 11) & 0x1F) * 8
-        g = ((w >> 5) & 0x3F) * 4
-        b = (w & 0x1F) * 8
-        pixels.append((r, g, b, 255))
-    return pixels
+    return {'data': data, 'format': format_ver, 'entries': parsed}
 
 
 def decode_argb8888(data, width, height):
-    """Decode ARGB8888 data (little-endian uint32)."""
+    """Decode A8R8G8B8 (little-endian uint32)."""
     pixels = []
     for i in range(min(width * height, len(data) // 4)):
         w = struct.unpack('<I', data[i*4:i*4+4])[0]
@@ -255,21 +104,33 @@ def decode_argb8888(data, width, height):
     return pixels
 
 
-def decode_abgr8888(data, width, height):
-    """Decode ABGR8888 data (little-endian, like BGRA)."""
+def decode_bgra5551(data, width, height):
+    """Decode A1R5G5B5 (little-endian uint16)."""
     pixels = []
-    for i in range(min(width * height, len(data) // 4)):
-        w = struct.unpack('<I', data[i*4:i*4+4])[0]
-        a = (w >> 24) & 0xFF
-        b = (w >> 16) & 0xFF
-        g = (w >> 8) & 0xFF
-        r = w & 0xFF
+    for i in range(min(width * height, len(data) // 2)):
+        w = struct.unpack('<H', data[i*2:i*2+2])[0]
+        a = 255 if (w >> 15) & 1 else 0
+        b = ((w >> 10) & 0x1F) * 8
+        g = ((w >> 5) & 0x1F) * 8
+        r = (w & 0x1F) * 8
         pixels.append((r, g, b, a))
     return pixels
 
 
+def decode_rgb565(data, width, height):
+    """Decode R5G6B5 (big-endian uint16)."""
+    pixels = []
+    for i in range(min(width * height, len(data) // 2)):
+        w = data[i*2] | (data[i*2+1] << 8)
+        r = ((w >> 11) & 0x1F) * 8
+        g = ((w >> 5) & 0x3F) * 4
+        b = (w & 0x1F) * 8
+        pixels.append((r, g, b, 255))
+    return pixels
+
+
 def save_ppm(pixels, width, height, outpath):
-    """Save as PPM (RGB, no alpha)."""
+    """Save as PPM (RGB only, no alpha)."""
     with open(outpath, 'wb') as f:
         f.write(f"P6\n{width} {height}\n255\n".encode())
         for r, g, b, a in pixels:
@@ -285,92 +146,78 @@ def save_pam(pixels, width, height, outpath):
             f.write(bytes([r, g, b, a]))
 
 
-def extract_entry(shpi_data, entry, outdir, dec):
-    """Extract a single SHPI entry as image."""
+def extract_entry(data, entry, outdir, dec):
+    """Extract a single SHPI entry."""
     tag = entry['tag']
     width = entry['width']
     height = entry['height']
     record_id = entry['record_id']
+    record_type = entry['record_type']
+    compressed = entry['compressed']
     data_start = entry['data_start']
     data_end = entry['data_end']
     
     if width == 0 or height == 0:
-        print(f"  Skipping {tag}: invalid dimensions")
+        print(f"  [SKIP] {tag}: invalid dimensions")
         return
     
-    total_data = data_end - data_start
-    expected_rgb565 = width * height * 2
-    expected_rgba = width * height * 4
-    
+    raw = data[data_start:data_end]
     os.makedirs(outdir, exist_ok=True)
-    base_path = os.path.join(outdir, f"{tag}_{width}x{height}")
+    base = os.path.join(outdir, f"{tag}_{width}x{height}")
     
-    raw = shpi_data[data_start:data_end]
+    # Select decoder based on record_type
+    # 0x7D = 8888 = A8R8G8B8 (32-bit)
+    # 0x7E = 5551 = A1R5G5B5 (16-bit)
+    # 0xFB = RGB565 (xamas special case, no compression)
     
-    # Try different decoding approaches
-    decoded_pixels = None
-    method = None
-    
-    # Approach 1: Check if data starts with RefPack signature
-    if len(raw) >= 2 and raw[0] == 0x10 and raw[1] == 0xFB:
-        try:
+    if record_type == 0x7D:
+        # A8R8G8B8 format
+        expected_size = width * height * 4
+        
+        if compressed:
+            # RefPack compressed
             dec_data = dec.decompress_simple(raw)
-            print(f"  RefPack: compressed {len(raw)} -> {len(dec_data)}")
-            
-            # Check if decompressed size matches RGBA
-            if len(dec_data) == expected_rgba:
-                # Try as ARGB8888
-                decoded_pixels = decode_argb8888(dec_data, width, height)
-                nonzero = sum(1 for p in decoded_pixels if p[0] != 0 or p[1] != 0 or p[2] != 0)
-                print(f"  ARGB8888: {nonzero}/{width*height} non-zero pixels")
-                if nonzero > 0:
-                    method = "RefPack + ARGB8888"
-            
-            # Also try as ABGR8888
-            if decoded_pixels is None or method is None:
-                decoded_pixels = decode_abgr8888(dec_data, width, height)
-                nonzero = sum(1 for p in decoded_pixels if p[0] != 0 or p[1] != 0 or p[2] != 0)
-                print(f"  ABGR8888: {nonzero}/{width*height} non-zero pixels")
-                if nonzero > 0:
-                    method = "RefPack + ABGR8888"
-                    
-        except Exception as e:
-            print(f"  RefPack failed: {e}")
-    
-    # Approach 2: Try raw RGB565 (for entries like xamas that aren't actually compressed)
-    if decoded_pixels is None and len(raw) >= expected_rgb565:
-        decoded_pixels = decode_rgb565_be(raw, width, height)
-        nonzero = sum(1 for p in decoded_pixels if p[0] != 0 or p[1] != 0 or p[2] != 0)
-        print(f"  RGB565 raw: {nonzero}/{width*height} non-zero pixels")
-        if nonzero > width * height * 0.1:  # At least 10% non-zero
-            method = "raw RGB565"
-    
-    # Approach 3: Try with header skip
-    if decoded_pixels is None:
-        for skip in [96, 80, 64, 48, 32]:
-            if len(raw) >= skip + expected_rgb565:
-                pixel_data = raw[skip:skip + expected_rgb565]
-                decoded_pixels = decode_rgb565_be(pixel_data, width, height)
-                nonzero = sum(1 for p in decoded_pixels if p[0] != 0 or p[1] != 0 or p[2] != 0)
-                print(f"  RGB565 skip {skip}: {nonzero}/{width*height} non-zero pixels")
-                if nonzero > width * height * 0.1:
-                    method = f"RGB565 + {skip}B header"
-                    break
-    
-    # Save the result
-    if decoded_pixels:
-        try:
-            # Use PAM for RGBA data, PPM for RGB
-            if method and 'ARGB' in method or 'ABGR' in method:
-                save_pam(decoded_pixels, width, height, base_path + ".pam")
-                print(f"  Extracted: {tag}.pam ({width}x{height}) [{method}]")
-            else:
-                save_ppm(decoded_pixels, width, height, base_path + ".ppm")
-                print(f"  Extracted: {tag}.ppm ({width}x{height}) [{method}]")
-        except Exception as e:
-            print(f"  Image save failed: {e}")
+            print(f"  [0x7D+RefPack] {len(raw)} -> {len(dec_data)} bytes")
+        else:
+            # Raw
+            dec_data = raw
+            print(f"  [0x7D raw] {len(dec_data)} bytes")
+        
+        pixels = decode_argb8888(dec_data, width, height)
+        method = "A8R8G8B8"
+        
+    elif record_type == 0x7E:
+        # A1R5G5B5 format
+        expected_size = width * height * 2
+        
+        if compressed:
+            dec_data = dec.decompress_simple(raw)
+            print(f"  [0x7E+RefPack] {len(raw)} -> {len(dec_data)} bytes")
+        else:
+            dec_data = raw
+            print(f"  [0x7E raw] {len(dec_data)} bytes")
+        
+        pixels = decode_bgra5551(dec_data, width, height)
+        method = "A1R5G5B5"
+        
+    elif record_type == 0xFB:
+        # RGB565 format (raw, no compression)
+        dec_data = raw
+        print(f"  [0xFB RGB565] {len(dec_data)} bytes")
+        pixels = decode_rgb565(dec_data, width, height)
+        method = "R5G6B5"
+        
     else:
-        print(f"  Could not decode {tag}")
+        print(f"  [UNKNOWN] record_type=0x{record_type:02X}, record_id=0x{record_id:02X}")
+        return
+    
+    # Check content
+    nonzero = sum(1 for p in pixels if p[0] != 0 or p[1] != 0 or p[2] != 0)
+    print(f"  [{method}] {nonzero}/{width*height} non-zero pixels")
+    
+    # Save
+    save_pam(pixels, width, height, base + ".pam")
+    print(f"  [OK] -> {tag}.pam")
 
 
 def main():
@@ -381,20 +228,17 @@ def main():
     shpi_path = sys.argv[1]
     out_dir = sys.argv[2] if len(sys.argv) > 2 else shpi_path + "_extracted"
     
-    print(f"Parsing SHPI: {shpi_path}")
-    try:
-        shpi = parse_shpi_type1(shpi_path)
-    except Exception as e:
-        print(f"Parse error: {e}")
-        sys.exit(1)
-    
-    print(f"Format: {shpi['format']}, Entries: {shpi['num_entries']}")
+    print(f"Parsing: {shpi_path}")
+    shpi = parse_shpi(shpi_path)
+    print(f"Format: {shpi['format']}, Entries: {len(shpi['entries'])}")
     
     dec = RefPackDecompressor()
     
     for entry in shpi['entries']:
-        print(f"\nEntry: {entry['tag']} ({entry['width']}x{entry['height']}, record_id=0x{entry['record_id']:02x})")
-        extract_entry(shpi['raw_data'], entry, out_dir, dec)
+        print(f"\nEntry: {entry['tag']} ({entry['width']}x{entry['height']}, "
+              f"record_id=0x{entry['record_id']:02X}, type=0x{entry['record_type']:02X}, "
+              f"comp={entry['compressed']})")
+        extract_entry(shpi['data'], entry, out_dir, dec)
 
 
 if __name__ == '__main__':
