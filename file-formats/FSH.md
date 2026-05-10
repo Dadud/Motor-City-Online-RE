@@ -78,20 +78,31 @@ The GIMX header appears to be 80 bytes for most entries. Some entries have no he
 | HUD50.fsh (Beta 1) | `xamas` | 44×44 | 3952 | 3872 | ✅ Works (raw RGB565) |
 | HUD50.fsh (Beta 1) | `gear` | 88×38 | 4568 | 6688 | ✅ Works (80B header) |
 | HUD50.fsh (Beta 1) | `metr` | 20×208 | 5320 | 8320 | ✅ Works (80B header) |
-| HUD50.fsh (Beta 1) | `4444` | 256×256 | 84328 | 131072 | ❌ ratio=0.64 |
+| HUD50.fsh (Beta 1) | `4444` | 256×256 | 84328 | 131072 | ❌ RefPack compressed |
 | part.shpi (Oct09) | `hc07` | 64×64 | 8208 | 8192 | ❌ Unknown format |
 | 53chevy.shpi (offline) | `0000` | 256×256 | 1157758 | 131072 | ❌ G264 format |
 
-The first 4 bytes of GIMX data (`10 FB 00 xx`) are often actual RGB565 pixel data, not a format marker. The header structure is not yet fully decoded.
+**The 4444 entry (256×256)** uses RefPack compression! Data starts with RefPack header `10 FB 04 00 00` which decompresses to 262144 bytes (256×256×4). However, the decompressed data appears to be 32-bit ARGB8888 but doesn't render correctly — the GIMX format may use different byte ordering or an additional header.
+
+**RefPack decompression:**
+```python
+# See tools/refpack_decompress.py
+# Based on Niotso Wiki specification
+# Header: flags(1) + 0xFB(1) + [compressed_size(3)] + decompressed_size(3)
+```
 
 ### G264 Format (record_id 0x7D) — Offline Version
 
 Used in offline version car VIV textures. **NOT YET DECODED.**
 
-Structure (partially understood):
+**Note:** According to Xentax wiki, record_id 0x7D = 8888 (32-bit A8R8G8B8) in SimCity 4. But MCO offline version may use a different interpretation.
+
+Structure (partially understood from 53chevy.shpi analysis):
 - Index array (428 × 4 = 1712 bytes) at data_start
-- 256-entry BGRA palette starting at offset 0x6D8 (for 53chevy.shpi)
+- 256-entry BGRA palette starting at offset 0x6D8
 - Remaining data is pixel data (possibly compressed or with metadata)
+
+The index array appears to be references into the pixel data, not simple palette indices.
 
 ### Oct09 Format (record_id 0x7E)
 
@@ -129,6 +140,6 @@ python3 tools/fsh2png.py HUD50.fsh extracted/
 
 - Full GIMX header structure (80-96 bytes — what each byte means)
 - How to decode record_id 0x7E (Oct09 prototype)
-- How to decode the 256×256 GIMX texture (HUD50.fsh `4444`)
+- How to decode the 256×256 GIMX texture (HUD50.fsh `4444`) — RefPack compressed but decompressed data not valid
 - G264 paletted format (record_id 0x7D) — complete decode
 - How texture palettes are stored for PAL4/PAL8 formats
