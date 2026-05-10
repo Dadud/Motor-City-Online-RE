@@ -1,1 +1,11 @@
 tools/__pycache__/*.pyc
+
+# Local-only/private notes, experiments, and machine-specific config
+local/
+private/
+scratch/
+research/local/
+notes-local/
+*.local.md
+.env
+.env.*
