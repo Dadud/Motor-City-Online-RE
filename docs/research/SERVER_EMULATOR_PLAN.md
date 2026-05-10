@@ -293,31 +293,74 @@ To get something working fast:
 
 ---
 
+## External Resources
+
+**The mcos project (formerly rustymotors/server) is a COMPLETE working implementation:**
+- TypeScript/Node.js monorepo
+- Already achieved lobby connection (Oct 12, 2023)
+- GitHub: https://github.com/drazisil-codecov/mcos (forked from rustymotors)
+- Docker-based deployment
+- Client patch documented with registry redirect + SSL cert
+
+### mcos Architecture
+```
+packages/
+├── cli           # CLI tools
+├── connection    # Connection handling
+├── database     # PostgreSQL (MikroORM)
+├── gateway      # SSL gateway (handles old cipher issues)
+├── mcots        # MCOTS transaction server
+├── nps          # NPS protocol
+├── patch        # Client patch tools
+├── shard        # Game/shard server
+├── shared-packets   # Packet definitions
+└── shared       # Shared utilities
+
+src/
+├── nps_server.ts    # Entry point (login + lobby)
+└── chat/            # Chat module
+```
+
+### Ports (from mcos docker-compose):
+- 80, 443 — Web/SSL gateway
+- 6660, 7003 — Lobby Server (PLS)
+- 8226, 8227, 8228 — Login Server
+- 43200, 43300, 43400 — MCOTS
+- 53303 — Shard/Game Server
+
+### Client Setup (from mcos docs):
+1. Import `mco.reg` registry file (redirects to server)
+2. Copy `pub.key` to game directory
+3. Install SSL cert into Trusted Root store
+4. Set `graphicsModeIndex` in `SaveData/options.ini`
+
+---
+
+## Revised Strategy
+
+**Don't rebuild from scratch — contribute to or fork mcos!**
+
+The mcos project has:
+- ✅ Complete server implementation (login, lobby, MCOTS, shard)
+- ✅ SSL gateway for cipher compatibility
+- ✅ Client patch tools
+- ✅ Database schema
+- ✅ Working lobby connection
+
+What remains to be done (from their issue tracker):
+- Full race functionality
+- Car purchasing transactions
+- Club features
+- etc.
+
+---
+
 ## References
 
-- `docs/research/NETWORK_PROTOCOL.md` — Primary protocol reference
+- `docs/research/NETWORK_PROTOCOL.md` — Primary protocol reference (Molly's donation)
 - `src/npslib/castanet.c` — Existing CASTANET implementation reference
 - `src/npslib/nps.c` — Existing NPS API reference
 - Game binary strings (`mcity.exe`, `mco.exe`, `authlogin.dll`)
-- AZMCO project (reference only): https://github.com/americusmaximus/AZMCO
-
----
-
-## Open Questions
-
-1. **RSA keys** — Where are the login server's RSA public keys stored?
-2. **DH parameters** — What are the Diffie-Hellman parameters for MCOTS key exchange?
-3. **Server list** — What format does the shard/server list need to be in?
-4. **Client checks** — What integrity checks does the client perform on server responses?
-5. **CD keys** — Does the game validate CD keys locally or with server?
-
----
-
-## Next Steps
-
-1. Extract RSA public key from `authlogin.dll` or `mco.exe`
-2. Capture/identify the DH key exchange parameters from MCOTS
-3. Build Phase 1 login server with mock data
-4. Test against actual client with Wireshark
-5. Iterate
+- **mcos project**: https://github.com/drazisil-codecov/mcos (main implementation)
+- **AZMCO**: https://github.com/americusmaximus/AZMCO (full game reimplementation, not server)
 
