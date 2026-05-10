@@ -1,14 +1,22 @@
-CarID,Description
-57belair,1957 Chevrolet Bel-Air
-57chevy,1957 Chevrolet Bel-Air
-59impala,1959 Chevrolet Impala
-67camaro,1967 Chevrolet Camaro
-69vette,1969 Chevrolet Corvette
-69torino,1969 Ford Torino Cobra
-69roadrunner,1969 Plymouth Road Runner
-69gto,1969 Pontiac GTO
-70mustang,1970 Ford Mustang
-70stang,1970 Ford Mustang Mach 1
-70cuda,1970 Plymouth Cuda
-70hemicu,1970 Plymouth Hemi Cuda
-71duster,1971 Plymouth Duster
+CarID,Description,TrimLevel,Notes
+57belair,1957 Chevrolet Bel-Air,base,
+57chevy,1957 Chevrolet Bel-Air (custom),base,
+59impala,1959 Chevrolet Impala,base,
+67camaro,1967 Chevrolet Camaro,base,
+67camaro1t,1967 Chevrolet Camaro SS-350,trim1,
+67camaro2t,1967 Chevrolet Camaro SS-396,trim2,
+69vette,1969 Chevrolet Corvette,base,
+69torino,1969 Ford Torino Cobra,base,
+69roadrunner,1969 Plymouth Road Runner,base,
+69gto,1969 Pontiac GTO,base,
+69gto1t,1969 Pontiac GTO The Judge,trim1,
+69gto2t,1969 Pontiac GTO Ram Air,trim2,
+70mustang,1970 Ford Mustang,base,
+70mustang1t,1970 Ford Mustang Boss 302,trim1,
+70stang,1970 Ford Mustang Mach 1,base,
+70cuda,1970 Plymouth Cuda,base,
+70cuda1t,1970 Plymouth Cuda Hemi,trim1,
+70cuda2t,1970 Plymouth AAR Cuda,trim2,
+70hemicu,1970 Plymouth Hemi Cuda,base,
+71duster,1971 Plymouth Duster,base,
+71duster2t,1971 Plymouth Duster 340,trim2,
