@@ -40,14 +40,14 @@
 | **Textures** | FST format | 🔄 Partial | Mesh annotation table, not raw geometry. Magic: `e0134678`. Per-car part metadata companion to FCE. |
 | **Textures** | 4444 entry | 🔄 Partial | RefPack works, content valid. May be a special format variant. |
 | **Audio** | BNK → WAV | 🔄 Partial | Decoder written, needs integration into tool |
-| **Models** | Full Cars table | 🔄 Partial | 4056 rows includes variants; 13 base models correctly extracted |
+| **Database** | Cars table | ✅ Complete | 83 car ID variants across 72 base cars extracted from 4056-row table |
 
 ### ❓ UNKNOWN / FUTURE WORK
 
 | Category | Item | Priority | Notes |
 |----------|------|----------|-------|
 | **FST** | Full decode | High | Per-car part metadata table correlated with FCE. Magic `e0134678` still unexplained. |
-| **Models** | Car variants | Medium | COPO, Z-28, SS, RS trims need separation logic |
+| **Models** | Car variants | ✅ Complete | 83 variants extracted including SS, RS, COPO-style trims |
 | **Tracks** | Track barriers | Low | `.trn` files unexamined |
 | **Scripts** | Event/script system | Low | No `.scm` files found yet |
 | **UI** | DCL compression tuning | Low | Parameters may be tweakable via engine.ini |
