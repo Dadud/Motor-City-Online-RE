@@ -38,6 +38,7 @@ All tracks extracted from offline version FRD files. Each OBJ has ~1240 sample p
 - [Tools](tools/README.md) — Extraction and conversion utilities
 - [Research: Beta 1](research/BETA1.md) — June 27, 2001 beta analysis
 - [Research: Oct 09 Prototype](research/OCT09.md) — October 9, 2001 WebBeta 2 analysis
+- [Network Protocol](research/NETWORK_PROTOCOL.md) — Complete protocol specification donated by Molly
 - [Extracted Geometry](extracted/) — Converted OBJ files
 
 ## What Is This?
@@ -187,8 +188,16 @@ mdb-export Online.mdb CarPhysics       # Export physics table
 
 - FST format purpose and structure (largest remaining unknown)
 - SHPI/GIMX texture decoder (for converting textures to PNG)
-- Network protocol for online multiplayer
 - Script/event system (if any .scm files exist?)
 - Full BLF chunk type enumeration
 - Track AI racing line / rubber-banding formula
 - `Dirtoval` extra files (`track.fce`, `spdF0.bin`, `spdR0.bin`) purpose
+
+### Network Protocol — NOW DOCUMENTED!
+
+The complete MCO network protocol has been documented by Molly! See [Network Protocol](research/NETWORK_PROTOCOL.md) for:
+- NPS Protocol (lobby/authentication)
+- MCOTS Protocol (game transactions)
+- Encryption (NPS: DES-CBC, MCOTS: RC4)
+- Compression (PKWARE DCL implode/explode)
+- Race lifecycle and message catalog
