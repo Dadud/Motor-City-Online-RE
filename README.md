@@ -37,7 +37,7 @@
 
 | Category | Item | Status | Notes |
 |----------|------|--------|-------|
-| **Textures** | FST format | 🔄 Partial | Mesh annotation table, not raw geometry. Magic: `e0134678`. Per-car part metadata companion to FCE. |
+| **Models** | FST format | ✅ Partial | Part feature/settings table. Header + descriptor table + 0x0300 padding + post-pad bulk data (16-byte records with paired duplicate fields). |
 | **Textures** | 4444 entry | 🔄 Partial | RefPack works, content valid. May be a special format variant. |
 | **Audio** | BNK → WAV | 🔄 Partial | Decoder written, needs integration into tool |
 | **Database** | Cars table | ✅ Complete | 83 car ID variants across 72 base cars extracted from 4056-row table |
@@ -46,7 +46,7 @@
 
 | Category | Item | Priority | Notes |
 |----------|------|----------|-------|
-| **FST** | Full decode | High | Per-car part metadata table correlated with FCE. Magic `e0134678` still unexplained. |
+| **FST** | Post-pad decode | Medium | Post-pad bulk data structure partially understood (16-byte records with paired duplicates). Exact field meanings need FCE vertex correlation. |
 | **Models** | Car variants | ✅ Complete | 83 variants extracted including SS, RS, COPO-style trims |
 | **Tracks** | Track barriers | Low | `.trn` files unexamined |
 | **Scripts** | Event/script system | Low | No `.scm` files found yet |
