@@ -34,3 +34,6 @@ research/local/
 
 # Game install artifacts (sourced from user installs)
 extracted/
+
+# Asset gallery (generated)
+mco-gallery/
