@@ -26,14 +26,13 @@ Last updated: 2026-05-10
 | BLF | Partial | Structure known; chunk type list partial |
 | MDB | Partial | Schema extracted; PartStats fields unknown |
 | ENGPATCH | Partial | Archive + MDB keys decoded; runtime selection unknown |
-| BNK | **Unknown** | Header parsed; audio codec unidentified |
+| BNK | Verified | EA XA ADPCM codec; bnk2wav.py works, produces valid WAV |
 | TRK | **Unknown** | Not analyzed |
 
 ---
 
 ## Unknowns — Priority Order
 
-1. **BNK audio codec** — encrypted; would unlock all audio extraction
 2. **Engine.* CRDl tables** — Creative Labs CRD format; sparse storage; byte meaning unknown
 3. **Runtime engpatch selection** — how MDB keys map to BNK files at runtime
 4. **FRD native mesh topology** — pointer-linked index data not decoded
@@ -59,11 +58,11 @@ Last updated: 2026-05-10
 
 | Data | Rows | Location |
 |------|------|----------|
-| Car models | 83 unique | `data/Cars-complete.csv` |
+| Car models | 72 unique | `data/Cars-complete.csv` |
 | Brands | 103 | `data/Brand.csv` |
 | Stock engines | 26 | `data/StockEngines.csv` |
 | Car OBJ meshes | 16 | `data/car_models/` |
-| Track road meshes | 17 | `data/tracks/` |
+| Track road meshes | 6 extracted (16 in game) | `data/tracks/` |
 | Attachment points | 12 | `data/AttachmentPoint.csv` |
 | Player types | 5 | `data/PlayerType.csv` |
 | Skin types | 10 | `data/SkinType.csv` |
