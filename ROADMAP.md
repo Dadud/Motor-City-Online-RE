@@ -9,10 +9,10 @@
 
 - [x] **M0** Repo audit → `PROJECT_STATE.md`
 - [x] **M1** Server skeleton + SQLite + account/login + seed data
-- [ ] **M2** Data models + migrations + persistence tests
-- [ ] **M3** Preservation client (CLI/TUI first)
+- [x] **M2** Data models + migrations + persistence tests
+- [x] **M3** Preservation client (CLI/TUI first)
 - [ ] **M4** Race lobby flow (create/join/ready/start)
-- [ ] **M5** Driveable race scene (placeholder acceptable)
+- [x] **M5** Driveable race scene (placeholder acceptable)
 - [ ] **M6** Asset integration via `mco-scan`
 - [ ] **M7** Original-client compatibility research
 - [ ] **M8** LAN multiplayer prototype

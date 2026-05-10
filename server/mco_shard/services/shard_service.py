@@ -2,10 +2,12 @@ from __future__ import annotations
 
 from pathlib import Path
 import csv
+import json
 import sqlite3
+import time
 from typing import Any
 
-from server.mco_shard.persistence.database import Database
+from server.mco_shard.persistence.database import Database, LATEST_SCHEMA_VERSION
 
 
 class ShardService:
@@ -14,7 +16,7 @@ class ShardService:
         self.repo_root = repo_root
 
     def init(self, seed: bool = True) -> None:
-        self.db.init_schema()
+        self.db.upgrade(LATEST_SCHEMA_VERSION)
         if seed:
             self.seed_data()
 
@@ -28,7 +30,6 @@ class ShardService:
             conn.commit()
 
     def _seed_settings(self, conn: sqlite3.Connection) -> None:
-        conn.execute("INSERT OR IGNORE INTO server_settings(key, value) VALUES ('schema_version', '1')")
         conn.execute("INSERT OR IGNORE INTO server_settings(key, value) VALUES ('server_name', 'MCO Local Shard')")
 
     def _seed_dealerships(self, conn: sqlite3.Connection) -> None:
@@ -271,6 +272,19 @@ class ShardService:
             part = conn.execute("SELECT * FROM owned_parts WHERE id=? AND profile_id=?", (owned_part_id, profile_id)).fetchone()
             if not part:
                 raise ValueError("owned part not found")
+            current = conn.execute(
+                "SELECT owned_part_id FROM car_builds WHERE owned_car_id=? AND slot_name=?",
+                (owned_car_id, slot_name),
+            ).fetchone()
+            if current and current["owned_part_id"] and current["owned_part_id"] != owned_part_id:
+                conn.execute(
+                    "UPDATE owned_parts SET state='inventory', owned_car_id=NULL, slot_name=NULL WHERE id=? AND profile_id=?",
+                    (current["owned_part_id"], profile_id),
+                )
+                conn.execute(
+                    "INSERT INTO inventory_items(profile_id, item_type, ref_id, quantity) VALUES (?, 'part', ?, 1)",
+                    (profile_id, current["owned_part_id"]),
+                )
             conn.execute("DELETE FROM inventory_items WHERE profile_id=? AND item_type='part' AND ref_id=?", (profile_id, owned_part_id))
             conn.execute(
                 "INSERT INTO car_builds(owned_car_id, slot_name, owned_part_id) VALUES (?, ?, ?) ON CONFLICT(owned_car_id, slot_name) DO UPDATE SET owned_part_id=excluded.owned_part_id, installed_at=CURRENT_TIMESTAMP",
@@ -306,6 +320,10 @@ class ShardService:
 
     def create_lobby(self, profile_id: int, event_id: int, lobby_name: str) -> dict[str, Any]:
         with self.db.connect() as conn:
+            event = conn.execute("SELECT * FROM events WHERE id=?", (event_id,)).fetchone()
+            if not event:
+                raise ValueError("event not found")
+            self._charge_entry_fee(conn, profile_id, event_id, event["entry_fee"])
             cur = conn.execute(
                 "INSERT INTO race_lobbies(event_id, host_profile_id, lobby_name) VALUES (?, ?, ?)",
                 (event_id, profile_id, lobby_name),
@@ -320,6 +338,17 @@ class ShardService:
 
     def join_lobby(self, lobby_id: int, profile_id: int) -> dict[str, Any]:
         with self.db.connect() as conn:
+            lobby = conn.execute("SELECT * FROM race_lobbies WHERE id=?", (lobby_id,)).fetchone()
+            if not lobby:
+                raise ValueError("lobby not found")
+            event = conn.execute("SELECT * FROM events WHERE id=?", (lobby["event_id"],)).fetchone()
+            member_count = conn.execute(
+                "SELECT COUNT(*) AS member_count FROM race_lobby_members WHERE lobby_id=?",
+                (lobby_id,),
+            ).fetchone()["member_count"]
+            if member_count >= event["max_players"]:
+                raise ValueError("lobby is full")
+            self._charge_entry_fee(conn, profile_id, lobby["event_id"], event["entry_fee"])
             conn.execute(
                 "INSERT OR IGNORE INTO race_lobby_members(lobby_id, profile_id, ready) VALUES (?, ?, 0)",
                 (lobby_id, profile_id),
@@ -341,9 +370,63 @@ class ShardService:
 
     def start_lobby(self, lobby_id: int) -> dict[str, Any]:
         with self.db.connect() as conn:
+            lobby = conn.execute("SELECT * FROM race_lobbies WHERE id=?", (lobby_id,)).fetchone()
+            if not lobby:
+                raise ValueError("lobby not found")
+            if lobby["state"] != "ready":
+                raise ValueError("lobby is not ready to start")
             conn.execute("UPDATE race_lobbies SET state='in_race', started_at=CURRENT_TIMESTAMP WHERE id=?", (lobby_id,))
             conn.commit()
             return {"lobby_id": lobby_id, "state": "in_race"}
+
+    def launch_race(self, lobby_id: int, duration_seconds: int = 5, scene_type: str = "text_loop") -> dict[str, Any]:
+        with self.db.connect() as conn:
+            lobby = conn.execute("SELECT * FROM race_lobbies WHERE id=?", (lobby_id,)).fetchone()
+            if not lobby:
+                raise ValueError("lobby not found")
+            if lobby["state"] not in {"ready", "in_race"}:
+                raise ValueError("lobby is not ready for race launch")
+            conn.execute("UPDATE race_lobbies SET state='in_race', started_at=COALESCE(started_at, CURRENT_TIMESTAMP) WHERE id=?", (lobby_id,))
+            config = {"duration_seconds": duration_seconds, "laps": 1}
+            conn.execute(
+                """
+                INSERT INTO race_sessions(lobby_id, status, scene_type, config_json)
+                VALUES (?, 'launched', ?, ?)
+                ON CONFLICT(lobby_id) DO UPDATE SET status='launched', scene_type=excluded.scene_type, config_json=excluded.config_json, launched_at=CURRENT_TIMESTAMP, completed_at=NULL
+                """,
+                (lobby_id, scene_type, json.dumps(config)),
+            )
+            conn.commit()
+            return {"lobby_id": lobby_id, "state": "in_race", "race_session": {"scene_type": scene_type, **config}}
+
+    def get_race_session(self, lobby_id: int) -> dict[str, Any]:
+        with self.db.connect() as conn:
+            session = conn.execute("SELECT * FROM race_sessions WHERE lobby_id=?", (lobby_id,)).fetchone()
+            if not session:
+                raise ValueError("race session not found")
+            data = dict(session)
+            data["config"] = json.loads(data.pop("config_json"))
+            return data
+
+    def run_placeholder_race(self, lobby_id: int, profile_id: int, command_log: list[str] | None = None) -> dict[str, Any]:
+        command_log = command_log or []
+        session = self.get_race_session(lobby_id)
+        duration = max(1, int(session["config"].get("duration_seconds", 5)))
+        accelerate_count = sum(1 for command in command_log if command == "accelerate")
+        brake_count = sum(1 for command in command_log if command == "brake")
+        steer_count = sum(1 for command in command_log if command.startswith("steer"))
+        # GUESSED: simple preservation-mode scoring that rewards active input and lightly penalizes braking.
+        finish_time_ms = max(1500, duration * 1000 - accelerate_count * 120 + brake_count * 40 + steer_count * 10)
+        with self.db.connect() as conn:
+            conn.execute(
+                "UPDATE race_sessions SET status='completed', completed_at=CURRENT_TIMESTAMP WHERE lobby_id=?",
+                (lobby_id,),
+            )
+            conn.commit()
+        result = self.submit_race_result(lobby_id, profile_id, position=1, finish_time_ms=finish_time_ms)
+        result["reward_notification"] = f"Race complete. Reward credited: ${result['reward']}"
+        result["finish_time_ms"] = finish_time_ms
+        return result
 
     def submit_race_result(self, lobby_id: int, profile_id: int, position: int, finish_time_ms: int) -> dict[str, Any]:
         with self.db.connect() as conn:
@@ -374,8 +457,40 @@ class ShardService:
                     "SELECT rlm.profile_id, rlm.ready, p.driver_name FROM race_lobby_members rlm JOIN profiles p ON p.id = rlm.profile_id WHERE rlm.lobby_id=? ORDER BY rlm.id",
                     (lobby["id"],),
                 ).fetchall()
-                out.append({**dict(lobby), "members": [dict(row) for row in members]})
+                race_session = conn.execute(
+                    "SELECT status, scene_type, config_json, launched_at, completed_at FROM race_sessions WHERE lobby_id=?",
+                    (lobby["id"],),
+                ).fetchone()
+                lobby_data = {**dict(lobby), "members": [dict(row) for row in members]}
+                if race_session:
+                    lobby_data["race_session"] = {
+                        **dict(race_session),
+                        "config": json.loads(race_session["config_json"]),
+                    }
+                    lobby_data["race_session"].pop("config_json", None)
+                out.append(lobby_data)
             return out
+
+    def _charge_entry_fee(self, conn: sqlite3.Connection, profile_id: int, event_id: int, entry_fee: int) -> None:
+        if entry_fee <= 0:
+            return
+        exists = conn.execute(
+            "SELECT 1 FROM transactions WHERE profile_id=? AND transaction_type='event_entry_fee' AND reference_type='event' AND reference_id=? LIMIT 1",
+            (profile_id, event_id),
+        ).fetchone()
+        if exists:
+            return
+        profile = conn.execute("SELECT cash_balance FROM profiles WHERE id=?", (profile_id,)).fetchone()
+        if not profile:
+            raise ValueError("profile not found")
+        if profile["cash_balance"] < entry_fee:
+            raise ValueError("insufficient funds for event entry")
+        new_balance = profile["cash_balance"] - entry_fee
+        conn.execute("UPDATE profiles SET cash_balance=? WHERE id=?", (new_balance, profile_id))
+        conn.execute(
+            "INSERT INTO transactions(profile_id, transaction_type, amount_delta, balance_after, reference_type, reference_id, note) VALUES (?, 'event_entry_fee', ?, ?, 'event', ?, 'Event entry fee')",
+            (profile_id, -entry_fee, new_balance, event_id),
+        )
 
     @staticmethod
     def _coerce_price(raw: str | None, fallback: int) -> int:
