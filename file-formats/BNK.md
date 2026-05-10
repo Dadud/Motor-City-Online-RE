@@ -11,59 +11,85 @@
 | Offset | Size | Value | Description |
 |--------|------|-------|-------------|
 | 0x00 | 4 | `BNKl` | Magic (EA Sound Bank little-endian) |
-| 0x04 | 2 | `4` | Version? |
-| 0x06 | 2 | `0x0080` | Platform flags (0x80 = Win32) |
-| 0x08 | 4 | `32` | Header size (0x20) |
-| 0x0C | 2 | `13` | Number of audio blocks? |
-| 0x10 | 4 | `0x0021cefb` | Offset or ID |
-| 0x14 | 4 | `0xFFFFFFFF` | Padding |
-| 0x18 | 2 | `2` | Block count |
-| 0x1C | 4 | `768` | Block size (0x0300) |
+| 0x04 | 2 | `4` | Version |
+| 0x06 | 2 | varies | Platform flags (0x0080 = Win32) |
+| 0x08 | 4 | varies | Header size |
+| 0x0C | 2 | varies | Number of entries |
+| 0x10 | 4 | varies | Offset or ID |
+| 0x14 | 4 | varies | Padding |
 
-## Audio Data
+## Audio Block Structure
 
-Audio data starts at offset `0x0D20` (3360 bytes).
+Audio is organized in blocks. Each block starts with a marker:
+
+```
+[FF 00 00 00] [50 54] [PT header data...] [audio frames...]
+     or
+[FF 00] [50 54] [PT header data...] [audio frames...]
+```
+
+Where:
+- `FF 00 00 00` = Sync marker (start of first block)
+- `FF 00` = Separator between blocks
+- `50 54` = "PT" codec ID
+
+### PT Header (Variable-Length Encoded)
+
+After "PT", the header uses variable-length encoding with subheaders:
+
+| Code | Name | Description |
+|------|------|-------------|
+| 0x82 | channels | Number of channels (1=mono, 2=stereo) |
+| 0x83 | compression | Compression type (0=none, 7=EA ADPCM) |
+| 0x84 | sample_rate | Sample rate in Hz |
+| 0x85 | num_samples | Number of samples |
+| 0x86 | loop_offset | Loop start offset |
+| 0x87 | loop_length | Loop length |
+| 0x88 | data_start | Data start offset |
+| 0x8A | (end) | End of subheader |
+| 0xFF | (end) | End of header |
+
+The header ends at the first `0xFF` byte.
 
 ### EA XA ADPCM Codec
 
-Each audio block contains EA XA ADPCM-compressed audio frames:
+After the PT header, audio frames follow:
 
+- **Frame size:** 15 bytes (mono) or 30 bytes (stereo)
+- **Samples per frame:** 28
+- **Compression:** 4-bit ADPCM with predictor
+
+**Decoding algorithm** (from vgmstream):
+
+```python
+EA_XA_TABLE = [0, 240, 460, 392, 0, 0, -208, -220, 0, 1, 3, 4, 7, 8, 10, 11, 0, -1, -3, -4]
+
+# For each frame:
+frame_info = audio_data[offset]  # First byte
+coef_idx = frame_info >> 4
+coef1 = EA_XA_TABLE[coef_idx + 0]
+coef2 = EA_XA_TABLE[coef_idx + 4]
+shift = (frame_info & 0x0F) + 8
+
+# For each sample in frame:
+sample_n = (nibble << 28) >> shift
+new_sample = sample_n + coef1 * hist1 + coef2 * hist2 + 128
+new_sample = clamp(new_sample >> 8, -32768, 32767)
 ```
-[Marker: 0xFF 0x00 0x00 0x00]
-[Codec ID: "PT" (0x54 0x50) — EA XA audio]
-[Sample rate: 44100 Hz encoded as uint32]
-[Channel/bits info]
-[Audio frames... (512 bytes per frame)]
-```
 
-### Decoding
+## MCO BNK Files
 
-EA XA ADPCM is a modified version of the CD-ROM XA ADPCM format:
-- 4-bit ADPCM samples
-- 18-byte mono / 36-byte stereo frame structure
-- 512 bytes per frame ≈ 1024 (mono) or 512 (stereo) samples
+MCO BNK files contain car engine and track audio:
 
-To decode:
-1. Strip the frame header (18 bytes for mono, 36 for stereo)
-2. Decode 4-bit ADPCM → 16-bit PCM
-3. Apply optional interleave for stereo
-
-Tools needed: `bnk2wav.py` or similar EA XA ADPCM decoder.
-
-## Audio Bank Contents (track.bnk example)
-
-Track banks contain multiple sound effects:
-- Engine loop sounds (different RPM levels)
-- Ambient crowd noise
-- Tire screech
-- Crash/collision sounds
-- Environmental audio (wind, announcer)
-
-The `audio.ini` file in each track directory maps these sounds to events.
+| File | Description | Duration |
+|------|-------------|----------|
+| track.bnk | Track ambient sounds | Varies by track |
+| gencar.bnk | Generic car sounds | ~16-17 seconds |
+| induslot.bnk | Industrial slot sounds | Varies |
 
 ## Open Questions
 
-- Exact frame header structure (18 vs 36 byte variants)
 - How different RPM/engine sounds are selected during gameplay
 - Whether BNK files embed WAV headers or are pure stream data
 - Full block header format (what do the extra fields mean?)
+- Exact sample rate encoding in PT header (sometimes not present)
