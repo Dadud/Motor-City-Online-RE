@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mco-local-shard"
+version = "0.1.0"
+description = "Clean-room Motor City Online local shard and preservation client"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.115.0",
+  "uvicorn>=0.30.0",
+  "pydantic>=2.8.0",
+]
+
+[project.scripts]
+mco-server = "server.mco_shard.app:main"
+mco-client = "client.preservation_client.cli:main"
+mco-scan = "tools.mco_scan.cli:main"
+
+[tool.setuptools]
+packages = ["server.mco_shard", "server.mco_shard.api", "server.mco_shard.services", "server.mco_shard.persistence", "server.mco_shard.models", "client.preservation_client", "tools.mco_scan"]
