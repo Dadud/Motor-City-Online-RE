@@ -159,7 +159,7 @@ class Renderer:
                 w2 = edge(x0, y0, x1, y1, x, y) / area
                 if w0 >= 0 and w1 >= 0 and w2 >= 0:
                     z = w0*z0 + w1*z1 + w2*z2
-                    if z < self.depth[y, x] and z > 0 and z < 1:
+                    if z < self.depth[y, x] and -1.0 < z < 1.0:
                         self.depth[y, x] = z
                         self.color[y, x] = base
 
@@ -168,19 +168,19 @@ class Renderer:
         self.clear()
         W, H = self.W, self.H
 
-        # Camera: for small models (cars, extent ~1-3), use working setup
-        # For large models (tracks, extent ~1000+), scale camera distance
-        xs = [v[0] for v in verts]
-        ys = [v[1] for v in verts]
-        zs = [v[2] for v in verts]
+        # Compute model bounding box
+        xs = [v[0] for v in verts]; ys = [v[1] for v in verts]; zs = [v[2] for v in verts]
         extent = max(max(xs)-min(xs), max(ys)-min(ys), max(zs)-min(zs))
+        cx = (min(xs)+max(xs))/2; cy = (min(ys)+max(ys))/2; cz = (min(zs)+max(zs))/2
 
-        # Only scale camera for large models (tracks, extent > 50)
-        # Cars (extent ~1-3) use the original working formula
+        # Camera: orbit around origin at fixed distance (was working before)
+        # Scale camera for large tracks so they fit in frame
+        # Camera: orbit at fixed distance, look at origin
+        # Scale camera for tracks so they fit in frame
         if extent > 50.0:
-            extent_ratio = extent / 3.0
+            extent_ratio = max(1.0, extent / 3.0)
             cam_dist = (3.0 / scale) * extent_ratio
-            model_scale = (50.0 / scale)
+            model_scale = 50.0 / scale
             far = 200000.0
         else:
             cam_dist = 3.0 / scale
