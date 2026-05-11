@@ -716,3 +716,221 @@ Per PCGamingWiki and My Abandonware:
 - PCGamingWiki (Wayback, Sept 2021): <https://web.archive.org/web/20210918132216/https://www.pcgamingwiki.com/wiki/Motor_City_Online>
 - My Abandonware: <https://www.myabandonware.com/game/motor-city-online-r4o>
 - MassivelyOP (Oct 2018): <https://web.archive.org/web/20200622071703/https://massivelyop.com/2018/10/14/you-can-play-long-sunsetted-motor-city-online-offline-thanks-to-emulation/>
+
+---
+
+## Complete Vehicle Roster
+
+Source: IGCD.net (<https://www.igcd.net/game.php?id=19842015>) — compiled from community submissions. 48+ vehicles spanning 1930s–1990s.
+
+| Year | Make | Model |
+|------|------|-------|
+| 1969 | AMC | AMX |
+| 1955 | Buick | Century |
+| 1959 | Cadillac | Eldorado Seville |
+| 1947 | Cadillac | Series 62 |
+| 1951 | Chevrolet | Advance-Design 3100 |
+| 1957 | Chevrolet | Bel Air |
+| 1958 | Chevrolet | Bel Air Impala |
+| 1957 | Chevrolet | Bel Air Nomad |
+| 1967 | Chevrolet | Camaro SS |
+| 1955 | Chevrolet | Cameo |
+| 1967 | Chevrolet | Chevelle |
+| 1970 | Chevrolet | Chevelle |
+| 1957 | Chevrolet | Corvette |
+| 1963 | Chevrolet | Corvette |
+| 1970 | Chevrolet | El Camino |
+| 1964 | Chevrolet | Impala |
+| 1970 | Chevrolet | Nova |
+| 1969 | Dodge | Charger |
+| 1953 | Ford | Crestline Sunliner |
+| 1957 | Ford | Fairlane |
+| 1964 | Ford | Galaxie |
+| 1932 | Ford | Model B |
+| 1965 | Ford | Mustang |
+| 1970 | Ford | Mustang Boss 429 |
+| 1957 | Ford | Ranchero |
+| 1957 | Ford | Thunderbird |
+| 1963 | Ford | Thunderbird |
+| 1969 | Ford | Torino |
+| 1933 | Ford | V-8 |
+| 1932 | Ford | V-8 De Luxe |
+| 1940 | Ford | V-8 De Luxe |
+| 1949 | Mercury | Monterey |
+| 1997 | Mitsubishi | Eclipse |
+| 1969 | Oldsmobile | 442 |
+| 1969 | Oldsmobile | Hurst/Olds |
+| 1971 | Plymouth | Duster |
+| 1970 | Plymouth | Hemi 'Cuda |
+| 1969 | Plymouth | Road Runner |
+| 1973 | Pontiac | Firebird Trans Am |
+| 1966 | Pontiac | GTO |
+| 1969 | Pontiac | GTO |
+| 1965 | Shelby | Cobra |
+| 1996 | Toyota | Supra |
+
+**Note:** Some cars were added post-launch via updates (e.g., 1996 Toyota Supra and 1997 Mitsubishi Eclipse in Update 7 — "sponsored" exclusives). The '99 Dodge Viper was cut from final release; a mod restores it (see My Abandonware).
+
+---
+
+## E3 2000 Game Critics Awards — Best Racing Game
+
+**Winner:** Need for Speed: Motor City (Electronic Arts for PC)
+
+**Runner Up:** Gran Turismo 2000 (Polyphony Digital / Sony for PlayStation 2)
+
+Award blurb by Robert Mayer (Editor, Computer Games Online):
+
+> "What could be cooler than boulevard cruising and drive-in styling in a classic hunk of Detroit iron? Not much; out of the pack of slick racing games we thought EA's multiplayer hotrod crossed the finish line first. Great atmosphere, trick looks, and the potential for deeper online gameplay than most racers give this one the checkered flag."
+
+This was awarded at E3 2000 when the game was still titled *Need for Speed: Motor City* and before the pivot to a pure MMO format was fully public.
+
+Full 2000 winners list: <https://www.gamecriticsawards.com/2000winners.html>
+
+---
+
+## Pre-Release Coverage (as "Need for Speed: Motor City")
+
+### GameRevolution Preview (circa 2000)
+
+Source: <https://www.gamerevolution.com/review/342193-nfs-motor-city-preview>
+
+> "Buy your favorite piece of American steel, trick it out from the wheels up and challenge the unwary to an all-out asphalt-eating contest... By the time Need for Speed: Motor City rolls onto the shelves, it will be sporting a completely new game engine, incredible graphics, enhanced physics and will offer the widest selection of classic cars in any racing game to date. But it is the revolutionary multiplayer mode that is the real star here. Electronic Arts aspires to create an online world, a virtual racing community with as much depth as massively multiplayer fantasy games like Everquest or Ultima Online."
+
+Key pre-release claims:
+- 30+ licensed cars from 1930s–1970s (more via download after ship)
+- 12 districts of Motor City with distinct racing areas
+- Active economy with parts trade
+- Sanctioned racing circuit with "Motor City Cup"
+- Motor City Gazette (virtual newspaper for classifieds, news)
+- Offline modes planned for single-player practice
+- Target: Fall 2000
+
+### 01net Preview (French, circa 2000)
+
+Source: <https://www.01net.com/actualites/nfs-motor-city-online-des-details-138030.html>
+
+Key details from the French preview:
+- Developed by **EA Seattle** (team behind NFS 3: Hot Pursuit and NFS 4: High Stakes)
+- Built on an **improved version of the NFS4 3D engine** with a "brand new physics engine"
+- 1000+ authentic parts (Edelbrock, Holley, Hurst, etc.)
+- ~40 American classic cars from 1930s–1970s
+- Club system for community racing
+- Motor City Gazette with classified ads
+- Release target: Fall 2000
+
+### IGN Pre-E3 / E3 2000 Coverage
+
+IGN's early coverage (Vincent Lopez, Feb 13 2001 and prior) confirmed the name change from *Need for Speed: Motor City* to *Motor City Online* and the pivot to a subscription-based MMO model.
+
+---
+
+## Development Team & Technical Background
+
+**Studio:** EA Seattle
+
+**Executive Producer:** Randy Dersham
+
+**Team Heritage:** EA Seattle was previously responsible for *Need for Speed III: Hot Pursuit* and *Need for Speed IV: High Stakes*. The MCO team leveraged that racing expertise.
+
+**Engine:** Improved NFS4 3D engine with a new physics engine. Grokipedia notes the team engineered custom netcode to support up to **100 concurrent players** in shared environments, optimized for dial-up connections prevalent in 2001.
+
+**Scale:**
+- ~45 licensed vehicles at launch ( Grokipedia)
+- 2000+ customizable parts (real-world brands: Ford, Chevrolet, Edelbrock, Holley, Hurst)
+- 24 tracks across 18 selectable race locations
+- 8 dealerships (7 as auctions with player-driven supply/demand)
+
+**Challenges (per Grokipedia):**
+- Integrating RPG progression into a racing framework
+- Netcode optimization for dial-up latency
+- Database management for 2000+ parts without performance bottlenecks
+- Balancing open-world persistence with early-2000s internet infrastructure
+
+---
+
+## Post-Launch Update History (from Grokipedia synthesis)
+
+**Update 7 (Nov 15, 2001)** — "Top of the Line"
+- New engine parts for Buick and Hemi families
+- Public race records viewable at Community Center (2-week retention)
+- 24 custom paint jobs for 1949 Mercury Coupe, 1970 Ford Mustang, etc.
+- Paint job creators rewarded directly
+
+**Update 8 (Mar 2002)** — Major content expansion
+- New sports car class (1966 Shelby Cobra, etc.)
+- New tracks and racing modes
+- Continued economy balancing
+
+**Update 8.2 (Dec 6, 2002)**
+- ~500 additional auction parts (performance tires, springs, transmissions)
+- Holiday-themed paint jobs
+- Veteran rewards program (1+ year active accounts)
+- **First Gear Club** launched (Aug 2002) — community resource for tips on engine building, setups, strategies
+
+**Update 8.3 (Feb 2003)**
+- 3 more sports cars
+- Specialized tires: SCUT and slicks
+- Club email notifications for Turf Wars victories
+
+---
+
+## Awards
+
+| Award | Year | Organization | Category |
+|-------|------|--------------|----------|
+| Best Racing Game | 2000 | Game Critics Awards (E3) | Best Racing Game |
+| Sports Game of the Year (Readers' Choice) | 2001 | GameSpy / Network | Readers' Choice |
+
+**GameSpy 2001 Readers' Choice — Sports Game of the Year:**
+Motor City Online won GameSpy's 2001 Readers' Choice award for Sports Game of the Year. Source: MobyGames (<https://www.mobygames.com/game/4762/motor-city-online/>) and EA Seattle news post.
+
+---
+
+## Shutdown & Aftermath
+
+**Announcement:** February 26, 2003
+**Final server shutdown:** August 29, 2003
+
+**Compensation:** Active subscribers offered a free copy of either *Ultima Online* or *The Sims Online*. No refunds for recent subscriptions.
+
+**Final staff message (Aug 29, 2003):**
+> "The game would live on forever in the hearts of the racers who loved the game."
+
+**Reasons for closure (per Grokipedia):**
+- Declining player base / insufficient community growth
+- Highly competitive environment: skilled veterans dominated races, causing newcomer frustration and subscriber churn
+- Limited retail visibility
+- EA reallocated resources to *The Sims Online* and other projects
+
+**Farewell coverage:**
+- WorthPlaying (Feb 26, 2003): Full article retrieved (see Press Coverage section)
+- Slashdot (Aug 29, 2003): "EA Shuts Down Motor City Online" — full text retrieved
+
+---
+
+## Internet Archive Preservation
+
+The complete game files have been uploaded to the Internet Archive by a community member:
+
+**URL:** <https://archive.org/details/motor-city-online.-7z>
+
+Contents include:
+- Full game install
+- Offline patch (allows play without EA servers)
+- Instructions reference PCGamingWiki method
+
+Uploader note: "The download link on PC Gaming Wiki can be a bit funky, so I uploaded it here so people can have an easier time getting the files."
+
+This makes the game permanently accessible for preservation and research.
+
+---
+
+## Additional Sources
+
+- Grokipedia (comprehensive development history): <https://grokipedia.com/page/motor_city_online>
+- 01net French preview (EA Seattle, NFS4 engine): <https://www.01net.com/actualites/nfs-motor-city-online-des-details-138030.html>
+- GameRevolution NFS Motor City preview: <https://www.gamerevolution.com/review/342193-nfs-motor-city-preview>
+- Game Critics Awards 2000: <https://www.gamecriticsawards.com/2000winners.html>
+- Internet Archive upload: <https://archive.org/details/motor-city-online.-7z>
+- IGCD vehicle database: <https://www.igcd.net/game.php?id=19842015>
