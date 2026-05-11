@@ -17,6 +17,9 @@ Preserved articles, reviews, screenshots, and promotional material from 2001–2
 | CNN / GamePro | Jun 2001 | Preview |
 | IGN | Feb–Nov 2001 | Preview + Review (7.9/10) |
 | GameSpot | Feb–Oct 2001 | Preview + Review (7.6/10) |
+| Metacritic | Nov–Dec 2001 | Aggregated score (73/100, 12 critics) |
+| PC Games (Germany) | 2001 | Review (88%) |
+| My Abandonware | — | Preservation guide + Offline Launcher |
 | Quarter to Three | May 2001 | E3 Preview |
 | PC Zone Issue 109 | Dec 2001 | Preview |
 | PC Powerplay Issue 064 | Sep 2001 | Reader Q&A |
@@ -26,6 +29,8 @@ Preserved articles, reviews, screenshots, and promotional material from 2001–2
 
 Also includes:
 - North American box art
+- **My Abandonware preservation guide** — Full installation instructions for modern Windows
+- **Community preservation efforts** — MCO Re-Fired, Offline Launcher, post-shutdown history
 - **Computer Gaming World Issue 210** (Jan 2002) PDF reference — MCO preview on page 36
 - **PC Gamer Issue 87** (Aug 2001) OCR reference — E3 wrap-up coverage
 
@@ -124,6 +129,20 @@ Historical analysis and build comparisons:
 | Oct09 Prototype | Oct 09, 2001 | Offline patch available, mco_log.txt |
 | Final Retail | Oct 31, 2001 | BIG archives, MCity_d.exe debug symbols |
 | Offline Patch | ~Mar 2003 | Content overlay for single-player |
+
+---
+
+## Community & Post-Shutdown Preservation
+
+After official servers shut down in August 2003, the community kept the game alive:
+
+- **Offline Launcher** — Community patch enabling single-player AI races on modern Windows. Included with the My Abandonware release.
+- **MCO Re-Fired** — Fan project that developed a custom launcher, Car Builder tool, and mods for new cars/tracks. Forum: mcorefired.com
+- **'99 Dodge Viper mod** — Restores a car cut from the final game (1 MB).
+- **Reddit:** r/MotorCityGameMemories — Community memories and reconnections.
+- **Facebook:** "Motor City Online" group — Active file-sharing and support community.
+
+See `docs/media/16-community-preservation-efforts/` for full details.
 
 ---
 

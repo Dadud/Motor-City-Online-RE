@@ -24,6 +24,8 @@ Each article/source is stored in its own folder with associated media files (whe
 | 12 | `12-pc-zone-preview-2001-12` | PC Zone Issue 109 | Dec 2001 | Preview | — |
 | 13 | `13-pc-powerplay-q-and-a-2001-09` | PC Powerplay Issue 064 | Sep 2001 | Reader Q&A | — |
 | 14 | `14-gamespot-ships-2001-10-31` | GameSpot | Oct 31, 2001 | Launch news | — |
+| 15 | `15-myabandonware-preservation-guide` | My Abandonware | 2026 | Preservation + install guide | — |
+| 16 | `16-community-preservation-efforts` | Various | 2003–present | Post-shutdown community history | — |
 
 ## Box Art
 
@@ -37,6 +39,24 @@ Each article/source is stored in its own folder with associated media files (whe
 | Old-Games.RU | 47 | `11-old-games-ru-screenshots/` |
 | Hidden Palace (prototypes) | 2 | `08-hidden-palace-prototypes/` |
 | GameSpot (E3 preview) | 2 thumbnails | `09-gamespot-preview-2001/` |
+
+## Review Scores
+
+| Source | Score | Author | Date | Status |
+|--------|-------|--------|------|--------|
+| IGN | 7.9/10 | Dan Adams | Nov 16, 2001 | Archived |
+| GameSpot | 7.6/10 | Stephen Poole | Nov 21, 2001 | Archived |
+| Tampa Tribune | **D** | Wes Phillips | Dec 7, 2001, p.127 | Paywalled |
+| **Metacritic** | **73/100** | 12 critics | Nov–Dec 2001 | Confirmed |
+| GameFAQs User | 6.3/10 | Users | — | Confirmed |
+| PC Games (Germany) | 88% | — | 2001 | Confirmed (MobyGames) |
+| PC Action (Germany) | 88% | — | 2001 | Confirmed (MobyGames) |
+| GameSpy | 88% | — | 2001 | Confirmed (MobyGames) |
+| GamePen | 90/100 | — | 2001 | Confirmed (Metacritic) |
+
+### Tampa Tribune Review Details
+- Citation: https://www.newspapers.com/clip/98556533/the-tampa-tribune/
+- Archive.org snapshot: https://web.archive.org/web/20220328101123/https://www.newspapers.com/clip/98556533/the-tampa-tribune/ (content inaccessible)
 
 ## Magazine Sources (PDF/OCR Available)
 
@@ -54,17 +74,17 @@ Each article/source is stored in its own folder with associated media files (whe
 - **Archive.org OCR**: <https://archive.org/stream/Computer_Gaming_World_Issue_182/Computer_Gaming_World_Issue_182_djvu.txt>
 - **Notes**: Mentions "Motor City Offline" single race mode
 
-## Reviews — Scores Confirmed
+## Community & Preservation Resources
 
-| Source | Score | Author | Date | Status |
-|--------|-------|--------|------|--------|
-| IGN | 7.9/10 | Dan Adams | Nov 16, 2001 | Archived |
-| GameSpot | 7.6/10 | Stephen Poole | Nov 21, 2001 | Archived |
-| Tampa Tribune | **D** | Wes Phillips | Dec 7, 2001, p.127 | Paywalled |
-
-### Tampa Tribune Review Details
-- Citation: <https://www.newspapers.com/clip/98556533/the-tampa-tribune/>
-- Archive.org snapshot: <https://web.archive.org/web/20220328101123/https://www.newspapers.com/clip/98556533/the-tampa-tribune/> (content inaccessible)
+| Resource | URL | Notes |
+|----------|-----|-------|
+| My Abandonware | <https://www.myabandonware.com/game/motor-city-online-r4o> | Full ISO + Offline Launcher + mod |
+| PCGamingWiki | <https://www.pcgamingwiki.com/wiki/Motor_City_Online> | Compatibility fixes, troubleshooting |
+| MCO Re-Fired Forum | http://www.mcorefired.com/Forum/index.php | Fan multiplayer revival project |
+| Reddit | r/MotorCityGameMemories | Community memories |
+| Facebook | "Motor City Online" group | Active file sharing community |
+| Blue's News | <https://www.bluesnews.com/cgi-bin/board.pl?action=viewthread&boardid=1&threadid=28874> | Beta download thread, Sep 2001 |
+| Steam Workshop | Various packs | MCO cars ported to other games |
 
 ## Blocked / Inaccessible Sources
 
@@ -84,7 +104,6 @@ Each article/source is stored in its own folder with associated media files (whe
 - **Archive.org game ISOs**: motor-city-online.-7z (644MB), motor-city-online_202402 (357MB), motor-city-online-patch-2001-pc
 - **NFS Fandom Wiki**: Text accessible via r.jina.ai but images blocked
 - **Wikipedia article**: Full text confirmed; good source for citations and references
-- **Steam Workshop**: MCO car packs exist for other racing games (not original assets)
 - **LGR Video**: "Bringing Motor City Online Back from the Dead" (YouTube, 2018) — not collected per request
 
 ## Sources Consulted
@@ -97,6 +116,7 @@ Each article/source is stored in its own folder with associated media files (whe
 - PC Powerplay Issue 064 (archive.org OCR)
 - Old-Games.RU
 - Hidden Palace
+- My Abandonware
 - Wikipedia / Wikimedia Commons
 - Archive.org (various magazine OCRs, game ISOs)
 - CGW Museum (cgwmuseum.org PDFs)
@@ -104,6 +124,6 @@ Each article/source is stored in its own folder with associated media files (whe
 
 ---
 
-*Last updated: 2026-05-11*
-*Session log: `SESSION-2026-05-11-media-hunt.md`*
-*For the Motor City Online Reverse Engineering project*
+*Last updated: 2026-05-11*  
+*Session log: `SESSION-2026-05-11-media-hunt.md`*  
+*For the Motor City Online Preservation Archive*
