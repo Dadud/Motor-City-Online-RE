@@ -1672,8 +1672,9 @@ Source: <https://steamcommunity.com/groups/MotorCItyOnlinePlayNow/discussions/6/
 
 | Video | Channel | Date | Views | Notes |
 |-------|---------|------|-------|-------|
-| Bringing Motor City Online Back from the Dead | LGR (Clint Basinger) | Oct 8, 2018 | ~333K | Widely credited for reigniting preservation interest |
+| Bringing Motor City Online Back from the Dead | LGR (Clint Basinger) | Oct 8, 2018 | ~333K | Widely credited for reigniting preservation interest. Facebook comments on video included offers from private-community members with debug files/unreleased content. |
 | Death of a Game: Motor City Online | nerdSlayer Studios | ~2 years ago | ~65K | Documentary on MCO's demise |
+| Abandonware: Motor City Online (2001) | Niko | Mar 7, 2024 | — | ~47 minute documentary/retrospective |
 | Motor City Online (Offline) Review | Unknown | Jul 18, 2025 | — | Recent offline review |
 | Motor City Online PC Games Gameplay_1999_06_17 | Unknown | May 20, 2011 | 741 | Pre-release/E3 1999 gameplay footage |
 | Motor City Online Gameplay | Unknown | May 14, 2012 | 8K | Random driving in '65 Mustang and Toyota Supra |
