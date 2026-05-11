@@ -26,11 +26,15 @@ Preserved articles, reviews, screenshots, and promotional material from 2001–2
 | Old-Games.RU | — | **47 Screenshots** |
 | Hidden Palace | 2026 | Prototype info + 2 screenshots |
 | AssemblerGames | 2010–2019 | Preservation thread |
+| Blue's News | Sep 2001 | Beta download (428MB) |
+| GameSurge | Sep 2000 | Rename announcement |
 
 Also includes:
 - North American box art
 - **My Abandonware preservation guide** — Full installation instructions for modern Windows
 - **Community preservation efforts** — MCO Re-Fired, Offline Launcher, post-shutdown history
+- **Original Soundtrack** — Full track listing, credits, and review quotes
+- **Beta download history** — Blue's News open beta (428MB, Sep 2001)
 - **Computer Gaming World Issue 210** (Jan 2002) PDF reference — MCO preview on page 36
 - **PC Gamer Issue 87** (Aug 2001) OCR reference — E3 wrap-up coverage
 

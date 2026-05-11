@@ -26,6 +26,9 @@ Each article/source is stored in its own folder with associated media files (whe
 | 14 | `14-gamespot-ships-2001-10-31` | GameSpot | Oct 31, 2001 | Launch news | — |
 | 15 | `15-myabandonware-preservation-guide` | My Abandonware | 2026 | Preservation + install guide | — |
 | 16 | `16-community-preservation-efforts` | Various | 2003–present | Post-shutdown community history | — |
+| 17 | `17-blues-news-beta-download` | Blue's News | Sep 22, 2001 | Open beta download announcement | — |
+| 18 | `18-original-soundtrack` | EA / Matt Ragan | 2001 | OST credits + track listing | — |
+| 19 | `19-gamesurge-rename-announcement` | GameSurge | Sep 2000 | Rename from "Motor City" | — |
 
 ## Box Art
 
@@ -73,6 +76,15 @@ Each article/source is stored in its own folder with associated media files (whe
 ### CGW Issue 182
 - **Archive.org OCR**: <https://archive.org/stream/Computer_Gaming_World_Issue_182/Computer_Gaming_World_Issue_182_djvu.txt>
 - **Notes**: Mentions "Motor City Offline" single race mode
+
+## Soundtrack & Audio
+
+| Resource | URL | Notes |
+|----------|-----|-------|
+| VGMdb | <https://vgmdb.net/album/21286> | Album entry (Promo CD, EA 2001) |
+| Discogs | Release 22738493 | Matt Ragan / Alistair Hirst credits |
+| YouTube | "Motor City Online - Full Soundtrack" | Full OST upload (Dec 2020) |
+| RacingSoundtracks.com | <https://racingsoundtracks.com/game/motor-city-online> | In-game audio format info (ASF) |
 
 ## Community & Preservation Resources
 
