@@ -36,6 +36,9 @@ Preserved articles, reviews, screenshots, and promotional material from 2001–2
 | PC Powerplay #086 | May 2003 | Shutdown news item |
 | GameSpot | Nov 2001 | Review by Stephen Poole (7.6/10) |
 | IGN | Nov 2001 | Review by Dan Adams (7.9/10) |
+| CGW Issue 210 | Jan 2002 | Preview by Gord Goble (p.36) |
+| Compiled | — | System requirements reference |
+| SEC Filings | 2002–2003 | EA.com restructuring / MCO discontinuation |
 | Game Critics Awards | May 2000 | **Best Racing Game — E3 2000** |
 
 Also includes:
