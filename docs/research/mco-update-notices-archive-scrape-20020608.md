@@ -1097,6 +1097,123 @@ Vehicles are marked as "damageable" in the database.
 
 ---
 
+## Complete Vehicle Roster
+
+Source: NFS Fandom wiki — Motor City Online/Cars (<https://nfs.fandom.com/wiki/Motor_City_Online/Cars>) — retrieved via Wayback Machine (Oct 18, 2021 snapshot)
+
+Cars in Motor City Online consist of various American vehicles manufactured between the 1930s and 1970s, mostly related to Hot Rodding and Muscle Car culture. They were made available in several body types such as convertibles, coupes, sedans, station wagons, and trucks.
+
+Prior to the shutdown of the servers, **two Japanese vehicles from the 1990s** were added into the game (Toyota Supra and Mitsubishi Eclipse).
+
+The car list was divided into five "Body Types" based on production year and several Power Classes based on power-to-weight ratio. The Sports Class was restricted to special cars due to their high stock performance rating.
+
+### Vintage (1932–1949)
+| Vehicle | Year | Notes |
+|---------|------|-------|
+| Ford Coupe | 1932 | |
+| Ford V8 Model 40 | 1934 | |
+| Ford De Luxe Coupe | 1940 | |
+| Cadillac Series 62 | 1947 | |
+| Cadillac Fleetwood Station Wagon | 1948 | |
+| Chevrolet Fleetmaster | 1948 | |
+| Mercury Monterey Coupe | 1949 | |
+
+### Classic (1950–1959)
+| Vehicle | Year | Notes |
+|---------|------|-------|
+| **Chevrolet Model 3100** | 1953 | **Truck** |
+| Ford Crestline Sunliner Coupe | 1953 | |
+| Buick Century Riviera Coupe | 1955 | |
+| **Chevrolet Cameo Carrier** | 1955 | **Truck** |
+| Ford Thunderbird | 1955 | |
+| **Ford F-100** | 1956 | **Truck** |
+| Chevrolet Bel Air Sport Coupe | 1957 | |
+| Chevrolet Corvette C1 | 1957 | |
+| Chevrolet Nomad | 1957 | Station wagon |
+| Ford Fairlane 500 | 1957 | |
+| Ford Ranchero | 1957 | Utility |
+| Ford Thunderbird | 1957 | |
+| Chevrolet Impala | 1958 | |
+| Cadillac Eldorado Seville | 1959 | |
+| Chevrolet Impala | 1959 | |
+
+### Muscle (1960–1973)
+| Vehicle | Year | Notes |
+|---------|------|-------|
+| Chevrolet Corvette C2 Stingray | 1963 | |
+| Ford Thunderbird | 1963 | |
+| Chevrolet Impala | 1964 | |
+| Chevrolet Impala SS | 1964 | |
+| Ford Galaxie | 1964 | |
+| Ford Mustang | 1964 | |
+| Ford Mustang Coupé | 1965 | |
+| Pontiac GTO | 1966 | |
+| Shelby Cobra 427 S/C | 1966 | |
+| Chevrolet Camaro | 1967 | |
+| Chevrolet Camaro RS | 1967 | |
+| Chevrolet Camaro SS | 1967 | |
+| Chevrolet Camaro Z-28 | 1967 | |
+| Chevrolet Chevelle | 1967 | |
+| Chevrolet Chevelle SS 427 | 1967 | |
+| Ford Mustang | 1967 | |
+| AMC AMX | 1969 | |
+| Chevrolet Camaro Z28/RS | 1969 | |
+| Chevrolet Corvette C3 Stingray | 1969 | |
+| Dodge Charger | 1969 | |
+| Dodge Charger R/T | 1969 | |
+| Dodge Coronet Super Bee | 1969 | |
+| Ford Mustang Cobra Jet 429 | 1969 | |
+| Ford Torino GT Cobra | 1969 | |
+| Ford Torino GT Fastback | 1969 | |
+| Oldsmobile 4-4-2 | 1969 | |
+| Oldsmobile 4-4-2 W-30 | 1969 | |
+| Oldsmobile Hurst 4-4-2 | 1969 | |
+| Plymouth Cuda | 1969 | |
+| Plymouth GTX | 1969 | |
+| Plymouth Road Runner | 1969 | |
+| Pontiac Firebird | 1969 | |
+| Pontiac GTO | 1969 | |
+| Pontiac GTO Judge | 1969 | |
+| Chevrolet Chevelle | 1970 | |
+| Chevrolet Chevelle SS | 1970 | |
+| Chevrolet El Camino | 1970 | Utility |
+| Chevrolet El Camino SS | 1970 | Utility |
+| Chevrolet Nova | 1970 | |
+| Chevrolet Nova SS | 1970 | |
+| Dodge Challenger | 1970 | |
+| Ford Mach 1 | 1970 | |
+| Ford Mustang | 1970 | |
+| Ford Mustang Boss 302 | 1970 | |
+| Ford Mustang Boss 429 | 1970 | |
+| Plymouth 440 Cuda | 1970 | |
+| Plymouth AAR Cuda | 1970 | |
+| Plymouth Cuda | 1970 | |
+| Plymouth HEMI Cuda | 1970 | |
+| Plymouth Duster | 1971 | |
+| Plymouth Duster 340 | 1971 | |
+| Chevrolet Chevelle | 1972 | |
+| Chevrolet Chevelle SS | 1972 | |
+| Pontiac Firebird | 1973 | |
+| Pontiac Firebird Formula | 1973 | |
+| Pontiac Firebird Trans Am | 1973 | |
+
+### Special
+| Vehicle | Year | Notes |
+|---------|------|-------|
+| EA Eight Ball | 1932 | Special/Custom |
+| Shelby Cobra 427 | 1966 | Also listed in Muscle |
+| Toyota Supra | 1996 | Japanese; added pre-shutdown |
+| Mitsubishi Eclipse | ~1996–1998 | Japanese; added pre-shutdown (per NFS Theories forum) |
+
+### Total Count
+- **~80 playable vehicles** at sunset (60+ American classics, 2 Japanese imports, plus the EA Eight Ball special)
+- **3 trucks**: 1953 Chevrolet Model 3100, 1955 Chevrolet Cameo Carrier, 1956 Ford F-100
+- **2 utility vehicles**: 1957 Ford Ranchero, 1970 Chevrolet El Camino (plus El Camino SS)
+- **1 station wagon**: 1948 Cadillac Fleetwood Station Wagon, 1957 Chevrolet Nomad
+- **Traffic vehicles** also included a generic Pickup Truck
+
+---
+
 ## Official Press Releases
 
 ### Business Wire — "Put the Pedal to the Metal On EA.com" (November 1, 2001)
@@ -1275,6 +1392,7 @@ The full GameSpy review text was not recoverable via Wayback Machine (URL not ca
 - NFS-Planet news archive: <https://www.nfsplanet.com/newsarchiv.php?lang=eng>
 - StrategyWiki: <https://strategywiki.org/wiki/Motor_City_Online>
 - NFS Fandom wiki: <https://nfs.fandom.com/wiki/Motor_City_Online>
+- NFS Fandom car list (complete roster): <https://nfs.fandom.com/wiki/Motor_City_Online/Cars>
 - Hidden Palace prototype (Jun 27, 2001): <https://hiddenpalace.org/Motor_City_Online_(Jun_27,_2001_prototype)>
 - NFS Theories forum (insider preservation history): <https://nfstheories.boards.net/thread/55/motor-city-online>
 - AZMCO GitHub (open-source RE): <https://github.com/americusmaximus/AZMCO>
@@ -1538,7 +1656,7 @@ The following sources were identified during research but could not be retrieved
 - **PC Zone Issue 109 (Dec 2001)**: OCR text garbled, no usable MCO review content extracted.
 - **BetaArchive late beta build thread**: Blocked by Cloudflare (403).
 - **Update Notices 4 — Bug Fixes tail**: Truncated in Fandom Wayback capture at "Improved Race Results for Time Trials — Race Time, Top Speed, First Lap T..."
-- **NFS Fandom car list page** (`nfs.fandom.com/wiki/Motor_City_Online/Cars`): Blocked by Cloudflare (403).
+- ~~NFS Fandom car list page~~ (`nfs.fandom.com/wiki/Motor_City_Online/Cars`): **RECOVERED** via Wayback Machine (Oct 18, 2021 snapshot). Full vehicle roster extracted and documented above.
 - **MobyGames page**: Blocked by Cloudflare (403).
 - **GMR Magazine (May 2003)**: Raw OCR text too garbled to extract useful MCO article content.
 - **Shacknews closure announcement**: URL `https://www.shacknews.com/onearticle.x/25195/` — blocked.
@@ -1560,8 +1678,8 @@ The following sources were identified during research but could not be retrieved
 - **Compiled by:** Retro Game RE agent (OpenClaw)
 - **Primary target date:** June 8, 2002 Wayback snapshot of `mco.ea.com`
 - **Methodology:** Wayback Machine scraping via `web_fetch`, supplemented with live web sources, SEC filings, magazine OCR scans, community forum archives, Reddit, GitHub, YouTube, and Steam Community.
-- **Total sources documented:** 60+ unique URLs, 12+ press reviews with scores, 8 official update notices, 6 upcoming features pages, 3 press releases, 2 SEC filing references, 10+ community preservation threads, 1 vehicle database, 12+ video references, 1 prototype build, 1 open-source RE project, 1 speedrun leaderboard.
-- **Known gaps:** GameStar/PC Gamer full reviews, exact peak subscriber count, post-mortem developer interviews, EA earnings call transcripts mentioning MCO, full text of IGN "Motor City Offline" closure piece, Tampa Tribune review.
+- **Total sources documented:** 70+ unique URLs, 12+ press reviews with scores, 8 official update notices, 6 upcoming features pages, 3 press releases, 2 SEC filing references, 10+ community preservation threads, **1 complete vehicle roster (~80 vehicles)**, 12+ video references, 1 prototype build, 1 open-source RE project, 1 speedrun leaderboard.
+- **Known gaps:** GameStar/PC Gamer full reviews, exact peak subscriber count, post-mortem developer interviews, EA earnings call transcripts mentioning MCO, full text of IGN "Motor City Offline" closure piece, Tampa Tribune review, Update Notices 4 bug fixes tail.
 
 ---
 
