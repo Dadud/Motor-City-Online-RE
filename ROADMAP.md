@@ -14,7 +14,7 @@
 - [ ] **M4** Race lobby flow (create/join/ready/start)
 - [x] **M5** Driveable race scene (placeholder acceptable)
 - [x] **M6** Asset integration via `mco-scan`
-- [ ] **M7** Original-client compatibility research
+- [x] **M7** Original-client compatibility research
 - [ ] **M8** LAN multiplayer prototype
 
 ## This pass
@@ -39,7 +39,7 @@
 - `docs/tools/mco_scan.md` tool documentation
 
 ## Recommended next priorities
-1. M7: original-client protocol compatibility research (NPS/MCOTS gateway)
-2. M8: LAN multiplayer prototype (two clients on same shard)
-3. Add WebSocket support for live lobby/chat/race state updates
+1. M8: LAN multiplayer prototype (two clients on same shard)
+2. Add WebSocket support for live lobby/chat/race state updates
+3. Implement Phase 1-2 of original-client gateway (auth redirect HTTPS + NPS login server)
 4. Add real placeholder race scene (pygame or text-based drive loop)
