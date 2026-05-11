@@ -1,146 +1,152 @@
-# Motor City Online — Reverse Engineering
+# Motor City Online — Preservation Archive
 
-Preservation documentation for Electronic Arts Seattle's 2001 online racing MMO. This repo documents the game's binary file formats, network systems, and executable architecture — reverse-engineered from the final retail build.
+Documentation, media, and archival resources for **Motor City Online** (EA Seattle, 2001–2003), a PC online racing MMO and spin-off of the Need for Speed franchise.
 
-> This project is for preservation and educational purposes. Do not use it to play without purchasing the game or to infringe on EA's copyrights.
-
----
-
-## Repository Status
-
-This is a **live reverse-engineering effort**. Not everything is decoded. Every claim is tagged with its evidence level — see [Evidence Key](#evidence-key) below.
-
-**What's solid:** BIG/VIV archives, FCE geometry, FSH textures, LOD, INI, extracted database schema, engpatch archive structure, patch pipeline.
-
-**What's blocked:** BNK audio codec (encrypted), engine curve tables (proprietary format), runtime audio selection algorithm (no disassembly), CASTANET serialization format (no live capture possible).
+> This project collects and preserves historical information about a game whose official servers shut down in August 2003. All work is for preservation and educational purposes.
 
 ---
 
-## Evidence Key
+## What This Archive Contains
 
-| Tag | Meaning |
-|-----|---------|
-| **Verified** | Confirmed on multiple samples; working implementation exists |
-| **Partial** | Core structure understood; some fields or variants unknown |
-| **Unknown** | Format/purpose identified; decoding blocked or not started |
+### 📰 Media Coverage — `docs/media/`
+
+Preserved articles, reviews, screenshots, and promotional material from 2001–2019.
+
+| Source | Date | Type |
+|--------|------|------|
+| CNN / GamePro | Jun 2001 | Preview |
+| IGN | Feb–Nov 2001 | Preview + Review (7.9/10) |
+| GameSpot | Feb–Oct 2001 | Preview + Review (7.6/10) |
+| Quarter to Three | May 2001 | E3 Preview |
+| PC Zone Issue 109 | Dec 2001 | Preview |
+| PC Powerplay Issue 064 | Sep 2001 | Reader Q&A |
+| Old-Games.RU | — | **47 Screenshots** |
+| Hidden Palace | 2026 | Prototype info + 2 screenshots |
+| AssemblerGames | 2010–2019 | Preservation thread |
+
+Also includes:
+- North American box art
+- **Computer Gaming World Issue 210** (Jan 2002) PDF reference — MCO preview on page 36
+- **PC Gamer Issue 87** (Aug 2001) OCR reference — E3 wrap-up coverage
+
+See [`docs/media/INDEX.md`](docs/media/INDEX.md) for the full catalog.
 
 ---
 
-## Quick Reference
+### 📋 Game Database — `data/`
 
-### File Formats — `docs/formats/`
-
-| Format | Status | Notes |
-|--------|--------|-------|
-| BIG / VIV | Verified | Archive container; BIG4 + BIGF variants |
-| FCE | Verified | Car geometry; 12B/vertex, 56B/triangle |
-| FSH | Verified | Textures; multiple pixel formats |
-| LOD | Verified | LOD distance thresholds |
-| INI | Verified | Track configuration |
-| FRD | Partial | Road surface decoded; native mesh unknown |
-| FST | Partial | Header confirmed; bulk records unknown |
-| BLF | Partial | Vertex segmentation; chunk list partial |
-| MDB | Partial | Schema extracted; physics fields unknown |
-| ENGPATCH | Partial | Archive decoded; runtime selection unknown |
-| BNK | **Unknown** | Header parsed; codec unidentified (encrypted) |
-| TRK | **Unknown** | Not analyzed |
-
-### Game Systems — `docs/research/`
-
-| Topic | Status |
-|--------|--------|
-| Patch System | Partial — pipeline confirmed; offline mode partial |
-| Network Protocol | Partial — donated by Molly; serialization unknown |
-| EXE Architecture | Partial — NPS subsystem mapped |
-| Beta 1 (Jun 2001) | Verified |
-| Oct09 Prototype | Verified |
-
-### Tools — `tools/`
-
-| Tool | Input → Output | Status |
-|------|---------------|--------|
-| `viv_extract.py` | .viv → files | Works |
-| `big_extract.py` | .big → files | Works |
-| `fce2obj.py` | part.fce → OBJ | Works |
-| `frd2obj.py` | Tr.frd → OBJ mesh | Works |
-| `fsh2png.py` | .fsh → PNG | Works |
-| `mdb_extract.py` | Online.mdb → CSV | Partial — small tables only |
-| `bnk2wav.py` | track.bnk → WAV | **Blocked** — codec unknown |
-
-### Extracted Data — `data/`
+Extracted and preserved game data from the retail build:
 
 | File | Contents |
 |------|----------|
 | `Cars-complete.csv` | 83 unique car IDs, 72 base models |
 | `Brand.csv` | 103 manufacturers |
-| `StockEngines.csv` | 26 stock engine configs |
-| `cars/` | Extracted OBJ car meshes (16 models) |
-| `tracks/` | Extracted OBJ track road meshes (17 tracks) |
+| `StockEngines.csv` | 26 stock engine configurations |
+| `Parts.csv` | Part definitions |
+| `AbstractPartTypes.csv` | Part categories |
+| `AttachmentPoint.csv` | 12 attachment points |
+
+---
+
+### 🖼️ Car Previews — `data/cars/`
+
+PNG previews of 13 in-game car models extracted from the retail data.
+
+---
+
+### 📁 File Format Documentation — `docs/formats/`
+
+Documented file formats used by the game. These are living notes based on analysis of the retail build and community research.
+
+| Format | Status | Notes |
+|--------|--------|-------|
+| BIG / VIV | Documented | EA archive containers (BIG4 + BIGF variants) |
+| FCE | Documented | Car geometry (FCE4M variant) |
+| FSH | Documented | Textures (SHPI container, multiple pixel formats) |
+| LOD | Documented | Model LOD distance thresholds |
+| INI | Documented | Track configuration files |
+| FRD | Partial | Road surface documented; native mesh topology unknown |
+| FST | Partial | Header documented; full record semantics unclear |
+| BLF | Partial | Vertex segmentation structure known |
+| MDB | Partial | Schema extracted from Access database |
+| BNK | Partial | Header parsed; audio codec not identified |
+| TRK | Unknown | AI racing line; no analysis yet |
+
+---
+
+### 🔧 Archival Tools — `tools/`
+
+Small utilities for inspecting game files. These are helper scripts, not a reconstruction project.
+
+| Tool | Purpose |
+|------|---------|
+| `viv_extract.py` | Extract files from VIV archives |
+| `big_extract.py` | Extract files from BIG archives |
+| `fsh2png.py` | Convert FSH textures to PNG |
+| `iso_extract.py` | Inspect game ISO layout |
+| `refpack_decompress.py` | Decompress RefPack-compressed data |
+| `mdb_extract.py` | Read small tables from Online.mdb |
+| `bnk2wav.py` | Attempt BNK audio extraction (codec unknown) |
+
+---
+
+### 📝 Research Notes — `docs/research/`
+
+Historical analysis and build comparisons:
+
+| Topic | File |
+|-------|------|
+| Beta 1 Build (Jun 2001) | `beta1.md` |
+| Oct09 Prototype | `oct09.md` |
+| Patch System History | `patch-system.md` |
+| Network Protocol Overview | `network.md` |
+| EXE Structure Notes | `exe-architecture.md` |
+| Community Tools Catalog | `EXISTING_TOOLS.md` |
+| MCO Update Notices Archive | `mco-update-notices-archive-scrape-20020608.md` |
+
+---
+
+### 🎮 Client/Server Code — `src/`, `client/`, `server/`
+
+**Note:** These are reconstructed stubs and reference implementations created during earlier research. They are not original source code and are not under active development. They are preserved here as-is for historical reference.
+
+- `src/` — Annotated C stubs reconstructed from disassembly
+- `client/` — Reference preservation client (Python)
+- `server/` — Reference shard server (Python)
 
 ---
 
 ## Build Versions Documented
 
-| Build | Date | Key Notes |
-|-------|------|----------|
-| Beta 1 | Jun 27, 2001 | Loose files, 17 tracks, full debug EXE |
-| Oct09 Prototype | Oct 09, 2001 | Offline patch ready, mco_log.txt available |
-| Final Retail | Oct 2001 | BIG archives, MCity_d.exe debug symbols |
-| Offline Patch | ~Mar 2003 | Content overlay; does not replace engpatch |
-
-**engpatch.viv SHA-1 is identical across all three game builds** (2f88a489a67318338de51de842a6044b8deadbbf) — the engine audio patch archive was never updated by any patch.
+| Build | Date | Notes |
+|-------|------|-------|
+| Beta 1 | Jun 27, 2001 | Loose files, 17 tracks, debug EXE |
+| Oct09 Prototype | Oct 09, 2001 | Offline patch available, mco_log.txt |
+| Final Retail | Oct 31, 2001 | BIG archives, MCity_d.exe debug symbols |
+| Offline Patch | ~Mar 2003 | Content overlay for single-player |
 
 ---
 
-## What Is NOT Decoded
+## Related Preservation Projects
 
-These are the major gaps — understanding them would unlock significant new work:
-
-1. **BNK audio codec** — blocked. The audio data is encrypted or uses a proprietary codec. No known codec signature found.
-2. **Engine curve tables** (engine.ltb, engine.ctb, etc.) — Creative Labs CRD format, sparse storage. Content meaning unknown.
-3. **Runtime engpatch selection** — how MDB keys map to BNK files at runtime. Not traced in disassembly.
-4. **FRD native mesh** — pointer-linked index data not decoded; road surface triangulation works but is not the original mesh.
-5. **CASTANET serialization** — message binary format unknown; no live capture possible.
-
----
-
-## Source Code Stubs — `src/`
-
-Disassembled and annotated stubs from `MCity_d.exe`:
-
-```
-src/
-├── npslib/     — NPS network library (CASTANET + core)
-├── game/       — Game subsystems (audio, physics, render)
-├── mcity/      — MCity core (mcity_core.cpp)
-└── authlogin/  — Authentication DLL
-```
-
-These are C stubs reconstructed from disassembly, not the original source code.
+- **[mcos](https://github.com/drazisil-codecov/mcos)** — Open-source MCO server recreation (TypeScript/Node.js, connects to lobby)
+- **[AZMCO](https://github.com/americusmaximus/AZMCO)** — Open-source MCO recreation with renderer, physics, and audio
+- **[EA BIG Archive — rewiki](https://rewiki.miraheze.org/wiki/EA_BIG_Archive)** — Community documentation for EA archive formats
+- **[EA SSH FSH Image — rewiki](https://rewiki.miraheze.org/wiki/EA_SSH_FSH_Image_(Type_1))** — Community texture format documentation
 
 ---
 
 ## Contributing
 
-This repo accepts:
-- Corrections with supporting evidence
-- New format discoveries with hex evidence
-- Working tool implementations
+This archive accepts:
+- Historical articles, reviews, or screenshots
+- Corrections to documentation with supporting evidence
+- References to additional preservation efforts
 
-This repo does NOT accept:
+This archive does NOT accept:
 - Game ROMs or copyrighted assets
-- Claims without evidence
 - Speculation presented as fact
 
 ---
 
-## Related Projects
-
-- [AZMCO](https://github.com/americusmaximus/AZMCO) — Open-source MCO recreation (renderer, physics, audio)
-- [Rusty Motors](https://github.com/rustymotors/server) — MCO server recreation attempt
-- [EA BIG Archive — rewiki](https://rewiki.miraheze.org/wiki/EA_BIG_Archive)
-- [EA SSH FSH Image — rewiki](https://rewiki.miraheze.org/wiki/EA_SSH_FSH_Image_(Type_1))
-
----
-
-*Last updated: 2026-05-10*
+*Last updated: 2026-05-11*

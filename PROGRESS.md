@@ -1,57 +1,21 @@
-# Research Progress
+# Archive Progress
 
-Last updated: 2026-05-10
+Last updated: 2026-05-11
 
-## Status Key
+## File Formats Documented
 
-| Tag | Meaning |
-|-----|---------|
-| Verified | Confirmed on multiple samples; working implementation |
-| Partial | Core structure known; some unknowns remain |
-| Unknown | Decoding blocked or not started |
+| Format | Status | Notes |
+|--------|--------|-------|
+| BIG / VIV | Documented | BIG4 + BIGF variants, DCL compression |
+| FSH | Documented | SHPI container, 5 pixel formats, RefPack |
+| INI | Documented | Standard INI, human-readable |
+| BNK | Partial | Header parsed; audio codec unidentified |
+| FRD | Partial | Road surface documented; native mesh unknown |
+| BLF | Partial | Structure known; chunk list partial |
+| MDB | Partial | Schema extracted; some fields unknown |
+| TRK | Unknown | Not analyzed |
 
----
-
-## File Formats
-
-| Format | Status | Core Achievement |
-|--------|--------|-----------------|
-| BIG / VIV | Verified | BIG4 + BIGF variants, DCL compression |
-| FSH | Verified | SHPI container, 5 pixel formats, RefPack |
-| INI | Verified | Standard INI, human-readable |
-| BNK | Verified | EA XA ADPCM codec; bnk2wav.py works, produces valid WAV |
-| FRD | Partial | Road surface decoded; native mesh index unknown |
-| BLF | Partial | Structure known; chunk type list partial |
-| MDB | Partial | Schema extracted; PartStats fields unknown |
-| ENGPATCH | Partial | Archive + MDB keys decoded; runtime selection unknown |
-| TRK | **Unknown** | Not analyzed |
-
----
-
-## Unknowns — Priority Order
-
-1. **Engine.* CRDl tables** — Creative Labs CRD format; sparse storage; byte meaning unknown
-2. **Runtime engpatch selection** — how MDB keys map to BNK files at runtime
-3. **FRD native mesh topology** — pointer-linked index data not decoded
-4. **CASTANET serialization** — message binary format unknown; live capture impossible
-
----
-
-## Builds Documented
-
-| Build | Date | Key Differences |
-|-------|------|-----------------|
-| Beta 1 | Jun 27, 2001 | Loose files, 17 tracks, no BIG archives |
-| Oct09 Prototype | Oct 09, 2001 | Offline patch ready, mco_log.txt available |
-| Final Retail | Oct 2001 | BIG archives, MCity_d.exe debug symbols |
-| Offline Patch | ~Mar 2003 | Content overlay; does not replace engpatch |
-
-**engpatch.viv SHA-1** is identical across all three game builds:
-`2f88a489a67318338de51de842a6044b8deadbbf`
-
----
-
-## Data Extracted
+## Data Preserved
 
 | Data | Rows | Location |
 |------|------|----------|
@@ -63,26 +27,41 @@ Last updated: 2026-05-10
 | Skin types | 10 | `data/SkinType.csv` |
 | Driver classes | 3 | `data/DriverClass.csv` |
 
----
+## Media Archived
+
+| Source | Items | Location |
+|--------|-------|----------|
+| Old-Games.RU | 47 screenshots | `docs/media/11-old-games-ru-screenshots/` |
+| Hidden Palace | 2 screenshots | `docs/media/08-hidden-palace-prototypes/` |
+| GameSpot | 2 thumbnails | `docs/media/09-gamespot-preview-2001/` |
+| Box art | 1 | `docs/media/box-art.jpg` |
+| Articles | 14 text captures | `docs/media/0[1-9]-*` + `docs/media/1[0-4]-*/` |
+
+## Builds Documented
+
+| Build | Date | Key Notes |
+|-------|------|----------|
+| Beta 1 | Jun 27, 2001 | Loose files, 17 tracks, no BIG archives |
+| Oct09 Prototype | Oct 09, 2001 | Offline patch ready, mco_log.txt available |
+| Final Retail | Oct 2001 | BIG archives, MCity_d.exe debug symbols |
+| Offline Patch | ~Mar 2003 | Content overlay; does not replace engpatch |
+
+**engpatch.viv SHA-1** is identical across all three game builds:
+`2f88a489a67318338de51de842a6044b8deadbbf`
 
 ## Network Protocol
 
 | Item | Status |
 |------|--------|
-| CASTANET error codes (40+) | Verified (EXE strings) |
-| Auth server flow | Verified (EXE strings) |
-| NPS message types | Partial (donated by Molly) |
-| CASTANET serialization | **Unknown** |
+| CASTANET error codes (40+) | Documented (from EXE strings) |
+| Auth server flow | Documented (from EXE strings) |
+| NPS message types | Partial (donated documentation) |
+| CASTANET serialization | Unknown |
 | Packet encryption | Unverified (donated doc) |
 
----
+## External Resources
 
-## Server Emulation
-
-| Component | Status |
-|-----------|--------|
-| mcos project | **Recommended** — TypeScript/Node.js, already connects to lobby (Oct 2023 alpha) |
-| NPS/Castanet source | Exists in `src/npslib/` — compatible with mcos |
-| Our strategy | Fork mcos, contribute protocol docs and format research |
-
-See `docs/research/SERVER_EMULATOR_PLAN.md` for full plan.
+- [mcos](https://github.com/drazisil-codecov/mcos) — Open-source server recreation (TypeScript/Node.js)
+- [AZMCO](https://github.com/americusmaximus/AZMCO) — Open-source game recreation
+- CGW Issue 210 PDF — MCO preview on page 36 (cgwmuseum.org)
+- PC Gamer Issue 87 OCR — E3 2001 coverage (archive.org)
