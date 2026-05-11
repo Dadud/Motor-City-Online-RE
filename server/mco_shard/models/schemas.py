@@ -77,6 +77,12 @@ class PlaceholderRaceRunRequest(BaseModel):
     commands: list[str] = []
 
 
+class InteractiveRaceRunRequest(BaseModel):
+    profile_id: int
+    total_laps: int = 1
+    time_limit: float = 120.0
+
+
 class ApiMessage(BaseModel):
     status: str
     data: Any

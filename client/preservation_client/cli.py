@@ -189,15 +189,33 @@ def run_race_flow(lobby_id: int | None = None) -> None:
         if not lobbies:
             return
         lobby_id = IntPrompt.ask("Lobby id", default=lobbies[0]["id"])
-    console.print("Placeholder drive: type commands like accelerate, brake, steer_left, steer_right. Blank line to finish.")
-    commands: list[str] = []
-    while True:
-        command = Prompt.ask("command", default="").strip()
-        if not command:
-            break
-        commands.append(command)
-    result = _call("POST", f"/lobbies/{lobby_id}/run-placeholder-race", {"profile_id": state.profile_id, "commands": commands})["data"]
-    console.print(Panel.fit(f"Finish time: {result['finish_time_ms']} ms\n{result['reward_notification']}", title="Race Complete"))
+    mode = Prompt.ask("Race mode", choices=["p", "t"], default="p",
+                      prompt="[P]ygame interactive or [T]ext loop?").lower()
+    if mode == "p":
+        console.print("[yellow]Launching pygame race scene...[/yellow]")
+        result = _call("POST", f"/lobbies/{lobby_id}/run-interactive-race",
+                       {"profile_id": state.profile_id, "total_laps": 1, "time_limit": 120.0})["data"]
+        dnf = result.get("dnf", False)
+        laps = result.get("laps_completed", 0)
+        finish = result.get("finish_time_ms", 0)
+        best = result.get("best_lap_ms")
+        title = "Race Complete" if not dnf else f"DNF ({laps} lap)"
+        detail = f"Time: {finish/1000:.2f}s"
+        if best:
+            detail += f" | Best lap: {best/1000:.2f}s"
+        detail += f"\n{result['reward_notification']}"
+        console.print(Panel.fit(detail, title=title))
+    else:
+        console.print("Text mode: type accelerate, brake, steer_left, steer_right. Blank line to finish.")
+        commands: list[str] = []
+        while True:
+            command = Prompt.ask("command", default="").strip()
+            if not command:
+                break
+            commands.append(command)
+        result = _call("POST", f"/lobbies/{lobby_id}/run-placeholder-race",
+                       {"profile_id": state.profile_id, "commands": commands})["data"]
+        console.print(Panel.fit(f"Finish time: {result['finish_time_ms']} ms\n{result['reward_notification']}", title="Race Complete"))
 
 
 def view_snapshot() -> None:
@@ -228,7 +246,7 @@ def main() -> None:
         "6": ("View events", show_events),
         "7": ("Create lobby / launch race", lobby_flow),
         "8": ("View lobbies", show_lobbies),
-        "9": ("Run placeholder race", run_race_flow),
+        "9": ("Launch race (pygame or text)", run_race_flow),
         "0": ("Quit", None),
     }
     while True:

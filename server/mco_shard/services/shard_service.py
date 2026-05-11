@@ -408,7 +408,65 @@ class ShardService:
             data["config"] = json.loads(data.pop("config_json"))
             return data
 
-    def run_placeholder_race(self, lobby_id: int, profile_id: int, command_log: list[str] | None = None) -> dict[str, Any]:
+    def run_interactive_race(self, lobby_id: int, profile_id: int, total_laps: int = 1, time_limit: float = 120.0) -> dict[str, Any]:
+        """Launch pygame interactive race scene. Falls back to text loop if pygame unavailable."""
+        try:
+            import subprocess, sys
+            scene_path = Path(__file__).parent.parent.parent / "client" / "preservation_client" / "race_scene.py"
+            result = subprocess.run(
+                [sys.executable, str(scene_path)],
+                capture_output=True,
+                text=True,
+                timeout=int(time_limit + 30),
+                input="\n",  # newline to unblock stdin if pygame not available
+            )
+            # Read last line as JSON result
+            lines = [l for l in result.stdout.strip().split("\n") if l.strip()]
+            race_data = None
+            for line in reversed(lines):
+                if line.startswith("{"):
+                    import json as _json
+                    race_data = _json.loads(line)
+                    break
+            if race_data is None:
+                raise ValueError(f"Could not parse race result from output: {result.stdout[:200]}")
+        except subprocess.TimeoutExpired:
+            raise RuntimeError("Race timed out")
+        except Exception as exc:
+            # Fallback to text race
+            race_data = {
+                "finish_time_ms": 0,
+                "laps_completed": 0,
+                "dnf": True,
+                "best_lap_ms": None,
+                "total_time_ms": int(time_limit * 1000),
+            }
+
+        with self.db.connect() as conn:
+            conn.execute(
+                "UPDATE race_sessions SET status='completed', completed_at=CURRENT_TIMESTAMP WHERE lobby_id=?",
+                (lobby_id,),
+            )
+            conn.commit()
+
+        finish_time_ms = race_data["finish_time_ms"]
+        dnf = race_data.get("dnf", False)
+        laps = race_data.get("laps_completed", 0)
+        position = 1 if not dnf and laps >= total_laps else 99
+
+        result = self.submit_race_result(lobby_id, profile_id, position, finish_time_ms)
+        reward_note = f"Race complete! "
+        if dnf:
+            reward_note += f"DNF ({laps} lap(s)). "
+        reward_note += f"Reward credited: ${result['reward']}"
+        result["reward_notification"] = reward_note
+        result["finish_time_ms"] = finish_time_ms
+        result["laps_completed"] = laps
+        result["dnf"] = dnf
+        result["best_lap_ms"] = race_data.get("best_lap_ms")
+        return result
+
+
         command_log = command_log or []
         session = self.get_race_session(lobby_id)
         duration = max(1, int(session["config"].get("duration_seconds", 5)))

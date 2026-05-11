@@ -18,6 +18,7 @@ from server.mco_shard.models.schemas import (
     LoginRequest,
     PartPurchaseRequest,
     PlaceholderRaceRunRequest,
+    InteractiveRaceRunRequest,
     RaceResultSubmitRequest,
     RemovePartRequest,
 )
@@ -174,6 +175,14 @@ def race_session(lobby_id: int):
 def run_placeholder_race(lobby_id: int, payload: PlaceholderRaceRunRequest):
     try:
         return {"status": "ok", "data": service.run_placeholder_race(lobby_id, payload.profile_id, payload.commands)}
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.post("/lobbies/{lobby_id}/run-interactive-race")
+def run_interactive_race(lobby_id: int, payload: InteractiveRaceRunRequest):
+    try:
+        return {"status": "ok", "data": service.run_interactive_race(lobby_id, payload.profile_id, payload.total_laps, payload.time_limit)}
     except Exception as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
