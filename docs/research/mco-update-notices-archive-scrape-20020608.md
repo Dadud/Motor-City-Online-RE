@@ -573,13 +573,79 @@ Key milestones recorded by GameSpot:
 
 ---
 
+## GameSpot Q&A with Producer Michael Waite
+- **Date:** ~Early 2001 (pre-release)
+- **Author:** GameSpot staff (interviewer)
+- **Interviewee:** Michael Waite (Producer)
+- **URL (archived):** <https://web.archive.org/web/20230826204417/https://www.gamespot.com/articles/motor-city-online-qanda/1100-2684321/>
+- **Full text retrieved.**
+
+**Key excerpts:**
+
+> "To prevent confusion with the company's strictly offline series of racing games, Electronic Arts has dropped the 'Need for Speed' moniker from Motor City Online."
+
+**On the name change:** Originally announced as *Need for Speed: Motor City*, EA dropped the NFS branding to avoid confusion with the offline series.
+
+**On new player experience:** Newbie tracks on "EZ Street" — accessible only by level 1-2 players, with no economy or car ownership. Hard-core players can bypass straight to the sim world with full economy and car construction.
+
+**On economy:** System-supported auctions with supply-and-demand pricing. Players earn money through weekly salaries, pro racing purses, street racing wagers, prize winnings, and selling items/services to other players.
+
+**On pink slips:** No reneging. Profuse warnings before finalizing bet. Loss for any reason = loss of vehicle's pink slip.
+
+**On car roster:** 50+ unique licensed models from Ford, Chevy, Chrysler spanning 1930s through early 1970s. Waite's personal favorite: the '73 Firebird.
+
+**On parts:** 1000+ licensed parts from Holley, Edelbrock, Hurst in addition to manufacturer parts. All emulate true physics on a detailed level.
+
+**On tracks:** 18 selectable race locations including street tracks, pro ovals, grand prix-style road courses, drag strips, and stunt tracks. Tornado Flats (street track with special FX tornado) and Bel Air Grand Prix were highlighted.
+
+**On Turf system:** Every track is a piece of turf ruled by a club. Weekly competitions determine ruler. Ruling club's name posted on lobby screen. No driving between tracks — each is a unique location with its own lobby.
+
+**On engine:** Completely original engine built from scratch. 2000-poly car models, customizable camera, deep audio library of authentic period sounds.
+
+**On physics:** Dynamic four-point physics model. "We're trying not to be too religious about realism, but we are definitely determined to stay true to the cars during that era."
+
+**On Motor City Gazette:** In-game website featuring real in-game events (race results, club competitions, car sales, pink slip losses). Community managers and users can write stories.
+
+**On release plan:** Scheduled for summer/fall 2001. First public beta in April 2001.
+
+---
+
+## Retrospective: MassivelyOP "The Game Archaeologist" (2021)
+- **Date:** February 28, 2021
+- **Author:** MassivelyOP staff
+- **URL (archived):** <https://web.archive.org/web/20210228170511/https://massivelyop.com/2021/02/28/the-game-archaeologist-eas-motor-city-online/>
+- **Full text retrieved.**
+
+**Key excerpts:**
+
+> "Back in 2001, Electronic Arts — with its eyes swimming of visions of online success as the online market exploded — took a stab at its own MMO racing game. This would become the odd, and largely forgotten, tale of Motor City Online."
+
+**Development history:** Originally *Need for Speed: Motor City*, a single-player game. EA saw potential for an online version and retooled it as an MMO. Released October 31, 2001.
+
+**Pricing:** $40 purchase (included one free month), then $9.99/month subscription.
+
+**Content at launch:** Over 60 vehicles (1932 Ford Coupe to 1973 Pontiac Firebird Trans Am), 2000+ parts, 4 game modes, 24 tracks. Later added 1996 Toyota Supra and 1997 Mitsubishi Eclipse Spyder GS-T.
+
+**Turf Wars:** Club vs. club competition for track control.
+
+**Reception:** "Warm — but certainly not blazing hot." Cited as tedious and obtuse in some aspects. Reviewers disliked the long grind to save money for desired cars. Latency issues caused lag and rubberbanding.
+
+**Population:** Dwindled quickly after release.
+
+**Closure:** Summer 2003 (EA shut it down to focus on The Sims Online, which itself closed in 2008).
+
+**Spiritual successor:** Need for Speed World (2010–2015).
+
+**Post-mortem discovery:** In 2018, a method was found allowing people to play Motor City Online offline as a single-player experience via emulation.
+
+---
+
 ## Key News Articles Found But Not Retrieved
 
 The following URLs were identified but their full content could not be recovered (blocked or not archived):
 
 | Source | URL | Notes |
 |--------|-----|-------|
-| GameSpot Q&A | <https://www.gamespot.com/articles/motor-city-online-qanda/1100-2684321/> | Q&A with MCO team; snippet shows public beta planned for April (pre-2001) |
 | Shacknews closure | <https://www.shacknews.com/onearticle.x/25195/> | Original closure announcement in February 2003 |
 | IGN "Motor City Offline" | <https://web.archive.org/web/20030605034941/http://pc.ign.com/articles/387/387386p1.html> | IGN coverage of closure decision |
 | GameRevolution NFS Motor City preview | <http://www.gamerevolution.com/previews/featured/nfs_motor_city.htm> | Pre-release preview |
@@ -598,3 +664,7 @@ The following URLs were identified but their full content could not be recovered
 - GameSpot news timeline: open beta May 11/Jul 25 2001 → gold Oct 23 → launch Oct 31 2001 → closure announced Feb 2003 → servers offline Aug 29 2003.
 - EA's stated reason for closure: popularity problems after "the game was quickly dominated by skilled players" — new players couldn't compete and stopped playing.
 - EA offered subscribers a free copy of The Sims Online or Ultima Online as compensation upon closure.
+- Pricing: $40 box price (included 1 free month), then $9.99/month subscription.
+- Name change: Originally *Need for Speed: Motor City*; EA dropped the NFS moniker to avoid confusion with the offline series.
+- 2018 discovery: Method found to play MCO offline as single-player via emulation.
+- GameSpot Q&A with producer Michael Waite (~early 2001) reveals: 50+ cars, 1000+ parts, 18 tracks, dynamic four-point physics, original engine built from scratch, Motor City Gazette in-game newspaper, public beta planned for April 2001.
