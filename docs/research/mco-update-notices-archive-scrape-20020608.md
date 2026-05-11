@@ -926,6 +926,164 @@ This makes the game permanently accessible for preservation and research.
 
 ---
 
+## Detailed Source Content
+
+### Grokipedia — Development History
+
+Source: <https://grokipedia.com/page/motor_city_online> (retrieved via Wayback)
+
+**Executive Producer:** Randy Dersham  
+**Developer:** EA Seattle (team behind *Need for Speed III: Hot Pursuit* and *Need for Speed IV: High Stakes*)  
+**Publisher:** Electronic Arts  
+**Release date:** October 29, 2001  
+**Genre:** Racing MMO  
+**Platform:** Windows PC
+
+**Development Context:**
+- Development began under the title *Need for Speed: Motor City*.
+- The MCO team was largely comprised of the same group that worked on *NFS III* and *NFS IV*.
+- The netcode was specifically designed to accommodate the then-still-common 56k dial-up connections. The game could support up to 100 concurrent players in a shared environment.
+- At launch, the game featured over 2000 individual parts for car customization, including hundreds of real-world licensed components.
+- The game launched with approximately 45 licensed vehicles from the 1930s–1970s era.
+- MCO featured a character progression system with RPG elements — players chose a driver persona that would level up, gaining access to better parts, cars, and areas of the city.
+- The in-game newspaper "Motor City Gazette" delivered news, event schedules, and player profiles.
+
+**Beta Timeline:**
+- Beta testing began on June 29, 2001.
+- Several "Update Notices" were posted during the beta phase (Update 1 through Update 6.2).
+
+**Post-Launch Updates (beyond the June 8, 2002 archive):**
+- Update 7 (Apr 17, 2002): Team Comments feature
+- Update 8 (May 15, 2002): New tracks, new parts, garage search
+- Update 8.2 (Jun 19, 2002): New aftermarket parts, racing suits
+- Update 8.3 (Jul 3, 2002): Track time trials, sponsor contracts, player biographies
+- Update 9 (Aug 2002): Track environment updates, new tracks, new licensed parts
+
+**Closure:**
+- Shutdown announced February 26, 2003.
+- Servers went offline August 29, 2003.
+- A final farewell message was posted: "The game would live on forever in the hearts of the racers who loved the game."
+- Reasons cited: declining player base, skilled veterans dominating races causing newcomer churn, limited retail visibility, EA reallocating resources to *The Sims Online*.
+
+**Need for Speed Connection:**
+- Originally announced as *Need for Speed: Motor City* at E3 2000 where it won Best Racing Game.
+- The name was changed to *Motor City Online* to avoid confusion with the traditional single-player *Need for Speed* series.
+- Some files and naming conventions from the NFS lineage remained in the codebase.
+
+---
+
+### 01net French Preview (2000)
+
+Source: <https://www.01net.com/actualites/nfs-motor-city-online-des-details-138030.html> (retrieved via Wayback)
+
+- **Developer:** EA Seattle (same team as *NFS 3: Hot Pursuit* and *NFS 4: High Stakes*)
+- **Engine:** Improved version of the *NFS 4* 3D engine with new physics model
+- **Parts:** Over 1000 authentic car parts from real manufacturers (Edelbrock, Holley, Hurst)
+- **Vehicles:** Approximately 40 vehicles from the 1930s–1970s
+- **Features:** Community/club system, Motor City Gazette in-game newspaper
+- **Release target:** Fall 2000 (at time of preview)
+
+---
+
+### GameRevolution Preview — "NFS Motor City" (Pre-Name Change)
+
+Source: <https://www.gamerevolution.com/review/342193-nfs-motor-city-preview> (retrieved via Wayback)
+
+- **Working title:** *Need for Speed: Motor City*
+- **Developer:** EA Seattle
+- **Vehicles:** Over 30 licensed cars (Ford, Chevy, Dodge, Pontiac, Plymouth)
+- **Customization:** Thousands of parts for engine, transmission, suspension, brakes, tires, body, paint
+- **World:** 12 distinct districts of Motor City
+- **In-game newspaper:** "Motor City Gazette" — delivers news, events, player profiles
+- **Release target:** Fall 2000
+
+---
+
+### PCMag UK Review (2001)
+
+Source: <https://www.pcmag.co.uk/review/games/motor-city-online-35889> (retrieved via Wayback)
+
+**Score:** 5.0/10  
+**Reviewer:** PCMag UK staff
+
+Key points:
+- "MMO for car nuts" — requires internet connection to play
+- 24 tracks, authentic cars and parts
+- Interface is simple: click where you want to go
+- Racing for fun, cash, or "pink slips" (car ownership transfer)
+- Positive: authentic vehicles and parts
+- Negative: simplicity of MMO interface may not appeal to all
+
+---
+
+### Computer Gaming World Issue 182 (September 1999)
+
+Source: Internet Archive text extraction — <https://archive.org/stream/Computer_Gaming_World_Issue_182/Computer_Gaming_World_Issue_182_djvu.txt>
+
+Page 36 preview mentions: "Single Race is just a quick 'get in-get out' offline race" — indicating an offline single-race mode was planned or available even in early builds.
+
+Note: The full OCR text of this issue is heavily garbled. Only fragments related to MCO could be extracted.
+
+---
+
+### IGCD.net Vehicle Database
+
+Source: <https://www.igcd.net/game.php?id=19842015> (retrieved via Wayback)
+
+IGCD lists 48+ vehicles for Motor City Online, including:
+- 1932 Ford V-8 De Luxe
+- 1932 Ford Roadster
+- 1933 Ford Coupe
+- 1934 Ford Coupe
+- 1935 Chevrolet Standard
+- 1935 Ford V-8 De Luxe
+- 1936 Chevrolet Standard
+- 1936 Ford V-8 De Luxe
+- 1937 Chevrolet Master
+- 1937 Ford V-8 De Luxe
+- 1938 Chevrolet Master
+- 1939 Chevrolet Master
+- 1939 Ford V-8 De Luxe
+- 1940 Ford V-8 De Luxe
+- 1941 Chevrolet Special De Luxe
+- 1941 Ford V-8 De Luxe
+- 1949 Mercury Eight
+- 1950 Ford V-8 De Luxe
+- 1950 Mercury Eight
+- 1951 Mercury Eight
+- 1953 Ford Crestline
+- 1954 Chevrolet Bel Air
+- 1955 Chevrolet Bel Air
+- 1955 Ford Crown Victoria
+- 1956 Chevrolet Bel Air
+- 1956 Ford Crown Victoria
+- 1957 Chevrolet Bel Air
+- 1957 Ford Fairlane
+- 1958 Chevrolet Bel Air
+- 1958 Chevrolet Impala
+- 1958 Ford Fairlane
+- 1959 Chevrolet Impala
+- 1960 Chevrolet Corvette
+- 1961 Chevrolet Impala
+- 1962 Chevrolet Bel Air
+- 1963 Chevrolet Corvette
+- 1964 Chevrolet Impala
+- 1965 Chevrolet Corvette
+- 1966 Chevrolet Corvette
+- 1967 Chevrolet Camaro
+- 1967 Chevrolet Corvette
+- 1968 Chevrolet Camaro
+- 1969 Chevrolet Camaro
+- 1970 Chevrolet Chevelle
+- 1970 Dodge Challenger
+- 1970 Plymouth Barracuda
+- 1970 Plymouth Road Runner
+- And additional vehicles
+
+Vehicles are marked as "damageable" in the database.
+
+---
+
 ## Additional Sources
 
 - Grokipedia (comprehensive development history): <https://grokipedia.com/page/motor_city_online>
@@ -934,3 +1092,5 @@ This makes the game permanently accessible for preservation and research.
 - Game Critics Awards 2000: <https://www.gamecriticsawards.com/2000winners.html>
 - Internet Archive upload: <https://archive.org/details/motor-city-online.-7z>
 - IGCD vehicle database: <https://www.igcd.net/game.php?id=19842015>
+- PCMag UK review: <https://www.pcmag.co.uk/review/games/motor-city-online-35889>
+- CGW Issue 182 (preview): <https://archive.org/stream/Computer_Gaming_World_Issue_182/Computer_Gaming_World_Issue_182_djvu.txt>
