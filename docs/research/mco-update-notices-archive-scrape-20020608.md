@@ -1094,3 +1094,115 @@ Vehicles are marked as "damageable" in the database.
 - IGCD vehicle database: <https://www.igcd.net/game.php?id=19842015>
 - PCMag UK review: <https://www.pcmag.co.uk/review/games/motor-city-online-35889>
 - CGW Issue 182 (preview): <https://archive.org/stream/Computer_Gaming_World_Issue_182/Computer_Gaming_World_Issue_182_djvu.txt>
+
+---
+
+## SEC Filings & Financial Data
+
+Source: Electronic Arts, Inc. Form 10-K (fiscal year ended March 31, 2003) and related 10-Q filings — SEC EDGAR
+
+**Key financial mentions of Motor City Online:**
+
+- **FY2003 10-K:** "revenue from Motor City Online, generating an aggregate increase of $8.6 million."
+- **Q1 FY2004 10-Q (June 30, 2003):** "revenue from Motor City Online (which was discontinued in August 2003)."
+- **Q4 FY2003 10-Q:** "revenue from Motor City Online and Ultima Online totaling $1.4 million."
+- **Q1 FY2002 10-Q (June 30, 2002):** "revenues from the launch of Motor City Online in October 2001."
+
+These filings confirm MCO contributed measurable (though modest relative to EA's total ~$1.3B annual revenue) subscription revenue during its operational life, and its discontinuation was formally reported to the SEC as part of EA.com segment restructuring.
+
+---
+
+## LA Times — "Online Games Are Making a Play for a Mature Audience" (June 28, 2001)
+
+Source: <https://www.latimes.com/archives/la-xpm-2001-jun-28-fi-15903-story.html> (retrieved via Wayback)
+
+Full article retrieved. Key excerpts:
+
+- EA had spent **more than $250 million in the last two years** to create EA.com
+- EA had **already lost $149 million since 1999** on the online venture (this includes Ultima Online profits)
+- EA.com acquired Pogo.com for **more than $40 million** in February 2001
+- EA's CFO Stan McKee described the business model as **"cable TV"** — free basic content with premium subscriptions
+- **"The fall will bring another lineup of games, including 'Motor City Online,' a game that lets players buy, collect and trade virtual cars."**
+- Will Wright (Sims designer) was cautious: "The economic model has yet to be proven... We'll see some pretty spectacular failures in this market."
+- EA aimed for online sales to eventually make up **20% of annual revenue**
+
+---
+
+## Community & Technical Preservation
+
+### VOGONS Forum Threads
+
+**Thread 1:** "[solved] Motor City Online - can't save graphics settings"  
+Source: <https://www.vogons.org/viewtopic.php?t=43050> (retrieved via Wayback)
+
+Key technical details from community:
+- Game runs on a **modified NFS High Stakes engine**
+- Settings stored in `SaveData\options.ini`
+- **DirectX 8** game
+- 3dfx/Voodoo mode exists but **track becomes invisible** when forced via wrapper
+- Fullscreen stuttering observed on some modern systems; windowed mode often fixes it
+- Windows 10 generally works better than Windows 8.1 for this title
+- Launcher and update files available from **GTRCars.net**
+
+**Thread 2:** "Motor City Online Launcher Error Code"  
+Source: <https://www.vogons.org/viewtopic.php?t=73692>
+
+**Thread 3:** dgVoodoo developer mentioned needing to "reverse engineer the Motor City Online to see how it enables fog with the DX8 renderer" — indicating active wrapper compatibility work for this title.
+
+### Emuline Forum
+
+Source: <https://www.emuline.org/topic/2298-motor-city-online/>
+
+- Community maintains a **MEGA.nz mirror** of the game: `https://mega.nz/folder/Ys5TSKgK#cuYfuhivuDJVGZDl2apNAw`
+- References PCGamingWiki for offline play instructions
+
+### Stratics Community Forums
+
+Multiple threads where former MCO players reminisce:
+- One user: "EA canned my previous game, Motor City online....I had 24 cars to my garage, some suped up after a long time of collecting rares"
+- Another: "Prior to UO, I did Motor City Online......which, I still miss to this day, BRING IT BACK DEVS!!!!!!!"
+
+### NFSAddons Forum
+
+Source: <https://www.nfsaddons.com/forums/index.php?topic=1987.0>
+
+- Discussion of LGR video and offline launcher
+- Notes: "You need the original game disc or an ISO file to run a race. The video from LGR has all other info"
+
+### LGR (Lazy Game Reviews) Video
+
+**Title:** "Bringing Motor City Online Back from the Dead"  
+**Channel:** LGR (Clint Basinger)  
+**Date:** October 8, 2018  
+**Views:** ~333,000+  
+**URL:** <https://www.youtube.com/watch?v=YxyzVo6fR9s>
+
+This video is widely credited within the preservation community for reigniting interest in MCO and documenting the offline play method.
+
+---
+
+## GameSpy Review Reference
+
+MobyGames lists a **GameSpy review score of 88%** for Motor City Online (Windows).  
+Source: <https://www.mobygames.com/game/5465/motor-city-online/>
+
+The full GameSpy review text was not recoverable via Wayback Machine (URL not captured). Wikipedia talk page references a GameSpy review by David Long (January 29, 2002). If anyone has access to an archived copy of this review, it should be added here.
+
+---
+
+## Additional Sources
+
+- Grokipedia (comprehensive development history): <https://grokipedia.com/page/motor_city_online>
+- 01net French preview (EA Seattle, NFS4 engine): <https://www.01net.com/actualites/nfs-motor-city-online-des-details-138030.html>
+- GameRevolution NFS Motor City preview: <https://www.gamerevolution.com/review/342193-nfs-motor-city-preview>
+- Game Critics Awards 2000: <https://www.gamecriticsawards.com/2000winners.html>
+- Internet Archive upload: <https://archive.org/details/motor-city-online.-7z>
+- IGCD vehicle database: <https://www.igcd.net/game.php?id=19842015>
+- PCMag UK review: <https://www.pcmag.co.uk/review/games/motor-city-online-35889>
+- CGW Issue 182 (preview): <https://archive.org/stream/Computer_Gaming_World_Issue_182/Computer_Gaming_World_Issue_182_djvu.txt>
+- LA Times article (June 28, 2001): <https://www.latimes.com/archives/la-xpm-2001-jun-28-fi-15903-story.html>
+- EA SEC 10-K FY2003: <https://www.sec.gov/Archives/edgar/data/712515/000089161803002939/f90122e10vk.htm>
+- VOGONS MCO thread: <https://www.vogons.org/viewtopic.php?t=43050>
+- Emuline MCO thread: <https://www.emuline.org/topic/2298-motor-city-online/>
+- LGR Video: <https://www.youtube.com/watch?v=YxyzVo6fR9s>
+- MEGA.nz community mirror: `https://mega.nz/folder/Ys5TSKgK#cuYfuhivuDJVGZDl2apNAw`
