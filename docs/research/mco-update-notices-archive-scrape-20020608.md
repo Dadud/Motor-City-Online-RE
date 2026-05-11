@@ -1882,7 +1882,7 @@ The following sources were identified during research but could not be retrieved
 - **Update Notices 4 — Bug Fixes tail**: Truncated in Fandom Wayback capture at "Improved Race Results for Time Trials — Race Time, Top Speed, First Lap T..."
 - ~~NFS Fandom car list page~~ (`nfs.fandom.com/wiki/Motor_City_Online/Cars`): **RECOVERED** via Wayback Machine (Oct 18, 2021 snapshot). Full vehicle roster extracted and documented above.
 - **MobyGames page**: Blocked by Cloudflare (403).
-- **GMR Magazine (May 2003)**: Raw OCR text too garbled to extract useful MCO article content.
+- ~~GMR Magazine (May 2003)~~: **RECOVERED** via OCR from archive.org May 2026. Article "Motor City Offline" with subscriber estimates and EA.com context recovered. See compilation document above.
 - **Shacknews closure announcement**: URL `https://www.shacknews.com/onearticle.x/25195/` — blocked.
 - **StrategyWiki full page**: Blocked by Cloudflare on live site; no useful Wayback capture found.
 - **NFS-Planet individual news pages** (#357, #363, #396, #575): Archive summaries available but individual article pages return empty content.
@@ -1902,9 +1902,9 @@ The following sources were identified during research but could not be retrieved
 - **Compiled by:** Retro Game RE agent (OpenClaw)
 - **Primary target date:** June 8, 2002 Wayback snapshot of `mco.ea.com`
 - **Methodology:** Wayback Machine scraping via `web_fetch`, supplemented with live web sources, SEC filings, magazine OCR scans, community forum archives, Reddit, GitHub, YouTube, and Steam Community.
-- **Total sources documented:** 75+ unique URLs, 17+ press reviews with scores, 8 official update notices, 6 upcoming features pages, 3 press releases, 2 SEC filing references, 10+ community preservation threads, **1 complete vehicle roster (~80 vehicles)**, 12+ video references, 1 prototype build, 1 open-source RE project, 1 speedrun leaderboard.
+- **Total sources documented:** 85+ unique URLs, 17+ press reviews with scores, 8 official update notices, 6 upcoming features pages, 3 press releases, 2 SEC filing references, 15+ community preservation threads, **1 complete vehicle roster (~80 vehicles)**, 12+ video references, 1 prototype build, 3 open-source RE projects, 1 speedrun leaderboard, **1 complete patch history (19 updates)**.
 - **Known gaps:** GameStar/PC Gamer full reviews, post-mortem developer interviews, EA earnings call transcripts mentioning MCO, Tampa Tribune review.
-- **Filled gaps:** Complete patch history (Updates 1-8.3 + server shutdown) recovered from Need for Speed Encyclopedia — see `docs/research/MCO_PATCH_HISTORY.md`.
+- **Filled gaps:** Complete patch history (Updates 1-8.3 + server shutdown) from NFS Encyclopedia; GMR Magazine May 2003 closure article; AZMCO open source project; MCO Re-Fired/Rusty Motors preservation tools; SEC-verified subscriber numbers (26K total, 12K paying); IGN closure article; GameSpy/CGOnline/GameZone full reviews; Wikipedia Talk page preservation history.
 
 ---
 
