@@ -33,6 +33,7 @@ Preserved articles, reviews, screenshots, and promotional material from 2001–2
 | CNN/GamePro | Jun 2001 | Pre-launch preview |
 | CNN/GamePro | Dec 2001 | Post-launch review |
 | CGW Issue 212 | Mar 2002 | Magazine review (p.76) |
+| PC Powerplay #086 | May 2003 | Shutdown news item |
 | Game Critics Awards | May 2000 | **Best Racing Game — E3 2000** |
 
 Also includes:
