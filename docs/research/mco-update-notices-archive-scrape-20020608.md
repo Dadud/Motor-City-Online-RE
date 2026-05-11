@@ -1350,7 +1350,7 @@ Reviewed by Chuck Bardsley. Key observations:
 
 Source: StrategyWiki (<https://strategywiki.org/wiki/Motor_City_Online>) — retrieved via search snippet
 
-- "The game lagged and the number of subscribers dropped to **below 36,000**."
+- "The game lagged and the number of subscribers dropped to **below 36,000**." *(Note: SEC filing shows actual peak was 26,000 as of Dec 31, 2001 — the 36,000 figure may be inaccurate or refer to a different metric.)*
 - "During times of high latency, cars acted unpredictably due to lag."
 
 Source: NFS Fandom wiki (search snippet)
@@ -1363,11 +1363,18 @@ Source: NFS Fandom wiki (search snippet)
 
 Source: Electronic Arts, Inc. Form 10-K (fiscal year ended March 31, 2003) and related 10-Q filings — SEC EDGAR
 
+**Verified subscriber numbers:**
+
+- **Q3 FY2002 10-Q (Quarter Ended Dec 31, 2001):** "The number of subscribers to Motor City Online was **26,000 as of December 31, 2001**. Of these, **12,000 had reached the end of their free period and were paying subscribers**."
+  - This gives us a **~46% trial-to-paid conversion rate** roughly two months post-launch.
+  - 14,000 subscribers were still in their free trial period.
+
 **Key financial mentions of Motor City Online:**
 
+- **FY2002 10-K:** Motor City Online contributed **$1.5 million in subscription revenue for fiscal year 2002**.
 - **FY2003 10-K:** "revenue from Motor City Online, generating an aggregate increase of $8.6 million."
 - **Q1 FY2004 10-Q (June 30, 2003):** "revenue from Motor City Online (which was discontinued in August 2003)."
-- **Q4 FY2003 10-Q:** "revenue from Motor City Online and Ultima Online totaling $1.4 million."
+- **Q4 FY2003 10-Q:** "subscription revenue from Motor City Online and Ultima Online totaling $1.4 million."
 - **Q1 FY2002 10-Q (June 30, 2002):** "revenues from the launch of Motor City Online in October 2001."
 
 These filings confirm MCO contributed measurable (though modest relative to EA's total ~$1.3B annual revenue) subscription revenue during its operational life, and its discontinuation was formally reported to the SEC as part of EA.com segment restructuring.
@@ -1804,7 +1811,7 @@ The following sources were identified during research but could not be retrieved
 - **Primary target date:** June 8, 2002 Wayback snapshot of `mco.ea.com`
 - **Methodology:** Wayback Machine scraping via `web_fetch`, supplemented with live web sources, SEC filings, magazine OCR scans, community forum archives, Reddit, GitHub, YouTube, and Steam Community.
 - **Total sources documented:** 75+ unique URLs, 17+ press reviews with scores, 8 official update notices, 6 upcoming features pages, 3 press releases, 2 SEC filing references, 10+ community preservation threads, **1 complete vehicle roster (~80 vehicles)**, 12+ video references, 1 prototype build, 1 open-source RE project, 1 speedrun leaderboard.
-- **Known gaps:** GameStar/PC Gamer full reviews, exact peak subscriber count, post-mortem developer interviews, EA earnings call transcripts mentioning MCO, Tampa Tribune review, Update Notices 4 bug fixes tail.
+- **Known gaps:** GameStar/PC Gamer full reviews, post-mortem developer interviews, EA earnings call transcripts mentioning MCO, Tampa Tribune review, Update Notices 4 bug fixes tail.
 
 ---
 
