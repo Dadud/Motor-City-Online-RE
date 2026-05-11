@@ -35,6 +35,7 @@ Preserved articles, reviews, screenshots, and promotional material from 2001–2
 | CGW Issue 212 | Mar 2002 | Magazine review (p.76) |
 | PC Powerplay #086 | May 2003 | Shutdown news item |
 | GameSpot | Nov 2001 | Review by Stephen Poole (7.6/10) |
+| IGN | Nov 2001 | Review by Dan Adams (7.9/10) |
 | Game Critics Awards | May 2000 | **Best Racing Game — E3 2000** |
 
 Also includes:
