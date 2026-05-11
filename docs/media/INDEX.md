@@ -31,6 +31,7 @@ Each article/source is stored in its own folder with associated media files (whe
 | 19 | `19-gamesurge-rename-announcement` | GameSurge | Sep 2000 | Rename from "Motor City" | — |
 | 20 | `20-e3-2000-best-racing-game` | Game Critics Awards | May 2000 | E3 2000 Best Racing Game award | — |
 | 21 | `21-patch-history` | Community Wikis | Nov 2001–Aug 2003 | Complete patch notes archive | — |
+| 22 | `22-gamespot-producer-qa` | GameSpot | May 17, 2000 | Producer Michael Waite interview | — |
 
 ## Box Art
 
