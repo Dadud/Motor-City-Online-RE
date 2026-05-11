@@ -36,6 +36,9 @@ Each article/source is stored in its own folder with associated media files (whe
 | 24 | `24-nfsplanet-last-betatest` | NFS-Planet | Oct 22, 2001 | Final beta week announcement | — |
 | 25 | `25-nfsplanet-bel-air-cup` | NFS-Planet | Jan 24, 2002 | Bel Air Cup weekly event | — |
 | 26 | `26-nfsplanet-aim-icons` | NFS-Planet | Jul 3, 2002 | AIM Icons release | — |
+| 27 | `27-cnn-preview-jun-2001` | CNN/GamePro | Jun 12, 2001 | Pre-launch preview | — |
+| 28 | `28-cnn-review-dec-2001` | CNN/GamePro | Dec 17, 2001 | Post-launch review | — |
+| 29 | `29-cgw-issue-212-review` | CGW Issue 212 | Mar 2002 | Magazine review (p.76) | — |
 
 ## Box Art
 
