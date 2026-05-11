@@ -490,6 +490,89 @@ User score: 5.8 (Mixed or Average).
 
 ---
 
+### Additional Press Reviews — Recovered May 2026
+
+#### GameZone Review (November 19, 2001)
+- **Score:** 9.2/10
+- **Author:** Michael Lafferty
+- **URL (archived):** <https://web.archive.org/web/20011205090423/https://www.gamezone.com/gzreviews/r15669.htm>
+- **Full text retrieved** via Wayback Machine.
+
+**Scoring breakdown:** Gameplay 8.8 | Graphics 8.5 | Sound 9 | Difficulty 9 | Concept 9.5 | Multiplayer 9 | Overall 9.2
+
+**Key quotes:**
+> "EA's Motor City Online is an incredibly fun muscle-car racing simulation."
+
+> "The graphics are (in-race) three-dimensional and very nice. Tracks contain tire marks, and the dust from passing vehicles. The sound is exquisite. There are five radio channels to listen to, and each contains updates, as well as a selection of '50s and '60s style music."
+
+> "There is something highly addictive about this game. Perhaps it is the combination of strategy and reflexive driving skill. Maybe it is in getting in touch with memories of a time long ago when muscle cars ruled the universe and every driver was the king or queen of the enclosed world."
+
+**System tested:** Pentium III 800MHz, 640MB RAM, DDR GeForce2, Vortex2 sound.
+
+---
+
+#### GameSpy Review (December 2001)
+- **Score:** 88% (per MobyGames; score breakdown not in recovered pages)
+- **Author:** Carla Harker
+- **URL (archived):** <https://web.archive.org/web/20020205111704/http://www.gamespy.com/reviews/december01/motorcityonline/>
+- **Full text retrieved** across three pages (index, index2, index3).
+
+**Key quotes:**
+> "Electronic Arts, makers of one of the biggest and oldest MMOGs, Ultima Online has learned from their mistakes and produced a stable, solid racing game that will attract diehard racing fans and classic and muscle car fanatics with an itch to tinker under the hood."
+
+> "The biggest problem with MCO is that it doesn't really have the immersive feel of other MMOGs. It's little more than a chat room in which it's possible to hook up with others and race."
+
+> "Finding people to race with can also be a dilemma in MCO. The servers have around four hundred people on them during peak times, but finding an open race that fits your skill level often involves waiting for a while."
+
+> "Only one persistent bug reared its ugly head. The game often freezes upon exiting, necessitating a reboot."
+
+---
+
+#### CGOnline Review (January 29, 2002)
+- **Score:** Not stated in recovered text; MobyGames lists cgonline.com
+- **Author:** David Long
+- **URL (archived):** <https://web.archive.org/web/20020402001822/http://www.cgonline.com/reviews/motorcity-01-r1.html>
+- **Full text retrieved** via Wayback Machine.
+
+**Key quotes:**
+> "Motor City Online sounds great on paper... That should be all that's needed for a hit game, right? It doesn't work."
+
+> "'Race against thousands over the Internet' is the tag line... But it's a misleading one, since you only race against four of those thousands at any one time."
+
+> "Everything happens online — you cannot start a single player race with AI — and the technical implementation is sound. Lag is minimal on a modem connection."
+
+> "While it functions properly, Motor City Online simply doesn't have anything that makes it worthwhile as an online game. It's not worth ten dollars per month and even that first month isn't worth the entry price."
+
+---
+
+#### PCMag Review (2002)
+- **Score:** Not stated
+- **URL (live):** <https://uk.pcmag.com/first-looks/30398/motor-city-online>
+- **Full text retrieved** from live site.
+
+**Key quotes:**
+> "One of the drawbacks of MMOGs is that because of the games' complexity, interfaces can be daunting. If you're looking for a game that's more straightforward, Motor City Online may be right for you—especially if you're a gear head."
+
+> "Motor City Online's formula is simple but just as engaging as that of any of the other games we review here. You need not even read the manual to understand how to use the menu-based shopping, maintenance, and chat screens."
+
+---
+
+#### IGN — "Motor City Offline" Closure Announcement (February 26, 2003)
+- **Author:** Steve Butts
+- **URL (live):** <https://www.ign.com/articles/2003/02/26/motor-city-offline>
+- **Full text retrieved** from live site (previously unrecoverable via Wayback Machine).
+
+**Key quotes:**
+> "Electronic Arts announced today that they will soon be suspending their premiere online racing game Motor City Online after almost two years of service. The lack of visibility on store shelves has kept the community from growing enough to support the cost of maintaining the game..."
+
+> "The highly-skilled players of Motor City Online helped pound yet another nail in the coffin by creating an environment that frustrated new and more casual players."
+
+> "The game's main servers and message boards will be taken down August 29 just after the stroke of midnight Greenwich Mean Time."
+
+> "Active subscribers will receive an email offering them a free copy of either Ultima Online or The Sims Online."
+
+---
+
 ## Official MCO Site News (mco.ea.com, 2002 archive)
 
 Retrieved from the main mco.ea.com homepage news section via Wayback Machine (June 8, 2002 snapshot).
@@ -1609,6 +1692,47 @@ Dedicated subreddit for MCO players: <https://www.reddit.com/r/MotorCityGameMemo
 
 ---
 
+## Wikipedia Talk Page — Preservation History
+
+Source: <https://en.wikipedia.org/wiki/Talk:Motor_City_Online> (retrieved May 2026)
+
+The Wikipedia talk page contains valuable firsthand community testimony about the post-shutdown preservation scene:
+
+### Debug Files and Private Community (2014)
+An unsigned comment (later removed from main article for NPOV/unsourced concerns) documented the existence of a **private community** that had obtained debug files from the MCO development team:
+
+> "Now, while Motor City Online was dead for many years, debug files found from the development team of Motor City Online appeared within a single community. These files were originally meant to be kept private and unshared, and remained so for more than two years. MCO currently classed as 'abandonware', is now available freely to everyone and in combination with these freshly public available tools and debug files, gamers who were never given the chance to enjoy Motor City Online, can now experience what only a handful of users in a single private community wanted to keep to themselves."
+
+**Files newly developed by the original community:**
+- Beta Tracks
+- Cars
+- Parts
+- Track Segment
+- New Parts/New Cars
+- Paint Jobs
+- Other Fixes/Additions
+
+**Original Debug mode features:**
+- Single Player Mode with selection of: Cars, Paint Jobs, Tracks, AI, Day/Night, Weather, Direction, Race Type
+
+### Import Cars Controversy (2013)
+Community members confirmed that at end-of-life, two foreign cars were available:
+- **1999 Mitsubishi Eclipse**
+- **1997 Toyota Supra**
+
+Both were controversially equipped with V8 engines and made RWD, which "caused a lot of controversy amongst the MCO purists who believed that any car going into the game should be true to its real life mechanics."
+
+### MCO "Offline" Mod Clarification
+> "It should also be noted that Motor City Offline is not an offline version of Motor City Online, but Need for Speed: High Stakes with the cars from Motor City Online."
+
+### Community References Found on Talk Page
+- Shaan Him — "Motor City Online Preview" (tripod.com)
+- David Long (January 29, 2002) — "Motor City Online Review" (cgonline.com, archived)
+- Michael Lafferty (November 19, 2001) — "Motor City Online PC Review" (GameZone, archived)
+- Carla Harker (December 7, 2001) — "Motor City Online (PC)" (GameSpy, archived)
+
+---
+
 ## Community Forums & Additional Sources
 
 ### Earth and Beyond Emulator Forum (Apr 24, 2015)
@@ -1647,9 +1771,10 @@ Source: <https://nfstheories.boards.net/thread/55/motor-city-online>
 
 The following sources were identified during research but could not be retrieved due to paywalls, Cloudflare blocking, broken Wayback captures, or OCR quality issues:
 
-- **IGN "Motor City Offline" closure piece** (Feb 23, 2003 by Steve Butts): Wayback capture incomplete (only ad frame preserved). URL: `http://pc.ign.com/articles/387/387386p1.html`
+- ~~IGN "Motor City Offline" closure piece~~ (Feb 23, 2003 by Steve Butts): **RECOVERED** from live IGN site May 2026. URL: `https://www.ign.com/articles/2003/02/26/motor-city-offline`
 - **The Tampa Tribune review** (Dec 7, 2001 by Wes Phillips): Gave MCO a "D" score. Blocked by Cloudflare on Newspapers.com. URL: `https://www.newspapers.com/clip/98556533/the-tampa-tribune/`
-- **GameSpy review** (Jan 29, 2002 by David Long): MobyGames lists 88% score. Wayback did not capture the review URL. Wikipedia talk page references it.
+- ~~GameSpy review~~ (Dec 2001 by Carla Harker): **RECOVERED** from Wayback Machine May 2026. Full 3-page review retrieved. MobyGames lists 88% score.
+- ~~CGOnline review~~ (Jan 29, 2002 by David Long): **RECOVERED** from Wayback Machine May 2026. Full text retrieved.
 - **GameStar (Germany) review**: Confirmed via MobyGames that GameStar reviewed MCO. Exact score not recovered. GameStar.de pages not archived in Wayback Machine.
 - **PC Gamer review**: Metacritic snippet only: "A terrific concept that isn't terribly far away from realizing its full potential. [Feb 2002, p.72]" Full text not found.
 - **Computer Gaming World Issues 196, 200, 210, 212**: PDFs return binary or OCR text too garbled for reliable extraction.
@@ -1678,8 +1803,8 @@ The following sources were identified during research but could not be retrieved
 - **Compiled by:** Retro Game RE agent (OpenClaw)
 - **Primary target date:** June 8, 2002 Wayback snapshot of `mco.ea.com`
 - **Methodology:** Wayback Machine scraping via `web_fetch`, supplemented with live web sources, SEC filings, magazine OCR scans, community forum archives, Reddit, GitHub, YouTube, and Steam Community.
-- **Total sources documented:** 70+ unique URLs, 12+ press reviews with scores, 8 official update notices, 6 upcoming features pages, 3 press releases, 2 SEC filing references, 10+ community preservation threads, **1 complete vehicle roster (~80 vehicles)**, 12+ video references, 1 prototype build, 1 open-source RE project, 1 speedrun leaderboard.
-- **Known gaps:** GameStar/PC Gamer full reviews, exact peak subscriber count, post-mortem developer interviews, EA earnings call transcripts mentioning MCO, full text of IGN "Motor City Offline" closure piece, Tampa Tribune review, Update Notices 4 bug fixes tail.
+- **Total sources documented:** 75+ unique URLs, 17+ press reviews with scores, 8 official update notices, 6 upcoming features pages, 3 press releases, 2 SEC filing references, 10+ community preservation threads, **1 complete vehicle roster (~80 vehicles)**, 12+ video references, 1 prototype build, 1 open-source RE project, 1 speedrun leaderboard.
+- **Known gaps:** GameStar/PC Gamer full reviews, exact peak subscriber count, post-mortem developer interviews, EA earnings call transcripts mentioning MCO, Tampa Tribune review, Update Notices 4 bug fixes tail.
 
 ---
 
