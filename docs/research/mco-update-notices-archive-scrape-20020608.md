@@ -1097,6 +1097,68 @@ Vehicles are marked as "damageable" in the database.
 
 ---
 
+## Official Press Releases
+
+### Business Wire — "Put the Pedal to the Metal On EA.com" (November 1, 2001)
+
+Source: <https://web.archive.org/web/20011118125850/http://biz.yahoo.com/bw/011101/10450_1.html> (via Wayback)
+
+Full press release retrieved. Key details:
+
+- **60 licensed American classics** ranging from '32 Deuce Coupe to '73 Firebird Trans Am
+- **Over 2,000 real-life car parts** from Edelbrock, Holley, Hurst
+- **24 challenging tracks**
+- **Four racing modes**: Time Trials, Drag, Circuit, Street
+- Pink slip races (winner-take-all)
+- **Arcade action mode** mentioned ("more straightforward")
+- Motor City "Community Center" tracks cash, performance, progression
+- Official site: www.motorcityonline.com
+- MSRP $39.99, first month free, then $9.99/month
+- EA.com had **25 million registered members** at time of MCO launch
+- Contact: Jason S. Andersen (Senior PR Specialist), Jeane Wong (Director of PR)
+- Developed by EA Seattle, published by Electronic Arts
+
+### GameSpot — "Motor City Online ships" (December 1, 2001)
+
+Source: <https://web.archive.org/web/20011201210328/http://gamespot.com/gamespot/stories/news/0,10870,2821577,00.html>
+
+- Confirms arcade action mode: "lets players pick a car, a track, and a race and then jump right into the competition"
+- More than 1,000 real-life parts
+- Weekly salary + pro races + betting system
+- $39.99 retail price
+
+---
+
+## Contemporary User Review — Christian Spotlight (2002)
+
+Source: <https://christiananswers.net/spotlight/games/2002/motorcityonline.html>
+
+Reviewed by Chuck Bardsley. Key observations:
+
+- System requirements: PII 266 MHz, 64 MB RAM, 150 MB HDD, 8 MB video card, 56K Internet connection
+- Monthly fee $9.95 after initial 30 days
+- Level system: "newbee" → "amateur" (level 5 observed), with weekly paychecks
+- "Swap wins" exploit noted — players trading wins for money
+- Pink slip races mentioned; car theft reported ("perhaps due to a programming flaw")
+- 28.8k dial-up works but causes position desync for other players
+- Garage functions: install, repair, paint, test performance
+- Game analyzes car and gives readings: handling, horsepower, aerodynamics
+
+---
+
+## Subscriber Numbers & Post-Shutdown Analysis
+
+Source: StrategyWiki (<https://strategywiki.org/wiki/Motor_City_Online>) — retrieved via search snippet
+
+- "The game lagged and the number of subscribers dropped to **below 36,000**."
+- "During times of high latency, cars acted unpredictably due to lag."
+
+Source: NFS Fandom wiki (search snippet)
+
+- "The servers were taken offline due to a degradation in maintenance and **low number of subscribers**."
+
+---
+
 ## SEC Filings & Financial Data
 
 Source: Electronic Arts, Inc. Form 10-K (fiscal year ended March 31, 2003) and related 10-Q filings — SEC EDGAR
@@ -1206,3 +1268,48 @@ The full GameSpy review text was not recoverable via Wayback Machine (URL not ca
 - Emuline MCO thread: <https://www.emuline.org/topic/2298-motor-city-online/>
 - LGR Video: <https://www.youtube.com/watch?v=YxyzVo6fR9s>
 - MEGA.nz community mirror: `https://mega.nz/folder/Ys5TSKgK#cuYfuhivuDJVGZDl2apNAw`
+- Business Wire press release (Nov 1, 2001): <https://web.archive.org/web/20011118125850/http://biz.yahoo.com/bw/011101/10450_1.html>
+- GameSpot "Motor City Online ships" (Dec 1, 2001): <https://web.archive.org/web/20011201210328/http://gamespot.com/gamespot/stories/news/0,10870,2821577,00.html>
+- Christian Spotlight review (2002): <https://christiananswers.net/spotlight/games/2002/motorcityonline.html>
+- Wikipedia article: <https://en.wikipedia.org/wiki/Motor_City_Online>
+- NFS-Planet news archive: <https://www.nfsplanet.com/newsarchiv.php?lang=eng>
+- StrategyWiki: <https://strategywiki.org/wiki/Motor_City_Online>
+- NFS Fandom wiki: <https://nfs.fandom.com/wiki/Motor_City_Online>
+
+---
+
+## Sources Attempted But Not Recoverable
+
+The following sources were identified during research but could not be retrieved due to paywalls, Cloudflare blocking, broken Wayback captures, or OCR quality issues:
+
+- **IGN "Motor City Offline" closure piece** (Feb 23, 2003 by Steve Butts): Wayback capture incomplete (only ad frame preserved). URL: `http://pc.ign.com/articles/387/387386p1.html`
+- **The Tampa Tribune review** (Dec 7, 2001 by Wes Phillips): Gave MCO a "D" score. Blocked by Cloudflare on Newspapers.com. URL: `https://www.newspapers.com/clip/98556533/the-tampa-tribune/`
+- **GameSpy review** (Jan 29, 2002 by David Long): MobyGames lists 88% score. Wayback did not capture the review URL. Wikipedia talk page references it.
+- **GameStar (Germany) review**: Confirmed via MobyGames that GameStar reviewed MCO. Exact score not recovered. GameStar.de pages not archived in Wayback Machine.
+- **PC Gamer review**: Metacritic snippet only: "A terrific concept that isn't terribly far away from realizing its full potential. [Feb 2002, p.72]" Full text not found.
+- **Computer Gaming World Issues 196, 200, 210, 212**: PDFs return binary or OCR text too garbled for reliable extraction.
+- **PC Zone Issue 109 (Dec 2001)**: OCR text garbled, no usable MCO review content extracted.
+- **BetaArchive late beta build thread**: Blocked by Cloudflare (403).
+- **Update Notices 4 — Bug Fixes tail**: Truncated in Fandom Wayback capture at "Improved Race Results for Time Trials — Race Time, Top Speed, First Lap T..."
+- **NFS Fandom car list page** (`nfs.fandom.com/wiki/Motor_City_Online/Cars`): Blocked by Cloudflare (403).
+- **MobyGames page**: Blocked by Cloudflare (403).
+- **GMR Magazine (May 2003)**: Raw OCR text too garbled to extract useful MCO article content.
+- **Shacknews closure announcement**: URL `https://www.shacknews.com/onearticle.x/25195/` — blocked.
+- **StrategyWiki full page**: Blocked by Cloudflare on live site; no useful Wayback capture found.
+- **NFS-Planet individual news pages** (#357, #363, #396, #575): Archive summaries available but individual article pages return empty content.
+
+---
+
+## Research Notes
+
+- **File location:** `mco-wiki/docs/research/mco-update-notices-archive-scrape-20020608.md`
+- **Git repository:** <https://github.com/Dadud/Motor-City-Online-RE.git>
+- **Compiled by:** Retro Game RE agent (OpenClaw)
+- **Primary target date:** June 8, 2002 Wayback snapshot of `mco.ea.com`
+- **Methodology:** Wayback Machine scraping via `web_fetch`, supplemented with live web sources, SEC filings, magazine OCR scans, and community forum archives.
+- **Total sources documented:** 40+ unique URLs, 12+ press reviews with scores, 8 official update notices, 6 upcoming features pages, 3 press releases, 2 SEC filing references, 4 community preservation threads, 1 vehicle database, 1 video reference.
+- **Known gaps:** GameStar/PC Gamer full reviews, exact subscriber count at peak, post-mortem developer interviews, EA earnings call transcripts mentioning MCO.
+
+---
+
+*This document is a living research compilation for the Motor City Online preservation and reverse engineering project. Additions and corrections welcome.*
