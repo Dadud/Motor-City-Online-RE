@@ -28,6 +28,7 @@ Preserved articles, reviews, screenshots, and promotional material from 2001–2
 | AssemblerGames | 2010–2019 | Preservation thread |
 | Blue's News | Sep 2001 | Beta download (428MB) |
 | GameSurge | Sep 2000 | Rename announcement |
+| Game Critics Awards | May 2000 | **Best Racing Game — E3 2000** |
 
 Also includes:
 - North American box art
@@ -37,6 +38,7 @@ Also includes:
 - **Beta download history** — Blue's News open beta (428MB, Sep 2001)
 - **Computer Gaming World Issue 210** (Jan 2002) PDF reference — MCO preview on page 36
 - **PC Gamer Issue 87** (Aug 2001) OCR reference — E3 wrap-up coverage
+- **Complete Patch History** — All documented updates from launch to shutdown (Nov 2001–Aug 2003)
 
 See [`docs/media/INDEX.md`](docs/media/INDEX.md) for the full catalog.
 
