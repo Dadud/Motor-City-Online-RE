@@ -1275,6 +1275,253 @@ The full GameSpy review text was not recoverable via Wayback Machine (URL not ca
 - NFS-Planet news archive: <https://www.nfsplanet.com/newsarchiv.php?lang=eng>
 - StrategyWiki: <https://strategywiki.org/wiki/Motor_City_Online>
 - NFS Fandom wiki: <https://nfs.fandom.com/wiki/Motor_City_Online>
+- Hidden Palace prototype (Jun 27, 2001): <https://hiddenpalace.org/Motor_City_Online_(Jun_27,_2001_prototype)>
+- NFS Theories forum (insider preservation history): <https://nfstheories.boards.net/thread/55/motor-city-online>
+- AZMCO GitHub (open-source RE): <https://github.com/americusmaximus/AZMCO>
+- d8vk MCO compatibility issue: <https://github.com/AlpyneDreams/d8vk/issues/121>
+- Steam Community file descriptions: <https://steamcommunity.com/groups/MotorCItyOnlinePlayNow/discussions/6/350543951941288613/>
+- Earth and Beyond Emulator forum (MCO server help): <https://forum.enb-emulator.com/index.php?/topic/11300-motor-city-online-help-us/>
+- Tildes.net (MCO replacement search): <https://tildes.net/~games/1cgs/seeking_a_replacement_for_motor_city_online>
+- Speedrun.com MCO page: <https://www.speedrun.com/mco>
+- r/MotorCityGameMemories: <https://www.reddit.com/r/MotorCityGameMemories/>
+- nerdSlayer "Death of a Game: Motor City Online": <https://www.youtube.com/watch?v=quMEnxq7fGI>
+- LGR Video: <https://www.youtube.com/watch?v=YxyzVo6fR9s>
+- YouTube "How to Install Motor City Online on Windows 10": <https://www.youtube.com/watch?v=u_Yr1wh8AHs>
+- YouTube "Cars of Motor City Online (1 of 3)": <https://www.youtube.com/watch?v=jepL59qhadM>
+- YouTube "Motor City Online - Full Soundtrack": <https://www.youtube.com/watch?v=QKaKW0EExJA>
+
+---
+
+## Prototypes & Beta Builds
+
+### Hidden Palace — Motor City Online (Jun 27, 2001 prototype)
+
+Source: <https://hiddenpalace.org/Motor_City_Online_(Jun_27,_2001_prototype)>
+
+- **Build date:** June 27, 2001
+- **Build name:** Public Beta 1
+- **Dump status:** Released, redump needed
+- **File dump date:** April 12, 2026
+- **Origin:** CD-R
+- **Key differences from final:**
+  - Different installation icon
+  - **Stunt Track** and **Derby Oval Track** not present in final game
+  - Still references EA Racing site when attempting to connect
+  - Game is unplayable by normal means, but most content can be moved to final release and launched using the Debug exe / -Nofront command
+
+---
+
+## Debug Exe Origin & Preservation History
+
+Source: NFS Theories forum thread (<https://nfstheories.boards.net/thread/55/motor-city-online>) — Posts by BCooper/LACooper, a former MCO player and member of the private preservation community.
+
+This is the most detailed insider account of how the MCO offline/debug community formed:
+
+### The Debug Leak
+- During **beta 2**, EA **accidentally patched the debug files** to the game via an update
+- EA issued an **emergency update** to fix it, but the files had already spread
+- The debug files remained on some systems, found on an **old hard drive in 2007**
+- A former MCO player knew how to use them but **never wanted to make it public** for fear of EA legal action
+- In **2010**, these files were given to a trustful former MCO player who shared them with a **very small group of trusted players**
+
+### Private Development (2010–2014+)
+- The small group created a **private forum/website** to develop tools and content for the debug build
+- They received **more files from anonymous hands** and used their own backups from the live game
+- They made "insane progress" on:
+  - **CarBuilders** (virtual car builders)
+  - **Launchers** (including nofront.ini interface)
+  - **Tracks** (made unreleased tracks work, figured out how to run track segments)
+  - **New parts and cars**
+  - Making the game work with **official updates** (which don't work with stock debug/data)
+- What is publicly available on GTRCars is estimated to be **~5% of what the private community developed**
+
+### The GTRCars Controversy
+- The "Motor City Online Update" on GTRCars is a **private backup of sunset files** that was shared **without the original owner's permission**
+- **RacingFreak** secretly downloaded files from the private forum and shared them on public sites (nd4spdworld)
+- After being banned, he returned under a new username, was discovered via forum geo-location, and subsequently **flagged their forum**
+- The private community closed registration and went underground
+
+### Technical Details from Insider Posts
+- **Over 5,000 parts** later in the game's life (up from 2,000 at launch)
+- **Three trucks** in addition to 60+ cars
+- **30+ persona base models**: cheerleader, punk rocker, rebel, fighter, GI Joe, townie, jock, jockette, etc.
+- **5 radio stations**: Surf, Funk, Classic Rock, Oldies, + custom user station
+- **~24 tracks per station**
+- **Hundreds of interactive traffic reports, song comments, DJ talk**
+- 50's car radio style tuner with **real sound effects**
+- **Dyno2000 by MotionSoftware** integrated for power:weight calculations
+- **Dynamic economy**: prices on cars and parts depended on supply and demand
+- **Home Screen**: live news ticker, animated persona, mail, trade window
+- **HUB VIEW** alternate screen (Roxie's Diner) with up to 4 top ranked drivers
+- **Community Center, Racing Center, Garage, Detail Shop, Workshop**
+- Can run **track segments**, not just entire tracks
+- Created **new parts and cars** for the debug build
+
+---
+
+## Reverse Engineering Projects
+
+### AZMCO — AutoZone Motor City Online
+
+Source: <https://github.com/americusmaximus/AZMCO>
+
+**AZMCO** is an open source implementation of Electronic Arts' Motor City Online (2001) as well as its offline launcher.
+
+**Goals:**
+- Learn how games were made in an era when things had to be done in code, not through modern game engines
+- Have a fully playable game implemented end-to-end, including resource management, audio, video rendering, and large screen resolution support
+- Eventually support **64-bit compilation** for modern systems
+- Provide an avenue for modern renderer implementations such as **DirectX or Vulkan**
+- Support modern input devices that don't comply with DirectInput
+- Port to **Linux or Mac**
+
+**Technical details:**
+- Requires **Microsoft Visual Studio** and **Microsoft DirectX 8.0a SDK**
+- Must abstain from modern C++ features to run on legacy systems (Windows XP)
+- Two DirectX 8 renderers identified:
+  - **DirectX 8 A** (release): `dx8z.dll` version 2001.09.05.1632
+  - **DirectX 8 M** (update): version 2001.11.07.1357
+- The game **rejects software renderers and DirectX 7 renderers**
+- Uses **PKWARE DCL Implode** compression library v1.11
+- `Compress.dll` is a wrapper around `Implode.dll`
+- Source code is mostly produced by **reverse engineering the original binaries**
+- Developer has been working on this for **7+ years**
+
+**Related projects:**
+- AutoZone High Stakes (<https://github.com/americusmaximus/AZHS>)
+- AutoZone Hot Pursuit (<https://github.com/americusmaximus/AZHP>)
+- Rusty Motors Racing Server (referenced but repo not found)
+
+### d8vk — DirectX 8 to Vulkan Wrapper Compatibility
+
+Source: GitHub Issue #121 — <https://github.com/AlpyneDreams/d8vk/issues/121>
+
+- MCO has **"direct video card access"** which makes Wine, VirtualBox, and similar environments "really unhappy"
+- Debug launcher works on Windows but **crashes on Wine/Linux**
+- Requires a **32-bit prefix**
+- Error related to D3D device initialization
+- The AZMCO developer commented on this issue, confirming 7+ years of dealing with MCO's renderer
+
+---
+
+## Community Preservation Tools
+
+### Steam Community — File Descriptions
+
+Source: <https://steamcommunity.com/groups/MotorCItyOnlinePlayNow/discussions/6/350543951941288613/>
+
+**1. Motor City Online** (~645MB after unpacking)
+- BETA game image. Beta doesn't mean unstable — it just has some unused content.
+- Can install on new systems.
+
+**2. MCO Update Files** (~327MB after unpacking)
+- Contains debug mode, latest cars, beta tracks, and database with all cars for selection using the Motor City Online Launcher.
+- Original description: "Pack including all the files you need to run Motor City Online, the Debug files, latest cars and beta tracks and database including all the cars for selection..."
+
+**3. Motor City Online Launcher**
+- Modifies `nofront.ini` content to allow racing with AI.
+- **Mode 16 = AI races** (don't change to other modes).
+- Changelog: R1 (Jan 15 2012), R2 (Jan 16 2012), R3 (Jan 20 2012), R3 updated (Jun 5 2012).
+- Original description: "My little program that does allow you to run Motor City Online using the debug mode."
+
+**4. MCOffline**
+- Virtual carbuilder and parts searcher by **Robert Budd (Buddman)**.
+- Browses EA's parts database to view physics behind each part.
+- Can virtually build an engine and export to Dyno2000 or Drag2000 from MotionSoftware.
+- Password: `nowyouhaveit`
+
+**5. MCO Offline Data**
+- Views content of MCO `Online.mdb` database with user-friendly interface.
+- Comes with a Builder to build cars from a list.
+- Needs `C:\EA GAMES\Motor City Online\Data\DB\Online.mdb`
+
+---
+
+## YouTube Video Archive
+
+| Video | Channel | Date | Views | Notes |
+|-------|---------|------|-------|-------|
+| Bringing Motor City Online Back from the Dead | LGR (Clint Basinger) | Oct 8, 2018 | ~333K | Widely credited for reigniting preservation interest |
+| Death of a Game: Motor City Online | nerdSlayer Studios | ~2 years ago | ~65K | Documentary on MCO's demise |
+| Motor City Online (Offline) Review | Unknown | Jul 18, 2025 | — | Recent offline review |
+| Motor City Online PC Games Gameplay_1999_06_17 | Unknown | May 20, 2011 | 741 | Pre-release/E3 1999 gameplay footage |
+| Motor City Online Gameplay | Unknown | May 14, 2012 | 8K | Random driving in '65 Mustang and Toyota Supra |
+| Cars of Motor City Online (1 of 3) | Unknown | Aug 26, 2013 | — | Car showcase |
+| Motor City Online - Full Soundtrack | Unknown | Dec 22, 2020 | — | Complete soundtrack |
+| How to Install Motor City Online on a Windows 10 PC | Unknown | Feb 26, 2020 | — | Installation tutorial |
+| Motor City Online \| Foundry, 47.28, Single Lap (Forward) | Shiinyu | Feb 20, 2025 | — | Speedrun video |
+| Motor City Online \| Boval, 57.31, Single Lap (Backward) | Unknown | Feb 20, 2025 | — | Speedrun video |
+| Motor City Online - Rusty Motors Localhost Server Showcase! | Ziimbiian | Dec 8, 2025 | 872 | **Localhost server running!** |
+| Very Rare Motor City Online pre-release gameplay | Unknown | Dec 8, 2025 | — | Pre-release footage |
+
+---
+
+## Speedrunning
+
+Source: <https://www.speedrun.com/mco>
+
+- MCO has an **active speedrun page** on Speedrun.com
+- **27 levels** tracked
+- Active leaderboards and forums
+- Example run: Single Lap in **00:57.310** by Shiinyu
+- Another run: Foundry track, **47.28** seconds (Forward)
+- Another run: Boval track, **57.31** seconds (Backward)
+
+---
+
+## Reddit Community Testimonials
+
+### r/MotorCityGameMemories
+Dedicated subreddit for MCO players: <https://www.reddit.com/r/MotorCityGameMemories/>
+
+### r/needforspeed (Apr 24, 2023)
+"There's a barebones single player debug launcher which is easy to find, I think it's on PCGamingWiki. There's also **MCO Re-Fired**, which is a better launcher with a menu imitating the game menu, and the **Car Builder**, which lets you customise the cars, but these two are extremely hard to give a direct download link."
+
+### r/simracing (Jul 2023)
+"I remember holding car shows and organizing car auctions for rare bodies, and once paid someone 1 million dollars to share with... The game was ahead of its time and truly a unique experience."
+
+### r/electronicarts (Apr 10, 2023)
+"Anyone remember Motor City Online? I still have my box, CD, and **petition/protest letter** from when EA screwed up the game."
+
+### r/pcgaming (Mar 2015)
+"It had really intricate customization (performance and cosmetic) and really fun racing. It had a kickass RNG auction house that would occasionally auction off rare cars and parts..."
+
+### r/MotorCityGameMemories (Jun 2021)
+"My happiest moment, was refreshing the auction house before going to school one morning to find a rusty choptop mustang randomly listed between clicks with 15 seconds and I snagged it for 90k then turned a profit of 1 million a week later to someone for their collection of rusties..."
+
+---
+
+## Community Forums & Additional Sources
+
+### Earth and Beyond Emulator Forum (Apr 24, 2015)
+Source: <https://forum.enb-emulator.com/index.php?/topic/11300-motor-city-online-help-us/>
+
+- MCO community reached out to Earth and Beyond emulator devs for help with server emulation
+- Both games use **Auth Login** system
+- MCO community has been trying to get the game back online since at least 2015
+- Encryption keys and payment verification are major blockers
+- "We tried for years to get it back online, but the problem is the amount of security with encryption keys to verify the game and payment (back then)..."
+
+### Tildes.net (Nov 28, 2023)
+Source: <https://tildes.net/~games/1cgs/seeking_a_replacement_for_motor_city_online>
+
+Detailed nostalgia post describing MCO's unique engine building:
+- "In MCO, you needed to actually build your engine in a way that the parts would work well with each other in order to get the best performance. It wasn't simply an upgrade chain, as you could easily spend ten grand on parts and come out with a 200hp brick."
+- Searched for modern equivalents; found Revhead (Australia) which "scratches a LOT of the itch" but is still missing the research/testing aspect.
+
+### Neoseeker Forum
+Source: <https://www.neoseeker.com/forums/288/t261466-mco-server-side-software/>
+- Thread discussing MCO server-side software availability.
+
+### NFS Theories ProBoards
+Source: <https://nfstheories.boards.net/thread/55/motor-city-online>
+- Active thread since 2013 with detailed insider preservation history.
+
+### Facebook Groups
+- "Revive Motor City Online" (@BringBackMCO)
+- Active MCO group with 2000+ members
+- MCO Re-Fired mod discussions
+- "Protecting molly's work on motor city online" — 10+ years of dedication
 
 ---
 
@@ -1297,6 +1544,12 @@ The following sources were identified during research but could not be retrieved
 - **Shacknews closure announcement**: URL `https://www.shacknews.com/onearticle.x/25195/` — blocked.
 - **StrategyWiki full page**: Blocked by Cloudflare on live site; no useful Wayback capture found.
 - **NFS-Planet individual news pages** (#357, #363, #396, #575): Archive summaries available but individual article pages return empty content.
+- **Neoseeker MCO Server Side Software thread**: Blocked by Cloudflare (403).
+- **Reddit threads**: Blocked by Cloudflare verification on direct fetch; content retrieved via search snippets only.
+- **Speedrun.com**: Blocked by Cloudflare (403) on direct fetch.
+- **YouTube video transcripts**: Not extracted; URLs and metadata documented only.
+- **GTRCars.net**: Referenced extensively by community but direct pages not archived; content described via secondary sources.
+- **EA earnings call transcripts (Q3 FY2003)**: Seeking Alpha blocked/paywalled.
 
 ---
 
@@ -1306,9 +1559,9 @@ The following sources were identified during research but could not be retrieved
 - **Git repository:** <https://github.com/Dadud/Motor-City-Online-RE.git>
 - **Compiled by:** Retro Game RE agent (OpenClaw)
 - **Primary target date:** June 8, 2002 Wayback snapshot of `mco.ea.com`
-- **Methodology:** Wayback Machine scraping via `web_fetch`, supplemented with live web sources, SEC filings, magazine OCR scans, and community forum archives.
-- **Total sources documented:** 40+ unique URLs, 12+ press reviews with scores, 8 official update notices, 6 upcoming features pages, 3 press releases, 2 SEC filing references, 4 community preservation threads, 1 vehicle database, 1 video reference.
-- **Known gaps:** GameStar/PC Gamer full reviews, exact subscriber count at peak, post-mortem developer interviews, EA earnings call transcripts mentioning MCO.
+- **Methodology:** Wayback Machine scraping via `web_fetch`, supplemented with live web sources, SEC filings, magazine OCR scans, community forum archives, Reddit, GitHub, YouTube, and Steam Community.
+- **Total sources documented:** 60+ unique URLs, 12+ press reviews with scores, 8 official update notices, 6 upcoming features pages, 3 press releases, 2 SEC filing references, 10+ community preservation threads, 1 vehicle database, 12+ video references, 1 prototype build, 1 open-source RE project, 1 speedrun leaderboard.
+- **Known gaps:** GameStar/PC Gamer full reviews, exact peak subscriber count, post-mortem developer interviews, EA earnings call transcripts mentioning MCO, full text of IGN "Motor City Offline" closure piece, Tampa Tribune review.
 
 ---
 
