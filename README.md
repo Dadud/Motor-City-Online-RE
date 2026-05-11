@@ -29,6 +29,7 @@ Preserved articles, reviews, screenshots, and promotional material from 2001–2
 | Blue's News | Sep 2001 | Beta download (428MB) |
 | GameSurge | Sep 2000 | Rename announcement |
 | GameSpot | May 2000 | Producer Michael Waite Q&A |
+| NFS-Planet | Oct 2001–Jul 2002 | Fan site news archive (6 articles) |
 | Game Critics Awards | May 2000 | **Best Racing Game — E3 2000** |
 
 Also includes:

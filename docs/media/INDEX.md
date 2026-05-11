@@ -32,6 +32,10 @@ Each article/source is stored in its own folder with associated media files (whe
 | 20 | `20-e3-2000-best-racing-game` | Game Critics Awards | May 2000 | E3 2000 Best Racing Game award | — |
 | 21 | `21-patch-history` | Community Wikis | Nov 2001–Aug 2003 | Complete patch notes archive | — |
 | 22 | `22-gamespot-producer-qa` | GameSpot | May 17, 2000 | Producer Michael Waite interview | — |
+| 23 | `23-nfsplanet-update-6` | NFS-Planet | May 30, 2002 | Update 6 feature preview | — |
+| 24 | `24-nfsplanet-last-betatest` | NFS-Planet | Oct 22, 2001 | Final beta week announcement | — |
+| 25 | `25-nfsplanet-bel-air-cup` | NFS-Planet | Jan 24, 2002 | Bel Air Cup weekly event | — |
+| 26 | `26-nfsplanet-aim-icons` | NFS-Planet | Jul 3, 2002 | AIM Icons release | — |
 
 ## Box Art
 
