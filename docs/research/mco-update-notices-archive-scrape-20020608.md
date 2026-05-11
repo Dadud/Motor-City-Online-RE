@@ -1764,6 +1764,74 @@ Both were controversially equipped with V8 engines and made RWD, which "caused a
 
 ---
 
+## Open Source & Preservation Projects
+
+### AZMCO (AutoZone Motor City Online)
+Source: GitHub — <https://github.com/americusmaximus/AZMCO> (retrieved May 2026)
+
+**Author:** americusmaximus
+**Type:** Open source game engine implementation + offline launcher
+**License:** Not specified (clean-room reverse engineering)
+
+AZMCO is an open source implementation of Electronic Arts' Motor City Online from 2001 as well as its offline launcher. Key technical details from the project:
+
+**Goals:**
+- Learn how games were made in an era when things had to be done in code, not through fancy game engines
+- Fully playable game end-to-end: resource management, audio, video rendering, large screen resolution support
+- Eventually support 64-bit compilation and modern renderers (DirectX/Vulkan)
+- Support modern input devices and port to Linux/Mac
+
+**Technical implementation:**
+- Code abstains from modern C++ features for legacy Windows XP compatibility
+- Renderer modules based on original game renderers with minor changes
+- **DirectX 7 renderer** (dx7z.dll, version 2001.06.21.1418) — based on NFS Hot Pursuit/High Stakes engine evolution; game rejects this renderer at runtime
+- **DirectX 8 A renderer** (dx8z.dll, version 2001.09.05.1632) — shipped with original game release
+- **DirectX 8 M renderer** (version 2001.11.07.1357) — shipped with game update
+- Only DirectX 8 renderers work; software and DX7 renderers are rejected by the game
+- Uses PKWARE DCL Implode compression (library version 1.11)
+
+**Related projects by same author:**
+- AutoZone High Stakes (AZHS)
+- AutoZone Hot Pursuit (AZHP)
+
+**Acknowledgements include:**
+- Reddit community for providing MCO and the offline patch
+- Ladislav Zezula for PKWare implode algorithm implementation (StormLib)
+- Rusty Motors Racing Server
+
+---
+
+### MCO Re-Fired / Rusty Motors
+Source: Reddit/Tildes community references (2023-2025)
+
+**MCO Re-Fired** — Described as "a better launcher with a menu imitating the game menu, and the Car Builder, which lets you customise the cars." Direct download links are reportedly difficult to find and the original site is dead.
+
+**Rusty Motors Racing Server** — Referenced in AZMCO acknowledgements and by Ziimbiian's YouTube video (Dec 8, 2025) showing a localhost server running. GitHub: <https://github.com/rustymotors/server>
+
+---
+
+### Steam Workshop — MCO Car Packs
+Source: Steam Community (2019-2025)
+
+Multiple creators have ported MCO car models to other games via Steam Workshop:
+- **Motor City Online Pack** series (Packs #01-#29+) — Car and prop packs for Cities: Skylines and similar games
+- Creator "CitesSkyliner" and others actively porting MCO vehicles
+- Community comments show strong nostalgia: "My very first online 3D game was... Motor City Online"
+
+---
+
+### Tildes — "Seeking a replacement for Motor City Online"
+Source: <https://tildes.net/~games/1cgs/seeking_a_replacement_for_motor_city_online>
+
+**Author:** Not attributed
+**Date:** Estimated 2020s
+**Key quote:**
+> "In MCO, you needed to actually build your engine in a way that the parts would work well with each other in order to get the best performance. It wasn't simply an upgrade chain, as you could easily spend ten grand on parts and come out with a 200hp brick."
+
+This captures the essence of what made MCO unique: realistic part interaction rather than linear upgrade paths.
+
+---
+
 ## Community Forums & Additional Sources
 
 ### Earth and Beyond Emulator Forum (Apr 24, 2015)
