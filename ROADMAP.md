@@ -13,7 +13,7 @@
 - [x] **M3** Preservation client (CLI/TUI first)
 - [ ] **M4** Race lobby flow (create/join/ready/start)
 - [x] **M5** Driveable race scene (placeholder acceptable)
-- [ ] **M6** Asset integration via `mco-scan`
+- [x] **M6** Asset integration via `mco-scan`
 - [ ] **M7** Original-client compatibility research
 - [ ] **M8** LAN multiplayer prototype
 
@@ -31,8 +31,15 @@
 - CLI preservation client proof
 - asset scan stub and one-command local startup script
 
-## Recommended next priorities after this pass
-1. add tests around persistence and economy rules
-2. add websocket/session updates for lobby/chat state
-3. add placeholder race session loop and reward payout
-4. start asset-manifest generation from user-supplied install
+### Completed (this pass)
+- `mco-scan` tool: magic-byte detection for VIV/BIG, FCE, FSH, BNK, FRD, FST, INI, BLF
+- asset manifest generation (`asset_manifest.json`)
+- car/track/parts classification by path patterns
+- DB import utility to add discovered assets to shard
+- `docs/tools/mco_scan.md` tool documentation
+
+## Recommended next priorities
+1. M7: original-client protocol compatibility research (NPS/MCOTS gateway)
+2. M8: LAN multiplayer prototype (two clients on same shard)
+3. Add WebSocket support for live lobby/chat/race state updates
+4. Add real placeholder race scene (pygame or text-based drive loop)

@@ -85,3 +85,15 @@ First useful flow:
 - placeholder race sessions are synthetic until a driveable scene exists
 
 All speculative behavior should stay documented as such.
+
+## Asset Scanning (M6)
+
+The `mco-scan` tool (`tools/mco_scan/`) enables integration of user-supplied MCO assets:
+
+1. User runs `mco-scan /path/to/mco/install` — scans recursively
+2. Magic-byte detection identifies VIV, FCE, FSH, BNK, FRD, FST, INI, BLF formats
+3. Path-based classification detects cars, tracks, parts, audio, textures
+4. `asset_manifest.json` is generated with full file inventory
+5. Manifest can be imported into local shard DB to add discovered cars/tracks
+
+See `docs/tools/mco_scan.md` for full documentation.
