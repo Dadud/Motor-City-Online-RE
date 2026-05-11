@@ -651,6 +651,29 @@ Key milestones recorded by GameSpot:
 
 > "The closing announcement was originally made in February, citing popularity problems after 'the game was quickly dominated by skilled players', but the servers finally shut down on August 29th."
 
+### GMR Magazine — "Motor City Offline" (May 2003, Issue #4)
+Source: Internet Archive — <https://archive.org/stream/GMRMagazine/GMR_04_May_2003_djvu.txt> (retrieved May 2026)
+
+**Full article text recovered via OCR.**
+
+Key excerpts:
+> "Electronic Arts' decision to shutter Motor City Online shocked devoted fans of the online-only racing game, many of whom spent more than 15 hours a week in the game world."
+
+> "But industry insiders were only surprised at how long it took EA to pull the plug. While refusing to release exact numbers, a CNN Online story citing Wall Street sources estimated the number of registered MCO players to be 'somewhere between 20,000 and 25,000' — nowhere near enough to support an online franchise many predicted to be the first to penetrate the mainstream market."
+
+> "Unfortunately, EA's blend of modified cars, chat, and racing proved to be not very fun; the game received mostly negative reviews upon its release in November 2001. 'Initially, MCO felt more like a chat room than a game,' one subscriber commented on the Motor City message board shortly after the announcement. 'The lack of fun at the start definitely discouraged gamers from playing.'"
+
+> "The game had been completely unavailable on store shelves for up to a year in some locations," explained Misty Matonis, project manager at Stratics Central.
+
+> "Perhaps the real reason behind Motor City Online's closure, however, is the financial fallout of Electronic Art's inability to deliver quality subscription-based online gaming experiences outside of Ultima Online. Majestic, an episodic conspiracy game, barely managed 15,000 paying players, while Westwood's Earth & Beyond similarly failed to capture gamers' imaginations and sold less than 60,000 copies."
+
+**Notable context:**
+- GMR puts MCO in the context of broader EA.com failures: Majestic (15K paying players) and Earth & Beyond (<60K copies)
+- The CNN Online estimate of 20K-25K registered players closely matches the SEC-reported 26,000 subscribers
+- Stratics Central (MCO Stratics) was a major community hub, with Misty Matonis as project manager
+
+---
+
 ### EA's Closure Explanation (per Wikipedia/Fandom sources)
 > "The game was quickly dominated by skilled players" — EA cited this as the reason for low retention, leading to closure decision in February 2003.
 
@@ -1811,7 +1834,8 @@ The following sources were identified during research but could not be retrieved
 - **Primary target date:** June 8, 2002 Wayback snapshot of `mco.ea.com`
 - **Methodology:** Wayback Machine scraping via `web_fetch`, supplemented with live web sources, SEC filings, magazine OCR scans, community forum archives, Reddit, GitHub, YouTube, and Steam Community.
 - **Total sources documented:** 75+ unique URLs, 17+ press reviews with scores, 8 official update notices, 6 upcoming features pages, 3 press releases, 2 SEC filing references, 10+ community preservation threads, **1 complete vehicle roster (~80 vehicles)**, 12+ video references, 1 prototype build, 1 open-source RE project, 1 speedrun leaderboard.
-- **Known gaps:** GameStar/PC Gamer full reviews, post-mortem developer interviews, EA earnings call transcripts mentioning MCO, Tampa Tribune review, Update Notices 4 bug fixes tail.
+- **Known gaps:** GameStar/PC Gamer full reviews, post-mortem developer interviews, EA earnings call transcripts mentioning MCO, Tampa Tribune review.
+- **Filled gaps:** Complete patch history (Updates 1-8.3 + server shutdown) recovered from Need for Speed Encyclopedia — see `docs/research/MCO_PATCH_HISTORY.md`.
 
 ---
 
