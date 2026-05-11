@@ -40,6 +40,7 @@ Each article/source is stored in its own folder with associated media files (whe
 | 28 | `28-cnn-review-dec-2001` | CNN/GamePro | Dec 17, 2001 | Post-launch review | — |
 | 29 | `29-cgw-issue-212-review` | CGW Issue 212 | Mar 2002 | Magazine review (p.76) | — |
 | 30 | `30-pc-powerplay-shutdown` | PC Powerplay #086 | May 2003 | Shutdown news item | — |
+| 31 | `31-gamespot-review` | GameSpot | Nov 21, 2001 | Review by Stephen Poole (7.6/10) | — |
 
 ## Box Art
 
