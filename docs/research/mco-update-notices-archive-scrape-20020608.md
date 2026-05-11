@@ -668,3 +668,51 @@ The following URLs were identified but their full content could not be recovered
 - Name change: Originally *Need for Speed: Motor City*; EA dropped the NFS moniker to avoid confusion with the offline series.
 - 2018 discovery: Method found to play MCO offline as single-player via emulation.
 - GameSpot Q&A with producer Michael Waite (~early 2001) reveals: 50+ cars, 1000+ parts, 18 tracks, dynamic four-point physics, original engine built from scratch, Motor City Gazette in-game newspaper, public beta planned for April 2001.
+
+---
+
+## Technical Details & Offline Emulation
+
+### System Requirements (from PCGamingWiki)
+- **OS:** Windows 95, 98, 2000, ME, XP
+- **CPU:** 350 MHz Intel Pentium II or AMD K6
+- **RAM:** 64 MB
+- **HDD:** 800 MB
+- **GPU:** DirectX 8 compatible
+- **Executable:** 32-bit Windows only
+
+### File Locations
+- **Config:** `\SaveData\options.ini`
+- **3D setup:** `\3dSetup\3dSetup.ini`
+- **Windowed mode:** Set `windowed=0` → `windowed=1` in `options.ini`
+
+### Offline Play (Debug Mode)
+
+Per PCGamingWiki and My Abandonware:
+
+> "The game contains hidden debug mode, which makes it possible to play offline single races against AI."
+
+**Method:**
+1. Download MCO update files + `MCity_Launcher.exe`
+2. Place launcher in game installation folder
+3. Edit `3dSetup.ini`: change `Hide_Resolutions=1` to `Hide_Resolutions=0`
+4. Run `3dSetup.exe` and set resolution (800x600 recommended; 1024x768 listed but unstable)
+5. Launch via `MCity_Launcher.exe`
+6. **Set Mode to 16 for AI opponent races**
+
+**Notes:**
+- Also contains `MCity_d.exe` — debug executable
+- Uses DirectX 8; requires DirectPlay on modern Windows (8/8.1/10/11)
+- dgVoodoo wrapper works for modern compatibility, adds AA/texture filtering
+- No framerate cap — may need VSync or FPS limiter (target 30 FPS)
+
+### Fan Projects
+
+**MCO Re-Fired** — Fan revival project with mods (new cars, tracks). Forum: <http://www.mcorefired.com/Forum/index.php> (may be dead). Discord server referenced.
+
+**My Abandonware** — Hosts the game + offline launcher + '99 Dodge Viper mod (car cut from final game). URL: <https://www.myabandonware.com/game/motor-city-online-r4o>
+
+### Sources
+- PCGamingWiki (Wayback, Sept 2021): <https://web.archive.org/web/20210918132216/https://www.pcgamingwiki.com/wiki/Motor_City_Online>
+- My Abandonware: <https://www.myabandonware.com/game/motor-city-online-r4o>
+- MassivelyOP (Oct 2018): <https://web.archive.org/web/20200622071703/https://massivelyop.com/2018/10/14/you-can-play-long-sunsetted-motor-city-online-offline-thanks-to-emulation/>
