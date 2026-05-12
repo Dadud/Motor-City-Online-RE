@@ -47,6 +47,7 @@ Preserved articles, reviews, screenshots, and promotional material from 2001–2
 | Game Critics Awards | May 2000 | **Best Racing Game — E3 2000** |
 | Compiled | — | All known review scores |
 | Compiled | — | Developer credits (known team) |
+| Compiled | — | **Complete gameplay features guide** |
 
 Also includes:
 - North American box art

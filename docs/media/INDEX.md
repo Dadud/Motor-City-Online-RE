@@ -52,6 +52,8 @@ Each article/source is stored in its own folder with associated media files (whe
 | 40 | `40-pc-gamer-issue-79-preview` | PC Gamer | mid-2000 | Early preview (Issue 79) | — |
 | 41 | `41-pc-gamer-issue-87-e3-2001` | PC Gamer | Jul 2001 | E3 2001 preview (Issue 87) | — |
 | 42 | `42-review-scores-compilation` | Compiled | — | All known review scores | — |
+| 46 | `46-gameplay-features-guide` | Compiled | — | Complete gameplay features guide | — |
+| 42 | `42-review-scores-compilation` | Compiled | — | All known review scores | — |
 
 ## Box Art
 
