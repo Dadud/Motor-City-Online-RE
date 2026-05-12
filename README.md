@@ -41,6 +41,7 @@ Preserved articles, reviews, screenshots, and promotional material from 2001–2
 | SEC Filings | 2002–2003 | EA.com restructuring / MCO discontinuation |
 | MassivelyOP | Feb 2021 | Shutdown retrospective by Justin Olivetti |
 | Compiled | — | Development history (NFS: Motor City → MMO) |
+| PC Accelerator | Jun 2000 | Early preview as NFS: Motor City |
 | Game Critics Awards | May 2000 | **Best Racing Game — E3 2000** |
 
 Also includes:
