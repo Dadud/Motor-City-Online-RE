@@ -1,6 +1,6 @@
 # Archive Progress
 
-Last updated: 2026-05-11
+Last updated: 2026-05-12
 
 ## File Formats Documented
 
@@ -35,7 +35,7 @@ Last updated: 2026-05-11
 | Hidden Palace | 2 screenshots | `docs/media/08-hidden-palace-prototypes/` |
 | GameSpot | 2 thumbnails | `docs/media/09-gamespot-preview-2001/` |
 | Box art | 1 | `docs/media/box-art.jpg` |
-| Articles | 14 text captures | `docs/media/0[1-9]-*` + `docs/media/1[0-4]-*/` |
+| Articles | **42** text captures | `docs/media/INDEX.md` |
 
 ## Builds Documented
 
@@ -65,3 +65,6 @@ Last updated: 2026-05-11
 - [AZMCO](https://github.com/americusmaximus/AZMCO) — Open-source game recreation
 - CGW Issue 210 PDF — MCO preview on page 36 (cgwmuseum.org)
 - PC Gamer Issue 87 OCR — E3 2001 coverage (archive.org)
+- PC Gamer Issue 79 OCR — Early preview (archive.org)
+- PC Accelerator Final Issue (Jun 2000) — Early preview as NFS: Motor City (archive.org)
+- SEC Filings (10-K FY2003, 10-Qs 2002–2003) — EA.com restructuring documentation
