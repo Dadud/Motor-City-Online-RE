@@ -48,6 +48,7 @@ Each article/source is stored in its own folder with associated media files (whe
 | 36 | `36-shutdown-retrospective` | MassivelyOP | Feb 2021 | Shutdown retrospective by Justin Olivetti | — |
 | 37 | `37-development-history` | Compiled | — | From NFS: Motor City to MMO | — |
 | 38 | `38-pc-accelerator-preview` | PC Accelerator | Jun 2000 | Early preview as NFS: Motor City | — |
+| 39 | `39-developer-credits` | Compiled | — | Known development team members | — |
 
 ## Box Art
 
