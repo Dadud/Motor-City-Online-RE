@@ -50,6 +50,7 @@ Each article/source is stored in its own folder with associated media files (whe
 | 38 | `38-pc-accelerator-preview` | PC Accelerator | Jun 2000 | Early preview as NFS: Motor City | — |
 | 39 | `39-developer-credits` | Compiled | — | Known development team members | — |
 | 40 | `40-pc-gamer-issue-79-preview` | PC Gamer | mid-2000 | Early preview (Issue 79) | — |
+| 41 | `41-pc-gamer-issue-87-e3-2001` | PC Gamer | Jul 2001 | E3 2001 preview (Issue 87) | — |
 
 ## Box Art
 
