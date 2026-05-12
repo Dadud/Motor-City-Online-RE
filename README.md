@@ -39,6 +39,8 @@ Preserved articles, reviews, screenshots, and promotional material from 2001–2
 | CGW Issue 210 | Jan 2002 | Preview by Gord Goble (p.36) |
 | Compiled | — | System requirements reference |
 | SEC Filings | 2002–2003 | EA.com restructuring / MCO discontinuation |
+| MassivelyOP | Feb 2021 | Shutdown retrospective by Justin Olivetti |
+| Compiled | — | Development history (NFS: Motor City → MMO) |
 | Game Critics Awards | May 2000 | **Best Racing Game — E3 2000** |
 
 Also includes:

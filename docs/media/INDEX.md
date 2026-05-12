@@ -45,6 +45,8 @@ Each article/source is stored in its own folder with associated media files (whe
 | 33 | `33-cgw-issue-210-preview` | CGW Issue 210 | Jan 2002 | Preview by Gord Goble (p.36) | — |
 | 34 | `34-system-requirements` | Compiled | — | System requirements reference | — |
 | 35 | `35-eacom-restructuring` | SEC Filings | 2002–2003 | EA.com restructuring / MCO discontinuation | — |
+| 36 | `36-shutdown-retrospective` | MassivelyOP | Feb 2021 | Shutdown retrospective by Justin Olivetti | — |
+| 37 | `37-development-history` | Compiled | — | From NFS: Motor City to MMO | — |
 
 ## Box Art
 
