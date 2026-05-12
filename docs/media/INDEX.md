@@ -49,6 +49,7 @@ Each article/source is stored in its own folder with associated media files (whe
 | 37 | `37-development-history` | Compiled | — | From NFS: Motor City to MMO | — |
 | 38 | `38-pc-accelerator-preview` | PC Accelerator | Jun 2000 | Early preview as NFS: Motor City | — |
 | 39 | `39-developer-credits` | Compiled | — | Known development team members | — |
+| 40 | `40-pc-gamer-issue-79-preview` | PC Gamer | mid-2000 | Early preview (Issue 79) | — |
 
 ## Box Art
 
