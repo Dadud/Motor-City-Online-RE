@@ -42,7 +42,11 @@ Preserved articles, reviews, screenshots, and promotional material from 2001–2
 | MassivelyOP | Feb 2021 | Shutdown retrospective by Justin Olivetti |
 | Compiled | — | Development history (NFS: Motor City → MMO) |
 | PC Accelerator | Jun 2000 | Early preview as NFS: Motor City |
+| PC Gamer Issue 79 | mid-2000 | Early preview (diners, insurance ratings) |
+| PC Gamer Issue 87 | Jul 2001 | E3 2001 preview (reporter job concept) |
 | Game Critics Awards | May 2000 | **Best Racing Game — E3 2000** |
+| Compiled | — | All known review scores |
+| Compiled | — | Developer credits (known team) |
 
 Also includes:
 - North American box art
@@ -188,4 +192,4 @@ This archive does NOT accept:
 
 ---
 
-*Last updated: 2026-05-11*
+*Last updated: 2026-05-12*
