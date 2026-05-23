@@ -5,8 +5,8 @@ Scans a user-supplied MCO install directory, detects file types by magic bytes, 
 ## Usage
 
 ```bash
-# Basic scan
-python -m tools.mco_scan.cli /path/to/mco/install
+# Basic scan (from repo root)
+PYTHONPATH=. python3 -m tools.mco_scan.cli /path/to/mco/install
 
 # Custom output path
 python -m tools.mco_scan.cli /path/to/mco/install --manifest my_manifest.json

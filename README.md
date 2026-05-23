@@ -4,6 +4,8 @@ Documentation, media, and archival resources for **Motor City Online** (EA Seatt
 
 > This project collects and preserves historical information about a game whose official servers shut down in August 2003. All work is for preservation and educational purposes.
 
+This repository is a **documentation and data archive** only. It does not ship a runnable online server or game client. For server reimplementation efforts, see [Related Preservation Projects](#related-preservation-projects) below.
+
 ---
 
 ## What This Archive Contains

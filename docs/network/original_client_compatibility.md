@@ -10,7 +10,7 @@ _Status: Evidence-based; marked sections are GUESSED_
 Enabling the original MCO client to connect to a private shard server requires:
 1. **Client-side redirects** — registry patches, SSL cert injection, hosts file
 2. **Server-side emulators** — auth, login, lobby, MCOTS, and game servers
-3. **Protocol gateway** — adapter between the original client protocol and our local shard HTTP API
+3. **Protocol gateway** — adapter between the original client protocol and a private server implementation (see external projects such as mcos)
 
 This document covers what's known, what's guessed, and what still needs research.
 

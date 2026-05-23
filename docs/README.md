@@ -21,7 +21,6 @@ docs/
 │   ├── TRK.md       — AI racing line
 │   ├── DATABASE.md  — Access database
 │   └── engpatch.md  — Engine audio patches
-├── gameplay/        — Gameplay system notes
 ├── network/         — Network protocol notes
 ├── research/        — Build analysis and historical research
 └── media/           — Archived media coverage and screenshots

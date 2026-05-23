@@ -1,45 +1,34 @@
 # ROADMAP.md
 
+Preservation archive priorities. This repo does **not** track runnable server or client milestones.
+
 ## Status legend
+
 - [x] complete
 - [~] in progress
 - [ ] pending
 
-## Milestones
+## Archive milestones
 
-- [x] **M0** Repo audit → `PROJECT_STATE.md`
-- [x] **M1** Server skeleton + SQLite + account/login + seed data
-- [x] **M2** Data models + migrations + persistence tests
-- [x] **M3** Preservation client (CLI/TUI first)
-- [ ] **M4** Race lobby flow (create/join/ready/start)
-- [x] **M5** Driveable race scene (placeholder acceptable)
-- [x] **M6** Asset integration via `mco-scan`
-- [x] **M7** Original-client compatibility research
-- [ ] **M8** LAN multiplayer prototype
+- [x] Media coverage catalog (`docs/media/INDEX.md`)
+- [x] Car and parts CSV extracts (`data/`)
+- [x] Core format documentation (BIG, VIV, FSH, FCE, INI, LOD)
+- [~] Partial formats (FRD, FST, BLF, MDB, BNK)
+- [ ] TRK (AI racing line) analysis
+- [x] Build comparison notes (Beta 1, Oct09, retail, offline patch)
+- [x] Network protocol research index
+- [x] Archival extraction tools (`tools/`)
+- [x] Install scanner manifest tool (`tools/mco_scan/`)
 
-## This pass
+## Recommended next work (archive-only)
 
-### Completed
-- audited repo and identified greenfield implementation path
-- selected Python local shard stack for fastest clean-room progress
-- created M0/M1 docs and implementation directories
+1. Finish FRD / FST / BLF format semantics where evidence exists
+2. Document TRK format from retail builds
+3. Expand `docs/media/` with sourced citations only
+4. Keep CSV data aligned with documented schema (`docs/formats/DATABASE.md`)
+5. Link to external server projects instead of duplicating runtime code here
 
-### Completed
-- HTTP local shard server
-- SQLite schema + seed data
-- account/profile/garage/dealership/event/lobby flows
-- CLI preservation client proof
-- asset scan stub and one-command local startup script
+## Related implementation efforts (external)
 
-### Completed (this pass)
-- `mco-scan` tool: magic-byte detection for VIV/BIG, FCE, FSH, BNK, FRD, FST, INI, BLF
-- asset manifest generation (`asset_manifest.json`)
-- car/track/parts classification by path patterns
-- DB import utility to add discovered assets to shard
-- `docs/tools/mco_scan.md` tool documentation
-
-## Recommended next priorities
-1. M8: LAN multiplayer prototype (two clients on same shard)
-2. Add WebSocket support for live lobby/chat/race state updates
-3. Implement Phase 1-2 of original-client gateway (auth redirect HTTPS + NPS login server)
-4. Add real placeholder race scene (pygame or text-based drive loop)
+- [mcos](https://github.com/drazisil-codecov/mcos) — TypeScript server recreation
+- [AZMCO](https://github.com/americusmaximus/AZMCO) — open-source client/engine effort
