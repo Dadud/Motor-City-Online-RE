@@ -2,6 +2,13 @@
 __pycache__/
 *.pyc
 *.pyo
+*.egg-info/
+
+# Generated scan output
+asset_manifest.json
+
+# Local databases (not part of this archive)
+persistence/
 
 # OS artifacts
 .DS_Store

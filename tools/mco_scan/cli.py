@@ -81,11 +81,6 @@ def main() -> None:
         action="store_true",
         help="Only print JSON, no summary",
     )
-    parser.add_argument(
-        "--import-to-db",
-        help="Import discovered assets to local shard DB at given path",
-        default=None,
-    )
 
     args = parser.parse_args()
 
